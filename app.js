@@ -291,31 +291,8 @@ document.addEventListener('DOMContentLoaded', () => {
             category: 'kits',
             desc: 'A complete smart countertop hydroponics kit featuring automatic circulation and specialized growth lighting. Perfect for kitchen salads and fresh herbs.',
             image: 'assets/kit-starter.png'
-        },
-        {
-            id: 'sys-garden-tower',
-            name: 'Tarusha Farmstand Garden Tower',
-            price: '$599.00',
-            category: 'kits',
-            desc: 'Premium vertical farmstand design. Grow up to 36 leafy greens and aromatic herbs simultaneously on 2 sq. ft of floor space.',
-            image: 'assets/kit-family.png'
-        },
-        {
-            id: 'sys-ebb-flow',
-            name: 'Active Aqua Ebb & Flow Flood Tray Kit',
-            price: '$849.00',
-            category: 'kits',
-            desc: 'Commercial-grade large format 4x6 flood table setup for oxygen-intensive crop root cycles.',
-            image: 'assets/kit-family.png'
-        },
-        {
-            id: 'sys-h101-course',
-            name: 'Hydroponics 101 Training Course',
-            price: '$99.00',
-            category: 'courses',
-            desc: 'Beginners live training session in our greenhouse. Master pH balance, system engineering, and crop maintenance.',
-            image: 'assets/course-indoor.png'
-        }
+        }        
+        
     ];
 
     // Read custom user products from localStorage

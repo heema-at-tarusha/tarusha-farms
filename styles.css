@@ -4,28 +4,28 @@
 
 /* Variables & Custom Properties */
 :root {
-    /* Color Palette */
-    --primary: #55833d;         /* Deep Forest Green */
-    --primary-light: #8cc342;   /* Muted Leaf Green */
-    --accent: #7BAE7F;          /* Sage Green */
-    --accent-glow: rgba(123, 174, 127, 0.15);
-    --terracotta: #D9886C;      /* Warm Earthy Clay */
-    --terracotta-glow: rgba(217, 136, 108, 0.12);
-    --bg-dark: #111411;         /* Charcoal/Moss Black */
-    --bg-light: #F6F8F6;        /* Cream Off-White */
-    --text-dark: #1E221E;       /* Soft Black */
-    --text-muted: #5A625A;      /* Charcoal Gray */
-    --text-light: #F4F7F4;      /* Off-White Text */
-    --white: #FFFFFF;
+    /* Color Palette - Minimalist Eco-Modern */
+    --primary: #2a4d30;         /* Deep Crisp Green */
+    --primary-light: #446c4a;   /* Muted Leaf Green */
+    --accent: #a8c6a1;          /* Soft Sage Green */
+    --accent-glow: rgba(168, 198, 161, 0.15);
+    --terracotta: #809681;      /* Replaced with Soft Neutral Green */
+    --terracotta-glow: rgba(128, 150, 129, 0.12);
+    --bg-dark: #111812;         /* Very Dark Green/Black */
+    --bg-light: #fbfcfb;        /* Crisp Minimal Off-White */
+    --text-dark: #111812;       /* Crisp Black */
+    --text-muted: #6b7280;      /* Lighter Grey for contrast */
+    --text-light: #fbfcfb;      /* Off-White Text */
+    --white: #ffffff;
     
-    /* Layout Tokens */
-    --radius-sm: 8px;
-    --radius-md: 16px;
-    --radius-lg: 24px;
-    --radius-xl: 32px;
-    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
-    --shadow-lg: 0 20px 25px -5px rgba(18, 30, 18, 0.12), 0 10px 10px -5px rgba(18, 30, 18, 0.04);
+    /* Layout Tokens - Softened for Minimalist feel */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.04);
+    --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.05);
     
     /* Typography */
     --font-headings: 'Outfit', sans-serif;
@@ -274,7 +274,7 @@ img {
 .hero-section {
     position: relative;
     padding: 100px 0;
-    background: linear-gradient(135deg, #eaf2eb 0%, #f6f8f6 100%);
+    background: var(--bg-light);
     overflow: hidden;
 }
 
@@ -303,7 +303,7 @@ img {
     line-height: 1.15;
     margin-bottom: 20px;
     letter-spacing: -1px;
-    background: linear-gradient(135deg, var(--primary) 0%, #3e6d42 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -357,7 +357,7 @@ img {
     position: absolute;
     width: 120%;
     height: 120%;
-    background: radial-gradient(circle, var(--accent) 0%, rgba(255,255,255,0) 65%);
+    background: radial-gradient(circle, var(--accent-glow) 0%, rgba(255,255,255,0) 70%);
     opacity: 0.3;
     z-index: 1;
     animation: pulse 8s infinite alternate ease-in-out;
@@ -446,7 +446,7 @@ img {
 
 /* Why Hydroponics Section */
 .why-hydroponics-section {
-    padding: 100px 0;
+    padding: 140px 0;
     background-color: var(--white);
 }
 
@@ -500,7 +500,7 @@ img {
 
 /* Featured Product Section */
 .featured-product-section {
-    padding: 100px 0;
+    padding: 140px 0;
     background-color: var(--bg-light);
 }
 
@@ -561,7 +561,7 @@ img {
 
 /* Solutions Section */
 .solutions-section {
-    padding: 100px 0;
+    padding: 140px 0;
     background-color: var(--white);
 }
 
@@ -650,7 +650,7 @@ img {
 
 /* Catalog Section */
 .catalog-section {
-    padding: 100px 0;
+    padding: 140px 0;
     background-color: var(--bg-light);
 }
 
@@ -662,7 +662,7 @@ img {
 
 /* Industries Section */
 .industries-section {
-    padding: 100px 0;
+    padding: 140px 0;
     background-color: var(--white);
 }
 
@@ -739,7 +739,7 @@ img {
 
 /* Workshops Section */
 .workshops-section {
-    padding: 100px 0;
+    padding: 140px 0;
     background-color: var(--white);
 }
 
@@ -769,7 +769,7 @@ img {
 
 /* Testimonials Carousel Section */
 .testimonials-section {
-    padding: 100px 0;
+    padding: 140px 0;
     background-color: var(--bg-light);
 }
 
@@ -895,7 +895,7 @@ img {
 
 /* About Us Section */
 .about-us-section {
-    padding: 100px 0;
+    padding: 140px 0;
     background-color: var(--white);
 }
 
@@ -952,7 +952,7 @@ img {
 
 /* Consultation Booking & Lead Generation Section */
 .consultation-section {
-    padding: 100px 0;
+    padding: 140px 0;
     background-color: var(--bg-light);
 }
 
