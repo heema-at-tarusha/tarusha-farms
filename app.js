@@ -286,11 +286,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const defaultProducts = [
         {
             id: 'sys-starter-kit',
-            name: 'Tarusha Countertop Starter Grower',
-            price: '$149.00',
+            name: 'Tarusha Starter Grower',
+            price: ' ',
             category: 'kits',
-            desc: 'A complete smart countertop hydroponics kit featuring automatic circulation and specialized growth lighting. Perfect for kitchen salads and fresh herbs.',
-            image: 'assets/kit-starter.png'
+            desc: 'A complete smart hydroponics kit featuring automatic circulation and specialized growth lighting. Perfect for kitchen salads and fresh herbs.',
+            image: 'assets/kit-starter.jpg'
         }        
         
     ];
@@ -627,5 +627,176 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 100);
         }
     };
+
+    // ==========================================
+    // 10. Downloadable Flyers Management
+    // ==========================================
+    const flyerForm = document.getElementById('admin-flyer-form');
+    const flyerFileInput = document.getElementById('flyer-file');
+    let uploadedFlyerBase64 = null;
+    let uploadedFlyerMime = null;
+
+    if (flyerFileInput) {
+        flyerFileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            uploadedFlyerMime = file.type;
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                uploadedFlyerBase64 = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    const getFlyers = () => {
+        return JSON.parse(localStorage.getItem('tarusha_flyers') || '[]');
+    };
+
+    const deleteFlyer = (id) => {
+        let flyers = getFlyers();
+        flyers = flyers.filter(f => f.id.toString() !== id.toString());
+        localStorage.setItem('tarusha_flyers', JSON.stringify(flyers));
+        renderFlyers();
+    };
+
+    const renderFlyers = () => {
+        const flyers = getFlyers();
+        const navLink = document.getElementById('nav-resources-link');
+        const publicSection = document.getElementById('resources');
+        const publicGrid = document.getElementById('flyers-grid');
+        const adminTbody = document.getElementById('admin-flyers-tbody');
+
+        // Toggle visibility
+        if (flyers.length === 0) {
+            if (navLink) navLink.style.display = 'none';
+            if (publicSection) publicSection.style.display = 'none';
+        } else {
+            if (navLink) navLink.style.display = 'inline-block';
+            if (publicSection) publicSection.style.display = 'block';
+        }
+
+        // Render public grid
+        if (publicGrid) {
+            publicGrid.innerHTML = '';
+            flyers.forEach(f => {
+                const isPdf = f.mime && f.mime.includes('pdf');
+                const card = document.createElement('div');
+                card.className = 'flyer-card';
+                card.innerHTML = `
+                    <!--div class="flyer-icon">
+                        ${isPdf ? '📄' : '🖼️'}
+                    </div-->
+                    <h3>${f.title}</h3>
+                    <p>${f.desc}</p>
+                    <a href="${f.data}" download="${f.title.replace(/\s+/g, '_')}${isPdf ? '.pdf' : '.png'}" class="btn btn-sm btn-outline btn-download">Download</a>
+                `;
+                publicGrid.appendChild(card);
+            });
+        }
+
+        // Render admin table
+        if (adminTbody) {
+            adminTbody.innerHTML = '';
+            if (flyers.length === 0) {
+                adminTbody.innerHTML = '<tr><td colspan="2" class="text-muted text-center">No flyers uploaded yet.</td></tr>';
+            } else {
+                flyers.forEach(f => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><strong>${f.title}</strong></td>
+                        <td><button class="btn btn-sm btn-outline delete-flyer-btn" style="color: #e53e3e; border-color: #e53e3e; padding: 4px 8px; font-size: 0.75rem;">Delete</button></td>
+                    `;
+                    tr.querySelector('.delete-flyer-btn').addEventListener('click', () => {
+                        deleteFlyer(f.id);
+                    });
+                    adminTbody.appendChild(tr);
+                });
+            }
+        }
+    };
+
+    if (flyerForm) {
+        flyerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = document.getElementById('flyer-title').value.trim();
+            const desc = document.getElementById('flyer-desc').value.trim();
+
+            if (!title || !desc || !uploadedFlyerBase64) {
+                alert('Please fill out all fields and select a file.');
+                return;
+            }
+
+            const newFlyer = {
+                id: 'flyer-' + Date.now(),
+                title,
+                desc,
+                mime: uploadedFlyerMime,
+                data: uploadedFlyerBase64
+            };
+
+            const flyers = getFlyers();
+            flyers.push(newFlyer);
+            localStorage.setItem('tarusha_flyers', JSON.stringify(flyers));
+
+            flyerForm.reset();
+            uploadedFlyerBase64 = null;
+            uploadedFlyerMime = null;
+            
+            alert('Flyer uploaded successfully!');
+            renderFlyers();
+        });
+    }
+
+    renderFlyers();
+
+    // ==========================================
+    // 11. WhatsApp Widget Logic
+    // ==========================================
+    const waToggleBtn = document.getElementById('wa-toggle-btn');
+    const waChatBox = document.getElementById('whatsapp-chat-box');
+    const waCloseBtn = document.getElementById('wa-close-btn');
+    const waSendBtn = document.getElementById('wa-send-btn');
+    const waInput = document.getElementById('wa-message-input');
+    
+    // The WhatsApp Business Number
+    const WA_BUSINESS_NUMBER = '919220902015';
+
+    if (waToggleBtn && waChatBox && waCloseBtn) {
+        waToggleBtn.addEventListener('click', () => {
+            waChatBox.classList.add('active');
+            if (waInput) {
+                setTimeout(() => waInput.focus(), 100);
+            }
+        });
+
+        waCloseBtn.addEventListener('click', () => {
+            waChatBox.classList.remove('active');
+        });
+
+        const sendWAMessage = () => {
+            if (!waInput) return;
+            const message = waInput.value.trim();
+            if (message) {
+                const url = `https://wa.me/${WA_BUSINESS_NUMBER}?text=${encodeURIComponent(message)}`;
+                window.open(url, '_blank');
+                waInput.value = '';
+                waChatBox.classList.remove('active');
+            }
+        };
+
+        if (waSendBtn) {
+            waSendBtn.addEventListener('click', sendWAMessage);
+        }
+        
+        if (waInput) {
+            waInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendWAMessage();
+                }
+            });
+        }
+    }
 
 });
