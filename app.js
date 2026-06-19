@@ -286,10 +286,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const defaultProducts = [
         {
             id: 'sys-starter-kit',
-            name: 'Tarusha Starter Grower',
+            name: 'Tarusha Starter Kit',
             price: ' ',
             category: 'kits',
-            desc: 'A complete smart hydroponics kit featuring automatic circulation and specialized growth lighting. Perfect for kitchen salads and fresh herbs.',
+            desc: 'A complete customizable smart hydroponics kit featuring automatic circulation and specialized growth lighting. Perfect for kitchen salads and fresh herbs.',
             image: 'assets/kit-starter.jpg'
         }        
         
