@@ -7,6 +7,8 @@
     /* Color Palette - Minimalist Eco-Modern */
     --primary: #2a4d30;         /* Deep Crisp Green */
     --primary-light: #446c4a;   /* Muted Leaf Green */
+    --brand-blue: #128cf0;      /* Vibrant Logo Blue */
+    --brand-blue-hover: #0f76cd;
     --accent: #a8c6a1;          /* Soft Sage Green */
     --accent-glow: rgba(168, 198, 161, 0.15);
     --terracotta: #809681;      /* Replaced with Soft Neutral Green */
@@ -110,12 +112,12 @@ img {
 }
 
 .btn-primary {
-    background-color: var(--primary);
+    background-color: var(--brand-blue);
     color: var(--white);
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-light);
+    background-color: var(--brand-blue-hover);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
@@ -170,11 +172,11 @@ img {
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: var(--primary);
-    background-color: var(--accent-glow);
+    color: var(--brand-blue);
+    background-color: rgba(18, 140, 240, 0.1);
     border-radius: 50px;
     margin-bottom: 16px;
-    border: 1px solid rgba(123, 174, 127, 0.4);
+    border: 1px solid rgba(18, 140, 240, 0.3);
 }
 
 /* Header & Navigation */
@@ -240,12 +242,12 @@ img {
     left: 0;
     width: 0;
     height: 2px;
-    background-color: var(--accent);
+    background-color: var(--brand-blue);
     transition: width 0.3s ease;
 }
 
 .nav-link-item:hover {
-    color: var(--primary);
+    color: var(--brand-blue);
 }
 
 .nav-link-item:hover::after {

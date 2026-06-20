@@ -253,19 +253,50 @@ document.addEventListener('DOMContentLoaded', () => {
             leads.push(leadData);
             localStorage.setItem('tarusha_leads', JSON.stringify(leads));
 
-            console.log("==========================================");
-            console.log("DISPATCHING LEAD EMAIL TO: contact@tarushafarms.com");
-            console.log("------------------------------------------");
-            console.log(`Lead Name: ${leadData.name}`);
-            console.log(`Email Address: ${leadData.email}`);
-            console.log(`Phone Number: ${leadData.phone}`);
-            console.log(`City: ${leadData.city}`);
-            console.log(`Area of Interest: ${leadData.interest}`);
-            console.log(`Message: ${leadData.message || '[None]'}`);
-            console.log("==========================================");
+            const accessKeyElement = document.querySelector('input[name="access_key"]');
+            const accessKey = accessKeyElement ? accessKeyElement.value : null;
 
-            leadForm.style.display = 'none';
-            successCard.style.display = 'block';
+            if (accessKey && accessKey !== 'YOUR_ACCESS_KEY_HERE') {
+                const submitBtn = document.getElementById('btn-submit-lead');
+                if (submitBtn) {
+                    submitBtn.innerText = 'Sending...';
+                    submitBtn.disabled = true;
+                }
+
+                const formData = new FormData(leadForm);
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData
+                }).then(response => {
+                    if (response.status === 200) {
+                        leadForm.style.display = 'none';
+                        successCard.style.display = 'block';
+                    } else {
+                        alert('Something went wrong. Please try again.');
+                    }
+                }).catch(error => {
+                    alert('Error submitting form. Please check your connection.');
+                }).finally(() => {
+                    if (submitBtn) {
+                        submitBtn.innerText = 'Submit Inquiry';
+                        submitBtn.disabled = false;
+                    }
+                });
+            } else {
+                console.log("==========================================");
+                console.log("DISPATCHING LEAD EMAIL TO: contact@tarushafarms.com");
+                console.log("------------------------------------------");
+                console.log(`Lead Name: ${leadData.name}`);
+                console.log(`Email Address: ${leadData.email}`);
+                console.log(`Phone Number: ${leadData.phone}`);
+                console.log(`City: ${leadData.city}`);
+                console.log(`Area of Interest: ${leadData.interest}`);
+                console.log(`Message: ${leadData.message || '[None]'}`);
+                console.log("==========================================");
+
+                leadForm.style.display = 'none';
+                successCard.style.display = 'block';
+            }
         });
     }
 
