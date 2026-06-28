@@ -254,40 +254,17 @@
                     </div>
                 </div>
             </section>
-
-            <!-- Featured Hero Product Section -->
-            <section class="featured-product-section" id="featured-product">
-                <div class="container featured-product-container">
-                    <div class="featured-product-image">
-                        <img src="assets/kit-family.jpg" alt="TarUshaFlagship Passive Hydroponic Kit" class="featured-img" loading="lazy">
+            <!-- Product Catalog Grid Section (Allows Custom Admin-Uploaded Products) -->
+            <section class="catalog-section" id="catalog">
+                <div class="container">
+                    <div class="section-header text-center">
+                        <span class="badge">TarUshaStore</span>
+                        <h2>Shop Hydroponic Systems &amp; Kits</h2>
+                        <p class="section-subtitle">Select from our premium default setups or view recently uploaded custom hydroponic systems.</p>
                     </div>
-                    <div class="featured-product-info">
-                        <span class="badge">Flagship Innovation</span>
-                        <h2>STEM Hydroponic Kit</h2>
-                        <p class="featured-desc">
-                            Our flagship starter kit is engineered to introduce beginners, families, and offices to clean indoor farming without complex pumps, wiring, or loud noises. Beautifully designed to blend with premium interiors.
-                        </p>
-                        
-                        <ul class="featured-benefits">
-                            <li>
-                                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
-                                <span><strong>Beginner friendly:</strong> No prior agricultural experience required. Setup assistance available in NCR, Vitual guidance availabe PAN India.</span>
-                            </li>
-                            <li>
-                                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
-                                <span><strong>Water Saving:</strong> Uses up to 90% less water than conventional soil farming.</span>
-                            </li>
-                            <li>
-                                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
-                                <span><strong>Grow Anything:</strong> Ideal for fresh herbs (basil, mint, oregano) and leafy salad greens.</span>
-                            </li>
-                            <li>
-                                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
-                                <span><strong>Low maintenance:</strong> Only needs nutrient refilling once every 2-3 weeks.</span>
-                            </li>
-                        </ul>
 
-                        <a href="#consultation" class="btn btn-primary" onclick="selectInterestInForm('Hydroponic Kits')">Request Pricing</a>
+                    <div class="catalog-grid" id="catalog-products-grid">
+                        <!-- Loaded dynamically via app.js -->
                     </div>
                 </div>
             </section>
@@ -385,21 +362,6 @@
                 </div>
             </section>
 
-            <!-- Product Catalog Grid Section (Allows Custom Admin-Uploaded Products) -->
-            <section class="catalog-section" id="catalog">
-                <div class="container">
-                    <div class="section-header text-center">
-                        <span class="badge">TarUshaStore</span>
-                        <h2>Shop Hydroponic Systems &amp; Kits</h2>
-                        <p class="section-subtitle">Select from our premium default setups or view recently uploaded custom hydroponic systems.</p>
-                    </div>
-
-                    <div class="catalog-grid" id="catalog-products-grid">
-                        <!-- Loaded dynamically via app.js -->
-                    </div>
-                </div>
-            </section>
-
             <!-- Industries We Serve Section -->
             <section class="industries-section" id="industries">
                 <div class="container">
@@ -471,6 +433,38 @@
                         <div class="impact-card">
                             <div class="impact-num" data-val="85">%</div>
                             <div class="impact-label">Minimal Space Requirements</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Survey & Giveaways Section -->
+            <section class="survey-section" id="survey" style="padding: 80px 0; background-color: var(--bg-light);">
+                <div class="container">
+                    <div class="section-header text-center">
+                        <span class="badge">Community</span>
+                        <h2>Help Us Improve &amp; Win!</h2>
+                        <p class="section-subtitle">Take our short survey about urban farming. Once the data collection period ends, we will announce three lucky winners here!</p>
+                    </div>
+                    
+                    <div class="survey-content" style="max-width: 600px; margin: 0 auto; text-align: center; background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                        <!-- Survey Link -->
+                        <div class="survey-link-wrapper" style="margin-bottom: 30px;">
+                            <h3 style="margin-bottom: 15px;">Urban Farming Survey</h3>
+                            <p style="margin-bottom: 20px; color: #666;">Your feedback helps us design better hydroponic systems for Indian homes.</p>
+                            <a href="#" target="_blank" class="btn btn-primary">Take the Survey Now</a>
+                        </div>
+                        
+                        <!-- Winners Placeholder (To be updated later) -->
+                        <div class="survey-winners" style="border-top: 1px solid rgba(0,0,0,0.1); padding-top: 30px;">
+                            <h4 style="margin-bottom: 15px; color: var(--primary);">Giveaway Winners</h4>
+                            <p style="font-size: 0.9rem; color: #666;"><em>Winners will be announced here after the survey closes.</em></p>
+                            
+                            <!-- Placeholder for winners, currently hidden or empty state -->
+                            <ul style="list-style: none; padding: 0; display: none;" id="survey-winners-list">
+                                <li style="padding: 10px; background: #f9fbf9; margin-bottom: 8px; border-radius: 8px;">🏆 Winner 1: [Name]</li>
+                                <li style="padding: 10px; background: #f9fbf9; margin-bottom: 8px; border-radius: 8px;">🏆 Winner 2: [Name]</li>
+                                <li style="padding: 10px; background: #f9fbf9; border-radius: 8px;">🏆 Winner 3: [Name]</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -1000,6 +994,6 @@
     </footer>
 
     <!-- App JavaScript -->
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
 </body>
 </html>

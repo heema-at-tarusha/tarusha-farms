@@ -1,6 +1,23 @@
 /* -------------------------------------------------------------
-   Tarusha Farms - Interactive Features & Local Storage Database
+   Tarusha Farms - Interactive Features & Local Storage Database (Migrated to Firebase)
    ------------------------------------------------------------- */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getStorage, ref, uploadString, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyANYxvLZdaQ_ksnxSde5uUm63ZbBSakwuk",
+  authDomain: "tarushafarms.firebaseapp.com",
+  projectId: "tarushafarms",
+  storageBucket: "tarushafarms.firebasestorage.app",
+  messagingSenderId: "189631971665",
+  appId: "1:189631971665:web:e48a69af6a80a85e681370",
+  measurementId: "G-EESNQM5EVK"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -326,10 +343,18 @@ document.addEventListener('DOMContentLoaded', () => {
         
     ];
 
-    // Read custom user products from localStorage
-    const getCustomProducts = () => {
-        return JSON.parse(localStorage.getItem('tarusha_custom_products') || '[]');
-    };
+    // Read custom user products from Firebase
+    let cachedCustomProducts = [];
+    const productsRef = collection(db, 'tarusha_custom_products');
+    onSnapshot(productsRef, (snapshot) => {
+        cachedCustomProducts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        renderCatalog();
+        if (window.location.hash === '#tarusha-control-9220') {
+            renderAdminTables();
+        }
+    });
+
+    const getCustomProducts = () => cachedCustomProducts;
 
     // Render Product Catalog
     const renderCatalog = () => {
@@ -341,7 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         allProducts.forEach(prod => {
             const card = document.createElement('article');
-            card.className = 'solution-card'; // re-use matching styling rules
+            card.className = 'solution-card'; 
 
             const isCustom = !prod.id.toString().startsWith('sys-');
             const deleteBtnHtml = isCustom 
@@ -369,22 +394,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Add listeners to custom delete buttons
         grid.querySelectorAll('.delete-prod-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
+            btn.addEventListener('click', async (e) => {
                 const idToDelete = btn.getAttribute('data-id');
-                deleteCustomProduct(idToDelete);
+                if(confirm('Are you sure you want to delete this product?')) {
+                    try {
+                        await deleteDoc(doc(db, 'tarusha_custom_products', idToDelete));
+                    } catch (err) {
+                        console.error('Error deleting product', err);
+                        alert('Failed to delete product.');
+                    }
+                }
             });
         });
     };
 
-    const deleteCustomProduct = (id) => {
-        let customProds = getCustomProducts();
-        customProds = customProds.filter(p => p.id.toString() !== id.toString());
-        localStorage.setItem('tarusha_custom_products', JSON.stringify(customProds));
-        renderCatalog();
-        renderAdminTables();
-    };
-
-    // Product Form Upload (Base64 file reader)
+    // Product Form Upload
     const prodForm = document.getElementById('admin-product-form');
     const imageFileInput = document.getElementById('prod-image-file');
     const imagePreviewContainer = document.getElementById('prod-image-preview');
@@ -407,8 +431,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (prodForm) {
-        prodForm.addEventListener('submit', (e) => {
+        prodForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            const submitBtn = prodForm.querySelector('button[type="submit"]');
+            const origText = submitBtn.innerText;
+            submitBtn.innerText = 'Uploading...';
+            submitBtn.disabled = true;
+
             const name = document.getElementById('prod-name').value.trim();
             const price = document.getElementById('prod-price').value.trim();
             const category = document.getElementById('prod-category').value;
@@ -416,29 +445,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!name || !price || !desc) {
                 alert('Please fill out all fields.');
+                submitBtn.innerText = origText;
+                submitBtn.disabled = false;
                 return;
             }
 
-            const newProduct = {
-                id: 'custom-' + Date.now(),
-                name,
-                price,
-                category,
-                desc,
-                image: uploadedImageBase64
-            };
+            try {
+                let imageUrl = uploadedImageBase64;
+                if (uploadedImageBase64 !== 'assets/kit-starter.png' && uploadedImageBase64.startsWith('data:')) {
+                    const storageRef = ref(storage, 'products/' + Date.now() + '.jpg');
+                    await uploadString(storageRef, uploadedImageBase64, 'data_url');
+                    imageUrl = await getDownloadURL(storageRef);
+                }
 
-            const customProds = getCustomProducts();
-            customProds.push(newProduct);
-            localStorage.setItem('tarusha_custom_products', JSON.stringify(customProds));
+                await addDoc(collection(db, 'tarusha_custom_products'), {
+                    name,
+                    price,
+                    category,
+                    desc,
+                    image: imageUrl
+                });
 
-            prodForm.reset();
-            imagePreviewContainer.style.display = 'none';
-            uploadedImageBase64 = 'assets/kit-starter.png';
-
-            alert('Product uploaded successfully!');
-            renderCatalog();
-            renderAdminTables();
+                prodForm.reset();
+                imagePreviewContainer.style.display = 'none';
+                uploadedImageBase64 = 'assets/kit-starter.png';
+                alert('Product uploaded successfully!');
+            } catch (err) {
+                console.error(err);
+                alert('Failed to upload product.');
+            } finally {
+                submitBtn.innerText = origText;
+                submitBtn.disabled = false;
+            }
         });
     }
 
@@ -448,50 +486,74 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     const pageForm = document.getElementById('admin-page-form');
 
-    const getCustomPages = () => {
-        return JSON.parse(localStorage.getItem('tarusha_custom_pages') || '[]');
-    };
+    let cachedCustomPages = [];
+    const pagesRef = collection(db, 'tarusha_custom_pages');
+    onSnapshot(pagesRef, (snapshot) => {
+        cachedCustomPages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        if (window.location.hash === '#tarusha-control-9220') {
+            renderAdminTables();
+        }
+        // if user is currently viewing a custom page that got updated, we could re-render, but let's keep it simple
+    });
+
+    const getCustomPages = () => cachedCustomPages;
 
     if (pageForm) {
-        pageForm.addEventListener('submit', (e) => {
+        pageForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            const submitBtn = pageForm.querySelector('button[type="submit"]');
+            const origText = submitBtn.innerText;
+            submitBtn.innerText = 'Publishing...';
+            submitBtn.disabled = true;
+
             const title = document.getElementById('page-title').value.trim();
             const slug = document.getElementById('page-slug').value.trim().toLowerCase().replace(/[^a-z0-9-_]/g, '-');
             const htmlContent = document.getElementById('page-html').value.trim();
 
             if (!title || !slug || !htmlContent) {
                 alert('Please fill out all fields.');
+                submitBtn.innerText = origText;
+                submitBtn.disabled = false;
                 return;
             }
-
-            const newPage = {
-                title,
-                slug,
-                body: htmlContent
-            };
 
             const customPages = getCustomPages();
             
             // Check for duplicate slugs
             if (customPages.some(p => p.slug === slug)) {
                 alert('A page with this URL slug already exists. Please choose a different one.');
+                submitBtn.innerText = origText;
+                submitBtn.disabled = false;
                 return;
             }
 
-            customPages.push(newPage);
-            localStorage.setItem('tarusha_custom_pages', JSON.stringify(customPages));
-
-            pageForm.reset();
-            alert('Custom page published successfully!');
-            renderAdminTables();
+            try {
+                await addDoc(collection(db, 'tarusha_custom_pages'), {
+                    title,
+                    slug,
+                    body: htmlContent
+                });
+                pageForm.reset();
+                alert('Custom page published successfully!');
+            } catch (err) {
+                console.error(err);
+                alert('Failed to publish custom page.');
+            } finally {
+                submitBtn.innerText = origText;
+                submitBtn.disabled = false;
+            }
         });
     }
 
-    const deleteCustomPage = (slug) => {
-        let pages = getCustomPages();
-        pages = pages.filter(p => p.slug !== slug);
-        localStorage.setItem('tarusha_custom_pages', JSON.stringify(pages));
-        renderAdminTables();
+    const deleteCustomPage = async (id) => {
+        if(confirm('Are you sure you want to delete this page?')) {
+            try {
+                await deleteDoc(doc(db, 'tarusha_custom_pages', id));
+            } catch (err) {
+                console.error(err);
+                alert('Failed to delete page.');
+            }
+        }
     };
 
 
@@ -516,8 +578,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         <td>${prod.price}</td>
                         <td><button class="btn btn-sm btn-outline delete-item-btn" style="color: #e53e3e; border-color: #e53e3e; padding: 4px 8px; font-size: 0.75rem;">Delete</button></td>
                     `;
-                    tr.querySelector('.delete-item-btn').addEventListener('click', () => {
-                        deleteCustomProduct(prod.id);
+                    tr.querySelector('.delete-item-btn').addEventListener('click', async () => {
+                        if(confirm('Are you sure you want to delete this product?')) {
+                            try {
+                                await deleteDoc(doc(db, 'tarusha_custom_products', prod.id));
+                            } catch (err) {
+                                console.error('Error deleting product', err);
+                                alert('Failed to delete product.');
+                            }
+                        }
                     });
                     prodTbody.appendChild(tr);
                 });
@@ -538,7 +607,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <td><button class="btn btn-sm btn-outline delete-item-btn" style="color: #e53e3e; border-color: #e53e3e; padding: 4px 8px; font-size: 0.75rem;">Delete</button></td>
                     `;
                     tr.querySelector('.delete-item-btn').addEventListener('click', () => {
-                        deleteCustomPage(p.slug);
+                        deleteCustomPage(p.id);
                     });
                     pageTbody.appendChild(tr);
                 });
@@ -681,15 +750,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const getFlyers = () => {
-        return JSON.parse(localStorage.getItem('tarusha_flyers') || '[]');
-    };
-
-    const deleteFlyer = (id) => {
-        let flyers = getFlyers();
-        flyers = flyers.filter(f => f.id.toString() !== id.toString());
-        localStorage.setItem('tarusha_flyers', JSON.stringify(flyers));
+    let cachedFlyers = [];
+    const flyersRef = collection(db, 'tarusha_flyers');
+    onSnapshot(flyersRef, (snapshot) => {
+        cachedFlyers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         renderFlyers();
+    });
+
+    const getFlyers = () => cachedFlyers;
+
+    const deleteFlyer = async (id) => {
+        if(confirm('Are you sure you want to delete this flyer?')) {
+            try {
+                await deleteDoc(doc(db, 'tarusha_flyers', id));
+            } catch (err) {
+                console.error('Error deleting flyer', err);
+                alert('Failed to delete flyer.');
+            }
+        }
     };
 
     const renderFlyers = () => {
@@ -721,7 +799,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div-->
                     <h3>${f.title}</h3>
                     <p>${f.desc}</p>
-                    <a href="${f.data}" download="${f.title.replace(/\s+/g, '_')}${isPdf ? '.pdf' : '.png'}" class="btn btn-sm btn-outline btn-download">Download</a>
+                    <a href="${f.data}" target="_blank" download="${f.title.replace(/\s+/g, '_')}${isPdf ? '.pdf' : '.png'}" class="btn btn-sm btn-outline btn-download">Download</a>
                 `;
                 publicGrid.appendChild(card);
             });
@@ -749,34 +827,50 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     if (flyerForm) {
-        flyerForm.addEventListener('submit', (e) => {
+        flyerForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            const submitBtn = flyerForm.querySelector('button[type="submit"]');
+            const origText = submitBtn.innerText;
+            submitBtn.innerText = 'Uploading...';
+            submitBtn.disabled = true;
+
             const title = document.getElementById('flyer-title').value.trim();
             const desc = document.getElementById('flyer-desc').value.trim();
 
             if (!title || !desc || !uploadedFlyerBase64) {
                 alert('Please fill out all fields and select a file.');
+                submitBtn.innerText = origText;
+                submitBtn.disabled = false;
                 return;
             }
 
-            const newFlyer = {
-                id: 'flyer-' + Date.now(),
-                title,
-                desc,
-                mime: uploadedFlyerMime,
-                data: uploadedFlyerBase64
-            };
+            try {
+                let fileUrl = uploadedFlyerBase64;
+                if (uploadedFlyerBase64.startsWith('data:')) {
+                    const extension = uploadedFlyerMime && uploadedFlyerMime.includes('pdf') ? '.pdf' : '.jpg';
+                    const storageRef = ref(storage, 'flyers/' + Date.now() + extension);
+                    await uploadString(storageRef, uploadedFlyerBase64, 'data_url');
+                    fileUrl = await getDownloadURL(storageRef);
+                }
 
-            const flyers = getFlyers();
-            flyers.push(newFlyer);
-            localStorage.setItem('tarusha_flyers', JSON.stringify(flyers));
+                await addDoc(collection(db, 'tarusha_flyers'), {
+                    title,
+                    desc,
+                    mime: uploadedFlyerMime,
+                    data: fileUrl
+                });
 
-            flyerForm.reset();
-            uploadedFlyerBase64 = null;
-            uploadedFlyerMime = null;
-            
-            alert('Flyer uploaded successfully!');
-            renderFlyers();
+                flyerForm.reset();
+                uploadedFlyerBase64 = null;
+                uploadedFlyerMime = null;
+                alert('Flyer uploaded successfully!');
+            } catch (err) {
+                console.error(err);
+                alert('Failed to upload flyer.');
+            } finally {
+                submitBtn.innerText = origText;
+                submitBtn.disabled = false;
+            }
         });
     }
 
