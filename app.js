@@ -1,23 +1,6 @@
 /* -------------------------------------------------------------
    Tarusha Farms - Interactive Features & Local Storage Database (Migrated to Firebase)
    ------------------------------------------------------------- */
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-import { getStorage, ref, uploadString, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyANYxvLZdaQ_ksnxSde5uUm63ZbBSakwuk",
-  authDomain: "tarushafarms.firebaseapp.com",
-  projectId: "tarushafarms",
-  storageBucket: "tarushafarms.firebasestorage.app",
-  messagingSenderId: "189631971665",
-  appId: "1:189631971665:web:e48a69af6a80a85e681370",
-  measurementId: "G-EESNQM5EVK"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const storage = getStorage(app);
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -339,22 +322,24 @@ document.addEventListener('DOMContentLoaded', () => {
             category: 'kits',
             desc: 'A complete customizable smart hydroponics kit featuring automatic circulation and specialized growth lighting. Perfect for kitchen salads and fresh herbs.',
             image: 'assets/kit-starter.jpg'
-        }        
-        
+        },
+        {
+            id: 'sys-family-kit',
+            name: 'Tarusha Family Kit',
+            price: ' ',
+            category: 'kits',
+            desc: 'A complete customizable smart hydroponics kit featuring automatic circulation and specialized growth lighting for familys of four. Perfect for kitchen salads and fresh herbs.',
+            image: 'assets/kit-family.jpg'
+        },
+        {
+            id: 'sys-dutch-kit',
+            name: 'Tarusha Indoor Dutch bucket Kit',
+            price: ' ',
+            category: 'kits',
+            desc: 'A complete customizable Indoor dutch bucket hydroponics kit featuring automatic circulation and specialized growth lighting . Perfect for tomatoes, gourds,cucumbers and bellpeppers.',
+            image: 'assets/indoor_dutch_bucket.jpeg'
+        }            
     ];
-
-    // Read custom user products from Firebase
-    let cachedCustomProducts = [];
-    const productsRef = collection(db, 'tarusha_custom_products');
-    onSnapshot(productsRef, (snapshot) => {
-        cachedCustomProducts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        renderCatalog();
-        if (window.location.hash === '#tarusha-control-9220') {
-            renderAdminTables();
-        }
-    });
-
-    const getCustomProducts = () => cachedCustomProducts;
 
     // Render Product Catalog
     const renderCatalog = () => {
@@ -362,16 +347,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!grid) return;
 
         grid.innerHTML = '';
-        const allProducts = [...defaultProducts, ...getCustomProducts()];
+        const allProducts = [...defaultProducts];
 
         allProducts.forEach(prod => {
             const card = document.createElement('article');
             card.className = 'solution-card'; 
-
-            const isCustom = !prod.id.toString().startsWith('sys-');
-            const deleteBtnHtml = isCustom 
-                ? `<button class="btn btn-sm btn-outline delete-prod-btn" data-id="${prod.id}" style="color: #e53e3e; border-color: #e53e3e; margin-top: 12px; display: inline-block;">Delete Product</button>`
-                : '';
 
             card.innerHTML = `
                 <div class="solution-img-wrapper" style="height: 200px;">
@@ -381,247 +361,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="client-type" style="margin-bottom: 8px;">${prod.category === 'kits' ? 'Hydroponic System' : prod.category === 'courses' ? 'Training Course' : 'Fresh Produce'}</span>
                     <h3 style="font-size: 1.25rem; margin-bottom: 8px;">${prod.name}</h3>
                     <p style="font-size: 0.85rem; margin-bottom: 12px; flex-grow: 1;">${prod.desc}</p>
-                    <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 12px;">
-                        <span class="product-price" style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">${prod.price}</span>
+                    <div style="display: flex; justify-content: flex-end; align-items: center; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 12px;">
                         <a href="#consultation" class="btn btn-sm btn-primary" onclick="selectInterestInForm('Hydroponic Kits')">Request Quote</a>
                     </div>
-                    ${deleteBtnHtml}
                 </div>
             `;
 
             grid.appendChild(card);
         });
-
-        // Add listeners to custom delete buttons
-        grid.querySelectorAll('.delete-prod-btn').forEach(btn => {
-            btn.addEventListener('click', async (e) => {
-                const idToDelete = btn.getAttribute('data-id');
-                if(confirm('Are you sure you want to delete this product?')) {
-                    try {
-                        await deleteDoc(doc(db, 'tarusha_custom_products', idToDelete));
-                    } catch (err) {
-                        console.error('Error deleting product', err);
-                        alert('Failed to delete product.');
-                    }
-                }
-            });
-        });
-    };
-
-    // Product Form Upload
-    const prodForm = document.getElementById('admin-product-form');
-    const imageFileInput = document.getElementById('prod-image-file');
-    const imagePreviewContainer = document.getElementById('prod-image-preview');
-    const imagePreviewTag = document.getElementById('prod-img-preview-tag');
-    let uploadedImageBase64 = 'assets/kit-starter.png'; // default fallback
-
-    if (imageFileInput) {
-        imageFileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                uploadedImageBase64 = event.target.result;
-                imagePreviewTag.src = uploadedImageBase64;
-                imagePreviewContainer.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
-        });
-    }
-
-    if (prodForm) {
-        prodForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const submitBtn = prodForm.querySelector('button[type="submit"]');
-            const origText = submitBtn.innerText;
-            submitBtn.innerText = 'Uploading...';
-            submitBtn.disabled = true;
-
-            const name = document.getElementById('prod-name').value.trim();
-            const price = document.getElementById('prod-price').value.trim();
-            const category = document.getElementById('prod-category').value;
-            const desc = document.getElementById('prod-desc').value.trim();
-
-            if (!name || !price || !desc) {
-                alert('Please fill out all fields.');
-                submitBtn.innerText = origText;
-                submitBtn.disabled = false;
-                return;
-            }
-
-            try {
-                let imageUrl = uploadedImageBase64;
-                if (uploadedImageBase64 !== 'assets/kit-starter.png' && uploadedImageBase64.startsWith('data:')) {
-                    const storageRef = ref(storage, 'products/' + Date.now() + '.jpg');
-                    await uploadString(storageRef, uploadedImageBase64, 'data_url');
-                    imageUrl = await getDownloadURL(storageRef);
-                }
-
-                await addDoc(collection(db, 'tarusha_custom_products'), {
-                    name,
-                    price,
-                    category,
-                    desc,
-                    image: imageUrl
-                });
-
-                prodForm.reset();
-                imagePreviewContainer.style.display = 'none';
-                uploadedImageBase64 = 'assets/kit-starter.png';
-                alert('Product uploaded successfully!');
-            } catch (err) {
-                console.error(err);
-                alert('Failed to upload product.');
-            } finally {
-                submitBtn.innerText = origText;
-                submitBtn.disabled = false;
-            }
-        });
-    }
-
-
-    // ==========================================
-    // 6. Dynamic Custom Page Builder
-    // ==========================================
-    const pageForm = document.getElementById('admin-page-form');
-
-    let cachedCustomPages = [];
-    const pagesRef = collection(db, 'tarusha_custom_pages');
-    onSnapshot(pagesRef, (snapshot) => {
-        cachedCustomPages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        if (window.location.hash === '#tarusha-control-9220') {
-            renderAdminTables();
-        }
-        // if user is currently viewing a custom page that got updated, we could re-render, but let's keep it simple
-    });
-
-    const getCustomPages = () => cachedCustomPages;
-
-    if (pageForm) {
-        pageForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const submitBtn = pageForm.querySelector('button[type="submit"]');
-            const origText = submitBtn.innerText;
-            submitBtn.innerText = 'Publishing...';
-            submitBtn.disabled = true;
-
-            const title = document.getElementById('page-title').value.trim();
-            const slug = document.getElementById('page-slug').value.trim().toLowerCase().replace(/[^a-z0-9-_]/g, '-');
-            const htmlContent = document.getElementById('page-html').value.trim();
-
-            if (!title || !slug || !htmlContent) {
-                alert('Please fill out all fields.');
-                submitBtn.innerText = origText;
-                submitBtn.disabled = false;
-                return;
-            }
-
-            const customPages = getCustomPages();
-            
-            // Check for duplicate slugs
-            if (customPages.some(p => p.slug === slug)) {
-                alert('A page with this URL slug already exists. Please choose a different one.');
-                submitBtn.innerText = origText;
-                submitBtn.disabled = false;
-                return;
-            }
-
-            try {
-                await addDoc(collection(db, 'tarusha_custom_pages'), {
-                    title,
-                    slug,
-                    body: htmlContent
-                });
-                pageForm.reset();
-                alert('Custom page published successfully!');
-            } catch (err) {
-                console.error(err);
-                alert('Failed to publish custom page.');
-            } finally {
-                submitBtn.innerText = origText;
-                submitBtn.disabled = false;
-            }
-        });
-    }
-
-    const deleteCustomPage = async (id) => {
-        if(confirm('Are you sure you want to delete this page?')) {
-            try {
-                await deleteDoc(doc(db, 'tarusha_custom_pages', id));
-            } catch (err) {
-                console.error(err);
-                alert('Failed to delete page.');
-            }
-        }
     };
 
 
     // ==========================================
-    // 7. Admin Tables Management Renders
-    // ==========================================
-    const renderAdminTables = () => {
-        const prodTbody = document.getElementById('admin-products-tbody');
-        const pageTbody = document.getElementById('admin-pages-tbody');
-
-        if (prodTbody) {
-            prodTbody.innerHTML = '';
-            const customProds = getCustomProducts();
-            if (customProds.length === 0) {
-                prodTbody.innerHTML = '<tr><td colspan="4" class="text-muted text-center">No custom products uploaded yet.</td></tr>';
-            } else {
-                customProds.forEach(prod => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td><strong>${prod.name}</strong></td>
-                        <td>${prod.category}</td>
-                        <td>${prod.price}</td>
-                        <td><button class="btn btn-sm btn-outline delete-item-btn" style="color: #e53e3e; border-color: #e53e3e; padding: 4px 8px; font-size: 0.75rem;">Delete</button></td>
-                    `;
-                    tr.querySelector('.delete-item-btn').addEventListener('click', async () => {
-                        if(confirm('Are you sure you want to delete this product?')) {
-                            try {
-                                await deleteDoc(doc(db, 'tarusha_custom_products', prod.id));
-                            } catch (err) {
-                                console.error('Error deleting product', err);
-                                alert('Failed to delete product.');
-                            }
-                        }
-                    });
-                    prodTbody.appendChild(tr);
-                });
-            }
-        }
-
-        if (pageTbody) {
-            pageTbody.innerHTML = '';
-            const pages = getCustomPages();
-            if (pages.length === 0) {
-                pageTbody.innerHTML = '<tr><td colspan="3" class="text-muted text-center">No custom pages published yet.</td></tr>';
-            } else {
-                pages.forEach(p => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td><strong>${p.title}</strong></td>
-                        <td><a href="#page/${p.slug}" style="color: var(--primary); text-decoration: underline;">#page/${p.slug}</a></td>
-                        <td><button class="btn btn-sm btn-outline delete-item-btn" style="color: #e53e3e; border-color: #e53e3e; padding: 4px 8px; font-size: 0.75rem;">Delete</button></td>
-                    `;
-                    tr.querySelector('.delete-item-btn').addEventListener('click', () => {
-                        deleteCustomPage(p.id);
-                    });
-                    pageTbody.appendChild(tr);
-                });
-            }
-        }
-    };
-
-
-    // ==========================================
-    // 8. SPA Hash Router
+    // 6. SPA Hash Router
     // ==========================================
     const landingView = document.getElementById('landing-page-view');
-    const adminView = document.getElementById('admin-view');
-    const customPageView = document.getElementById('custom-page-view');
 
     const handleRouting = () => {
         const hash = window.location.hash;
@@ -638,68 +392,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        if (hash === '#tarusha-control-9220') {
-            // Display Admin View
-            landingView.style.display = 'none';
-            customPageView.style.display = 'none';
-            adminView.style.display = 'block';
-            window.scrollTo({ top: 0 });
-            renderAdminTables();
-        } else if (hash.startsWith('#page/')) {
-            // Display Custom Page View
-            const slug = hash.replace('#page/', '');
-            const pages = getCustomPages();
-            const pageData = pages.find(p => p.slug === slug);
-
-            landingView.style.display = 'none';
-            adminView.style.display = 'none';
-            customPageView.style.display = 'block';
-            window.scrollTo({ top: 0 });
-
-            const pageTitle = document.getElementById('custom-page-title');
-            const pageBody = document.getElementById('custom-page-body');
-
-            if (pageData) {
-                pageTitle.textContent = pageData.title;
-                pageBody.innerHTML = pageData.body;
-            } else {
-                pageTitle.textContent = '404 - Page Not Found';
-                pageBody.innerHTML = '<p class="text-muted">The requested custom page could not be located in our local database catalog.</p>';
-            }
-        } else {
-            // Display Main Landing View
-            adminView.style.display = 'none';
-            customPageView.style.display = 'none';
-            landingView.style.display = 'block';
-
-            // Handle sub-section scroll target alignment if present
-            if (hash && hash !== '#') {
-                const targetEl = document.querySelector(hash);
-                if (targetEl) {
-                    setTimeout(() => {
-                        targetEl.scrollIntoView({ behavior: 'smooth' });
-                    }, 50);
-                }
+        // Handle sub-section scroll target alignment if present
+        if (hash && hash !== '#') {
+            const targetEl = document.querySelector(hash);
+            if (targetEl) {
+                setTimeout(() => {
+                    targetEl.scrollIntoView({ behavior: 'smooth' });
+                }, 50);
             }
         }
     };
 
     window.addEventListener('hashchange', handleRouting);
-    
-    // Add custom handler to simple scroll navigation items so routing switches back to landing view
-    document.querySelectorAll('.nav-link-item').forEach(link => {
-        link.addEventListener('click', (e) => {
-            const targetHash = link.getAttribute('href');
-            if (window.location.hash === '#tarusha-control-9220' || window.location.hash.startsWith('#page/')) {
-                // If in Admin or Custom page, redirect hash back to home landing page first
-                e.preventDefault();
-                window.location.hash = '';
-                setTimeout(() => {
-                    window.location.hash = targetHash;
-                }, 100);
-            }
-        });
-    });
 
 
     // ==========================================
@@ -731,51 +435,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // 10. Downloadable Flyers Management
     // ==========================================
-    const flyerForm = document.getElementById('admin-flyer-form');
-    const flyerFileInput = document.getElementById('flyer-file');
-    let uploadedFlyerBase64 = null;
-    let uploadedFlyerMime = null;
-
-    if (flyerFileInput) {
-        flyerFileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            uploadedFlyerMime = file.type;
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                uploadedFlyerBase64 = event.target.result;
-            };
-            reader.readAsDataURL(file);
-        });
-    }
-
-    let cachedFlyers = [];
-    const flyersRef = collection(db, 'tarusha_flyers');
-    onSnapshot(flyersRef, (snapshot) => {
-        cachedFlyers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        renderFlyers();
-    });
-
-    const getFlyers = () => cachedFlyers;
-
-    const deleteFlyer = async (id) => {
-        if(confirm('Are you sure you want to delete this flyer?')) {
-            try {
-                await deleteDoc(doc(db, 'tarusha_flyers', id));
-            } catch (err) {
-                console.error('Error deleting flyer', err);
-                alert('Failed to delete flyer.');
-            }
+    
+    // To add a new flyer, copy the block below and replace the details.
+    const defaultFlyers = [
+        /* Example flyer format:
+        {
+            title: 'Home Kit Maintenance Guide',
+            desc: 'Learn how to clean and maintain your hydroponic kit.',
+            mime: 'application/pdf',
+            data: 'assets/maintenance-guide.pdf'
         }
-    };
+        */
+    ];
+
+    const getFlyers = () => defaultFlyers;
 
     const renderFlyers = () => {
         const flyers = getFlyers();
         const navLink = document.getElementById('nav-resources-link');
         const publicSection = document.getElementById('resources');
         const publicGrid = document.getElementById('flyers-grid');
-        const adminTbody = document.getElementById('admin-flyers-tbody');
 
         // Toggle visibility
         if (flyers.length === 0) {
@@ -794,9 +473,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const card = document.createElement('div');
                 card.className = 'flyer-card';
                 card.innerHTML = `
-                    <!--div class="flyer-icon">
-                        ${isPdf ? '📄' : '🖼️'}
-                    </div-->
                     <h3>${f.title}</h3>
                     <p>${f.desc}</p>
                     <a href="${f.data}" target="_blank" download="${f.title.replace(/\s+/g, '_')}${isPdf ? '.pdf' : '.png'}" class="btn btn-sm btn-outline btn-download">Download</a>
@@ -804,75 +480,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 publicGrid.appendChild(card);
             });
         }
-
-        // Render admin table
-        if (adminTbody) {
-            adminTbody.innerHTML = '';
-            if (flyers.length === 0) {
-                adminTbody.innerHTML = '<tr><td colspan="2" class="text-muted text-center">No flyers uploaded yet.</td></tr>';
-            } else {
-                flyers.forEach(f => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td><strong>${f.title}</strong></td>
-                        <td><button class="btn btn-sm btn-outline delete-flyer-btn" style="color: #e53e3e; border-color: #e53e3e; padding: 4px 8px; font-size: 0.75rem;">Delete</button></td>
-                    `;
-                    tr.querySelector('.delete-flyer-btn').addEventListener('click', () => {
-                        deleteFlyer(f.id);
-                    });
-                    adminTbody.appendChild(tr);
-                });
-            }
-        }
     };
-
-    if (flyerForm) {
-        flyerForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const submitBtn = flyerForm.querySelector('button[type="submit"]');
-            const origText = submitBtn.innerText;
-            submitBtn.innerText = 'Uploading...';
-            submitBtn.disabled = true;
-
-            const title = document.getElementById('flyer-title').value.trim();
-            const desc = document.getElementById('flyer-desc').value.trim();
-
-            if (!title || !desc || !uploadedFlyerBase64) {
-                alert('Please fill out all fields and select a file.');
-                submitBtn.innerText = origText;
-                submitBtn.disabled = false;
-                return;
-            }
-
-            try {
-                let fileUrl = uploadedFlyerBase64;
-                if (uploadedFlyerBase64.startsWith('data:')) {
-                    const extension = uploadedFlyerMime && uploadedFlyerMime.includes('pdf') ? '.pdf' : '.jpg';
-                    const storageRef = ref(storage, 'flyers/' + Date.now() + extension);
-                    await uploadString(storageRef, uploadedFlyerBase64, 'data_url');
-                    fileUrl = await getDownloadURL(storageRef);
-                }
-
-                await addDoc(collection(db, 'tarusha_flyers'), {
-                    title,
-                    desc,
-                    mime: uploadedFlyerMime,
-                    data: fileUrl
-                });
-
-                flyerForm.reset();
-                uploadedFlyerBase64 = null;
-                uploadedFlyerMime = null;
-                alert('Flyer uploaded successfully!');
-            } catch (err) {
-                console.error(err);
-                alert('Failed to upload flyer.');
-            } finally {
-                submitBtn.innerText = origText;
-                submitBtn.disabled = false;
-            }
-        });
-    }
 
     renderFlyers();
 
