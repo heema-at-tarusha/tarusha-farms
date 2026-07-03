@@ -4,21 +4,21 @@
 
 /* Variables & Custom Properties */
 :root {
-    /* Color Palette - Minimalist Eco-Modern */
-    --primary: #2a4d30;         /* Deep Crisp Green */
-    --primary-light: #446c4a;   /* Muted Leaf Green */
-    --brand-blue: #128cf0;      /* Vibrant Logo newBlue */
-    --brand-blue-hover: #0f76cd;
+    /* Color Palette - Earthy Greens & Soft Sand */
+    --primary: #1e3b22;         /* Deep Forest Green */
+    --primary-light: #4b7f43;   /* Vibrant Leaf Green */
+    --brand-blue: #4b7f43;      /* Replaced blue with leaf green for consistency */
+    --brand-blue-hover: #3a6334;
     --accent: #a8c6a1;          /* Soft Sage Green */
     --accent-glow: rgba(168, 198, 161, 0.15);
-    --terracotta: #809681;      /* Replaced with Soft Neutral Green */
-    --terracotta-glow: rgba(128, 150, 129, 0.12);
-    --bg-dark: #111812;         /* Very Dark Green/Black */
-    --bg-light: #fbfcfb;        /* Crisp Minimal Off-White */
-    --text-dark: #111812;       /* Crisp Black */
-    --text-muted: #6b7280;      /* Lighter Grey for contrast */
-    --text-light: #fbfcfb;      /* Off-White Text */
-    --white: #ffffff;
+    --terracotta: #8c7355;      /* Warm Earth/Sand tone */
+    --terracotta-glow: rgba(140, 115, 85, 0.12);
+    --bg-dark: #19211a;         /* Very Dark Green/Charcoal */
+    --bg-light: #f4f1ea;        /* Soft Sand / Beige (Replaces stark white backgrounds) */
+    --text-dark: #2c302a;       /* Soft Black/Dark Olive */
+    --text-muted: #6e7368;      /* Earthy Grey for contrast */
+    --text-light: #f4f1ea;      /* Soft Sand Text */
+    --white: #fcfbf7;           /* Warm Off-White (Replaces pure white elements) */
     
     /* Layout Tokens - Softened for Minimalist feel */
     --radius-sm: 4px;
@@ -448,7 +448,7 @@ img {
 
 /* Why Hydroponics Section */
 .why-hydroponics-section {
-    padding: 140px 0;
+    padding: 80px 0;
     background-color: var(--white);
 }
 
@@ -502,7 +502,7 @@ img {
 
 /* Featured Product Section */
 .featured-product-section {
-    padding: 140px 0;
+    padding: 80px 0;
     background-color: var(--bg-light);
 }
 
@@ -563,7 +563,7 @@ img {
 
 /* Solutions Section */
 .solutions-section {
-    padding: 140px 0;
+    padding: 80px 0;
     background-color: var(--white);
 }
 
@@ -652,7 +652,7 @@ img {
 
 /* Catalog Section */
 .catalog-section {
-    padding: 140px 0;
+    padding: 80px 0;
     background-color: var(--bg-light);
 }
 
@@ -664,7 +664,7 @@ img {
 
 /* Industries Section */
 .industries-section {
-    padding: 140px 0;
+    padding: 80px 0;
     background-color: var(--white);
 }
 
@@ -741,7 +741,7 @@ img {
 
 /* Workshops Section */
 .workshops-section {
-    padding: 140px 0;
+    padding: 80px 0;
     background-color: var(--white);
 }
 
@@ -771,7 +771,7 @@ img {
 
 /* Testimonials Carousel Section */
 .testimonials-section {
-    padding: 140px 0;
+    padding: 80px 0;
     background-color: var(--bg-light);
 }
 
@@ -897,7 +897,7 @@ img {
 
 /* About Us Section */
 .about-us-section {
-    padding: 140px 0;
+    padding: 80px 0;
     background-color: var(--white);
 }
 
@@ -954,7 +954,7 @@ img {
 
 /* Consultation Booking & Lead Generation Section */
 .consultation-section {
-    padding: 140px 0;
+    padding: 80px 0;
     background-color: var(--bg-light);
 }
 
@@ -1490,7 +1490,7 @@ img {
 
 /* Resources / Flyers Section */
 .resources-section {
-    padding: 140px 0;
+    padding: 80px 0;
     background-color: var(--bg-light);
 }
 
