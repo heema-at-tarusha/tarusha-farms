@@ -76,6 +76,16 @@
       ]
     }
     </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EESNQM5EVK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-EESNQM5EVK');
+    </script>
 </head>
 <body>
 
@@ -100,18 +110,19 @@
             </a>
             
             <nav class="nav-menu" id="nav-links">
-                <a href="#why-hydroponics" class="nav-link-item">Why Hydroponics</a>
-                <a href="#solutions" class="nav-link-item">Solutions</a>
-                <a href="#catalog" class="nav-link-item">Catalog</a>
-                <a href="#resources" class="nav-link-item" id="nav-resources-link" style="display:none;">Resources</a>
-                <a href="#workshops" class="nav-link-item">Workshops</a>
-                <a href="#testimonials" class="nav-link-item">Testimonials</a>
-                <a href="#about" class="nav-link-item">About Us</a>
-                <a href="#contact" class="nav-link-item">Contact</a>
+                <a href="index.html#why-hydroponics" class="nav-link-item">Why Hydroponics</a>
+                <a href="solutions.html" class="nav-link-item">Solutions</a>
+                <a href="catalog.html" class="nav-link-item">Catalog</a>
+                <a href="catalog.html#resources" class="nav-link-item" id="nav-resources-link" style="display:none;">Resources</a>
+                <a href="workshops.html" class="nav-link-item">Workshops</a>
+                <a href="workshops.html#testimonials" class="nav-link-item">Testimonials</a>
+                <a href="about.html" class="nav-link-item">About Us</a>
+                <a href="blog.html" class="nav-link-item">Blog</a>
+                <a href="about.html#contact" class="nav-link-item">Contact</a>
             </nav>
 
             <div class="header-cta">
-                <a href="#consultation" class="btn btn-sm btn-primary" id="btn-header-book">Free Consultation</a>
+                <a href="about.html#consultation" class="btn btn-sm btn-primary" id="btn-header-book">Free Consultation</a>
             </div>
             
             <button class="menu-toggle" id="menu-btn" aria-label="Toggle Menu">
@@ -125,8 +136,7 @@
     <!-- Main Dynamic Container -->
     <div id="landing-page-view">
         <main>
-            
-            <!-- Hero Section -->
+<!-- Hero Section -->
             <section class="hero-section" id="hero">
                 <div class="hero-bg-overlay"></div>
                 <div class="container hero-container">
@@ -137,7 +147,7 @@
                             Experience the best hydroponics in Gurgaon. From beautiful vertical gardens to indoor kits and professional hydroponic training, we make sustainable growing easy.
                         </p>
                         <div class="hero-actions">
-                            <a href="#consultation" class="btn btn-primary" id="btn-hero-consult">Book a Free Consultation</a>
+                            <a href="about.html#consultation" class="btn btn-primary" id="btn-hero-consult">Book a Free Consultation</a>
                             <a href="#solutions" class="btn btn-secondary" id="btn-hero-explore">Explore Solutions</a>
                         </div>
                         
@@ -178,7 +188,7 @@
                 </div>
             </section>
 
-            <!-- School Visits Section -->
+<!-- School Visits Section -->
             <section class="school-visits-section" id="school-visits" style="padding: 80px 0; background-color: var(--white);">
                 <div class="container">
                     <div class="section-header text-center">
@@ -198,7 +208,7 @@
                             <div style="padding: 24px; display: flex; flex-direction: column; flex-grow: 1;">
                                 <h3 style="font-family: var(--font-headings); font-size: 1.5rem; color: var(--primary); margin-bottom: 12px;">For Schools & Educators</h3>
                                 <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px; flex-grow: 1;">Bring your students for an immersive educational tour of our vertical farms. Learn about water conservation, soil-less farming, and sustainable technology.</p>
-                                <a href="#consultation" class="btn btn-primary" style="align-self: flex-start; text-decoration: none;" onclick="selectInterestInForm('School Farm Visit')">Book Meeting with Founder</a>
+                                <a href="about.html#consultation" class="btn btn-primary" style="align-self: flex-start; text-decoration: none;" onclick="selectInterestInForm('School Farm Visit')">Book Meeting with Founder</a>
                             </div>
                         </div>
 
@@ -213,7 +223,7 @@
                                 <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px; flex-grow: 1;">A hands-on learning experience for students mandated by their schools. Discover the science behind hydroponics in a safe, guided environment.</p>
                                 <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 16px;">
                                     <span style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">₹400 <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 400;">/ child</span></span>
-                                    <a href="#consultation" class="btn btn-outline" style="text-decoration: none;" onclick="selectInterestInForm('Student Mandated Visit')">Book Now</a>
+                                    <a href="about.html#consultation" class="btn btn-outline" style="text-decoration: none;" onclick="selectInterestInForm('Student Mandated Visit')">Book Now</a>
                                 </div>
                             </div>
                         </div>
@@ -221,7 +231,8 @@
                     </div>
                 </div>
             </section>
-            <!-- Latest Happenings Gallery -->
+
+<!-- Latest Happenings Gallery -->
             <section class="gallery-section" id="gallery" style="padding: 80px 0; background-color: var(--bg-light);">
                 <div class="container">
                     <div class="section-header text-center">
@@ -241,7 +252,7 @@
                 </div>
             </section>
 
-            <!-- Why Hydroponics Section -->
+<!-- Why Hydroponics Section -->
             <section class="why-hydroponics-section" id="why-hydroponics">
                 <div class="container">
                     <div class="section-header text-center">
@@ -317,161 +328,8 @@
                     </div>
                 </div>
             </section>
-            <!-- Product Catalog Grid Section (Allows Custom Admin-Uploaded Products) -->
-            <section class="catalog-section" id="catalog">
-                <div class="container">
-                    <div class="section-header text-center">
-                        <span class="badge">TarUshaStore</span>
-                        <h2>Shop Hydroponic Systems &amp; Kits</h2>
-                        <p class="section-subtitle">Select from our premium default setups or view recently uploaded custom hydroponic systems.</p>
-                    </div>
 
-                    <div class="catalog-grid" id="catalog-products-grid">
-                        <!-- Loaded dynamically via app.js -->
-                    </div>
-                </div>
-            </section>
-
-            <!-- Solutions We Offer Section -->
-            <section class="solutions-section" id="solutions">
-                <div class="container">
-                    <div class="section-header text-center">
-                        <span class="badge">What We Do</span>
-                        <h2>Solutions We Offer</h2>
-                        <p class="section-subtitle">Tailored hydroponic setups to fit every space, from compact home systems to massive hospitality and commercial farm operations.</p>
-                    </div>
-
-                    <div class="solutions-grid">
-                        
-                        <!-- Card 1: Home Hydroponics -->
-                        <div class="solution-card">
-                            <div class="solution-img-wrapper">
-                                <img src="assets/kit-starter.jpg" alt="Home Hydroponics system for balconies and kitchens" class="solution-img" loading="lazy">
-                            </div>
-                            <div class="solution-content">
-                                <h3>Home Hydroponics</h3>
-                                <p>Perfect for compact urban balconies, terraces, and kitchen countertops. Grow clean greens steps from your plate.</p>
-                                <a href="#consultation" class="btn-learn-more" onclick="selectInterestInForm('Hydroponic Kits')">Learn More →</a>
-                            </div>
-                        </div>
-
-                        <!-- Card 2: Green Walls -->
-                        <div class="solution-card">
-                            <div class="solution-img-wrapper">
-                               <div class="solution-img-wrapper">
-                                <img src="assets/vertical_wall.jpg" alt="Aesthetic living walls" class="solution-img" loading="lazy">
-                            </div>
-                            </div>
-                            <div class="solution-content">
-                                <h3>Living Green Walls & Vertical Gardens in Gurgaon</h3>
-                                <p>Aesthetic living walls and vertical garden installations for offices, hotel lobbies, and premium commercial venues across Gurgaon. Improve air quality &amp; workspace aesthetics.</p>
-                                <a href="#consultation" class="btn-learn-more" onclick="selectInterestInForm('Green Walls')">Learn More →</a>
-                            </div>
-                        </div>
-
-                        <!-- Card 3: Schools -->
-                        <div class="solution-card">
-                            <div class="solution-img-wrapper">
-                                <img src="assets/school.jpeg" alt="Experiential school hydroponics STEM programs" class="solution-img" loading="lazy">
-                            </div>
-                            <div class="solution-content">
-                                <h3>School Hydroponics</h3>
-                                <p>Experiential STEM learning models, lab setups, and sustainability education curriculums for forward-thinking schools.</p>
-                                <a href="#consultation" class="btn-learn-more" onclick="selectInterestInForm('School Programs')">Learn More →</a>
-                            </div>
-                        </div>
-
-                        <!-- Card 4: Corporate Wellness -->
-                        <div class="solution-card">
-                            <div class="solution-img-wrapper">
-                                <div class="solution-placeholder-bg" style="background: linear-gradient(135deg, #2b6cb0, #4299e1);">
-                                     <img src="assets/corporate.jpeg" alt="Employee wellness programs" class="solution-img" loading="lazy">
-                                </div>
-                            </div>
-                            <div class="solution-content">
-                                <h3>Corporate Wellness</h3>
-                                <p>Employee wellness programs, sustainable office farm integration, and engagement workshops designed to build green teams.</p>
-                                <a href="#consultation" class="btn-learn-more" onclick="selectInterestInForm('Corporate Wellness')">Learn More →</a>
-                            </div>
-                        </div>
-
-                        <!-- Card 5: Hospitality -->
-                        <div class="solution-card">
-                            <div class="solution-img-wrapper">
-                                <div class="solution-placeholder-bg" style="background: linear-gradient(135deg, #dd6b20, #ed8936);">
-                                    <img src="assets/farm.jpg" alt="Custom setups for hotels" class="solution-img" loading="lazy">
-                                </div>
-                            </div>
-                            <div class="solution-content">
-                                <h3>Hospitality Farm-to-Table</h3>
-                                <p>Custom setups for hotels, fine-dining restaurants, and cafes to harvest fresh microgreens and culinary leaves on-premise.</p>
-                                <a href="#consultation" class="btn-learn-more" onclick="selectInterestInForm('Farm Setup')">Learn More →</a>
-                            </div>
-                        </div>
-
-                        <!-- Card 6: Farm Setup Consulting -->
-                        <div class="solution-card">
-                            <div class="solution-img-wrapper">
-                                <div class="solution-placeholder-bg" style="background: linear-gradient(135deg, #4a5568, #718096);">
-                                     <img src="assets/turnkey.jpeg" alt="Custom setups for commercial farms" class="solution-img" loading="lazy">                                </div>
-                            </div>
-                            <div class="solution-content">
-                                <h3>Farm Setup Consulting</h3>
-                                <p>Turnkey farm planning and deployment, matching scale constraints from 10 sq ft to over 5 acre systems.</p>
-                                <a href="#consultation" class="btn-learn-more" onclick="selectInterestInForm('Farm Setup')">Learn More →</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Industries We Serve Section -->
-            <section class="industries-section" id="industries">
-                <div class="container">
-                    <div class="section-header text-center">
-                        <span class="badge">Ecosystem Integration</span>
-                        <h2>Industries We Serve</h2>
-                        <p class="section-subtitle">Integrating urban agriculture and fresh green spaces across diverse sectors.</p>
-                    </div>
-
-                    <div class="industries-grid">
-                        <div class="industry-card">
-                            <div class="industry-icon">🏠</div>
-                            <h4>Homes</h4>
-                        </div>
-                        <div class="industry-card">
-                            <div class="industry-icon">🏫</div>
-                            <h4>Schools</h4>
-                        </div>
-                        <div class="industry-card">
-                            <div class="industry-icon">🏢</div>
-                            <h4>Corporates</h4>
-                        </div>
-                        <div class="industry-card">
-                            <div class="industry-icon">🏨</div>
-                            <h4>Hotels</h4>
-                        </div>
-                        <div class="industry-card">
-                            <div class="industry-icon">🍽️</div>
-                            <h4>Restaurants</h4>
-                        </div>
-                        <div class="industry-card">
-                            <div class="industry-icon">🏘️</div>
-                            <h4>Residential Communities</h4>
-                        </div>
-                        <div class="industry-card">
-                            <div class="industry-icon">🧘</div>
-                            <h4>Wellness Centers</h4>
-                        </div>
-                        <div class="industry-card">
-                            <div class="industry-icon">🏗️</div>
-                            <h4>Real Estate Developers</h4>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Impact Section -->
+<!-- Impact Section -->
             <section class="impact-section" id="impact">
                 <div class="container">
                     <div class="section-header text-center">
@@ -500,301 +358,14 @@
                     </div>
                 </div>
             </section>
-            <!-- Survey & Giveaways Section -->
-            <section class="survey-section" id="survey" style="padding: 80px 0; background-color: var(--bg-light);">
-                <div class="container">
-                    <div class="section-header text-center">
-                        <span class="badge">Community</span>
-                        <h2>Help Us Improve &amp; Win!</h2>
-                        <p class="section-subtitle">Take our short survey about urban farming. Once the data collection period ends, we will announce three lucky winners here!</p>
-                    </div>
-                    
-                    <div class="survey-content" style="max-width: 600px; margin: 0 auto; text-align: center; background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
-                        <!-- Survey Link -->
-                        <div class="survey-link-wrapper" style="margin-bottom: 30px;">
-                            <h3 style="margin-bottom: 15px;">Urban Farming Survey</h3>
-                            <p style="margin-bottom: 20px; color: #666;">Your feedback helps us design better hydroponic systems for Indian homes.</p>
-                            <a href="https://forms.gle/bUsGewoqAoqncm9w5" target="_blank" class="btn btn-primary">Take the Survey Now</a>
-                        </div>
-                        
-                        <!-- Winners Placeholder (To be updated later) -->
-                        <!--div class="survey-winners" style="border-top: 1px solid rgba(0,0,0,0.1); padding-top: 30px;">
-                            <h4 style="margin-bottom: 15px; color: var(--primary);">Giveaway Winners</h4>
-                            <p style="font-size: 0.9rem; color: #666;"><em>Winners will be announced here after the survey closes.</em></p>
-                            
-                            <!-- Placeholder for winners, currently hidden or empty state -->
-                            <!--ul style="list-style: none; padding: 0; display: none;" id="survey-winners-list">
-                                <li style="padding: 10px; background: #f9fbf9; margin-bottom: 8px; border-radius: 8px;">🏆 Winner 1: [Name]</li>
-                                <li style="padding: 10px; background: #f9fbf9; margin-bottom: 8px; border-radius: 8px;">🏆 Winner 2: [Name]</li>
-                                <li style="padding: 10px; background: #f9fbf9; border-radius: 8px;">🏆 Winner 3: [Name]</li>
-                            </ul>
-                        </div-->
-                    </div>
-                </div>
-            </section>
-
-            <!-- Workshops and Training Section -->
-            <section class="workshops-section" id="workshops">
-                <div class="container">
-                    <div class="section-header text-center">
-                        <span class="badge">Learn &amp; Connect</span>
-                        <h2>Hydroponic Training Gurgaon &amp; Workshops</h2>
-                        <p class="section-subtitle">Empowering urban communities with the biological and operational expertise to grow clean crops successfully through our specialized hydroponic training in Gurgaon.</p>
-                    </div>
-
-                    <div class="workshops-grid">
-                        <div class="workshop-card">
-                            <h3>Hydroponics Workshops</h3>
-                            <p>Introductory, interactive classes detailing system architectures, seed transplantation, nutrient levels, and yield optimizations.</p>
-                        </div>
-                        <div class="workshop-card">
-                            <h3>School Programs</h3>
-                            <p>Engaging educational modules tailored for campuses, explaining green botany, chemical-free agriculture, and environmental stewardship.</p>
-                        </div>
-                        <div class="workshop-card">
-                            <h3>Corporate Learning Sessions</h3>
-                            <p>Team building and sustainability programs that build dynamic organic gardening skills directly inside corporate workspaces.</p>
-                        </div>
-                        <div class="workshop-card">
-                            <h3>Beginner Training</h3>
-                            <p>One-on-one sessions helping new kit owners optimize crop selections, balance pH levels, and maintain fresh harvest yields.</p>
-                        </div>
-                    </div>
-
-                    <div class="text-center" style="margin-top: 48px;">
-                        <a href="#consultation" class="btn btn-primary" onclick="selectInterestInForm('Workshops')">Book a Workshop</a>
-                    </div>
-                </div>
-            </section>
-            <!-- WhatsApp Community Section -->
-            <section class="whatsapp-community-section" id="community" style="padding: 80px 0; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: white; text-align: center;">
-                <div class="container">
-                    <div style="max-width: 700px; margin: 0 auto;">
-                        <svg viewBox="0 0 24 24" width="64" height="64" fill="white" style="margin-bottom: 20px;">
-                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
-                        </svg>
-                        <h2 style="color: white; font-size: 2.5rem; margin-bottom: 20px;">Join the TarUsha Hydroponics Community!</h2>
-                        <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px; opacity: 0.95;">
-                            Want to share your harvest pictures, get instant troubleshooting tips, and connect with hundreds of other urban growers in Gurgaon? Join our exclusive WhatsApp community! We host Q&As, share exclusive discount codes, and organize local meetups.
-                        </p>
-                        <a href="https://chat.whatsapp.com/FyhjJnX2WMtHFJci1kerfT" target="_blank" style="display: inline-block; background-color: white; color: #128C7E; padding: 15px 40px; font-weight: 700; border-radius: 50px; font-size: 1.1rem; text-decoration: none; box-shadow: 0 10px 20px rgba(0,0,0,0.15); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                            Join WhatsApp Group 🌿
-                        </a>
-                        <p style="font-size: 0.85rem; margin-top: 20px; opacity: 0.8;">It's 100% free and strictly for hydroponics enthusiasts.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Testimonials Section -->
-            <section class="testimonials-section" id="testimonials">
-                <div class="container">
-                    <div class="section-header text-center">
-                        <span class="badge">Success Stories</span>
-                        <h2>What Our Clients Say</h2>
-                        <p class="section-subtitle">Discover how growers, educators, and companies in Gurgaon are transforming spaces with Tarusha.</p>
-                    </div>
-
-                    <div class="testimonials-carousel-container">
-                        <div class="testimonials-track" id="testimonial-track">
-                            
-                            <div class="testimonial-slide active">
-                                <div class="testimonial-content-box">
-                                    <span class="client-type">Home User</span>
-                                    <p class="testimonial-text">"The Passive Hydroponic Kit fits perfectly in our Gurgaon apartment balcony. We harvest fresh spinach and sweet basil weekly! It's so clean and low-maintenance."</p>
-                                    <h4 class="client-name">Ananya Sharma</h4>
-                                    <span class="client-meta">Sohna Road, Gurgaon</span>
-                                </div>
-                            </div>
-
-                            <div class="testimonial-slide">
-                                <div class="testimonial-content-box">
-                                    <span class="client-type">School Administrator</span>
-                                    <p class="testimonial-text">"Integrating Tarusha's school program was a fantastic decision. Students are actively involved in planting seeds and checking pH levels. Exceptional experiential science training!"</p>
-                                    <h4 class="client-name">Dr. Rajesh Iyer</h4>
-                                    <span class="client-meta">Delhi Public School</span>
-                                </div>
-                            </div>
-
-                            <div class="testimonial-slide">
-                                <div class="testimonial-content-box">
-                                    <span class="client-type">Corporate Client</span>
-                                    <p class="testimonial-text">"Our office green walls have completely changed the floor workspace aesthetics. Employees love the farm-to-desk initiative. Beautiful design and flawless installation!"</p>
-                                    <h4 class="client-name">Megha Nair</h4>
-                                    <span class="client-meta">HR Director, Tech Hub</span>
-                                </div>
-                            </div>
-
-                            <div class="testimonial-slide">
-                                <div class="testimonial-content-box">
-                                    <span class="client-type">Hospitality Client</span>
-                                    <p class="testimonial-text">"Chefs are thrilled with the farm-to-table freshness. Harvesting leafy microgreens directly on-site elevates dish aesthetics and flavor profiles. TarUshasupport is outstanding."</p>
-                                    <h4 class="client-name">Chef Vikrant Kapoor</h4>
-                                    <span class="client-meta">Fine-Dine Gurgaon</span>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="carousel-controls">
-                            <button class="carousel-btn prev-btn" id="prev-testimonial-btn" aria-label="Previous Slide">←</button>
-                            <div class="carousel-dots" id="carousel-dots-container"></div>
-                            <button class="carousel-btn next-btn" id="next-testimonial-btn" aria-label="Next Slide">→</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Resources / Flyers Section (Hidden by default, shown via app.js if flyers exist) -->
-            <section class="resources-section" id="resources" style="display: none;">
-                <div class="container">
-                    <div class="section-header text-center">
-                        <span class="badge">Downloads</span>
-                        <h2>Flyers &amp; Documents</h2>
-                        <p class="section-subtitle">Download brochures, maintenance guides, and product specifications.</p>
-                    </div>
-                    <div class="flyers-grid" id="flyers-grid">
-                        <!-- Flyers dynamically injected here by app.js -->
-                    </div>
-                </div>
-            </section>
-
-            <!-- About TarUshaSection -->
-            <section class="about-us-section" id="about">
-                <div class="container about-us-container">
-                    <div class="about-us-content">
-                        <span class="badge">Our Story</span>
-                        <h2>About Tarusha</h2>
-                        <p>
-                            TarUsha is a founder-led urban farming organization passionate about making clean, organic food cultivation accessible inside dense urban spaces. Based in Gurgaon, India, we blend agricultural technology with beautiful aesthetic designs to empower families, corporate hubs, and campuses.
-                        </p>
-                        <p>
-                            We focus deeply on <strong>sustainability</strong> (saving up to 90% water compared to soil farming), <strong>education</strong> (empowering students with STEM botanic courses), and <strong>community impact</strong> by localizing crops and mitigating food transit carbon footprints.
-                        </p>
-                        <div class="about-focus-points">
-                            <div class="focus-point">🌱 Sustainability First</div>
-                            <div class="focus-point">📚 STEM Education</div>
-                            <div class="focus-point">🤝 Community Centered</div>
-                            <div class="focus-point">🔬 Constant Innovation</div>
-                        </div>
-                    </div>
-                    <div class="about-us-graphic">
-                        <div class="about-placeholder-card">
-                            <svg viewBox="0 0 100 100" width="80" height="80" fill="currentColor" style="color: var(--primary);"><path d="M50 20C30 38 30 72 50 85C70 72 70 38 50 20Z"/></svg>
-                            <h4>Gurgaon Greenhouse</h4>
-                            <span class="text-muted">Innovation and R&amp;D Center</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Lead Generation Section -->
-            <section class="consultation-section" id="consultation">
-                <div class="container consultation-container">
-                    <div class="consultation-info">
-                        <span class="badge">Get In Touch</span>
-                        <h2>Book a Free Consultation</h2>
-                        <p>Ready to start growing? Connect with our master farm growers to analyze your space constraints, recommend appropriate kits, or build a corporate proposal.</p>
-                        
-                        <div class="info-strip">
-                            <strong>Gurgaon Office:</strong>
-                            <p>2nd Floor, Khatana Palace, Sector 64, Gurgaon 122101</p>
-                        </div>
-                        <div class="info-strip">
-                            <strong>Contact Info:</strong>
-                            <p>Phone: +91 9220902015</p>
-                            <p>Inquiries: contact@tarushafarms.com</p>
-                        </div>
-                    </div>
-
-                    <div class="consultation-form-card">
-                        <h3>Get in Touch</h3>
-                        <form id="lead-gen-form" autocomplete="off" novalidate>
-                            <!-- Web3Forms Access Key for live form submissions -->
-                            <!-- Get your free key at web3forms.com and replace YOUR_ACCESS_KEY_HERE -->
-                            <input type="hidden" name="access_key" value="43c48c25-7c21-4225-a6e8-b3c843d879e2">
-
-                            <!-- Honeypot anti-spam field -->
-                            <div class="honeypot-field" style="display:none;">
-                                <label for="honeypot">Leave this blank</label>
-                                <input type="text" id="honeypot" name="honeypot" tabindex="-1">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="lead-name" class="field-label">Full Name*</label>
-                                <input type="text" id="lead-name" name="name" class="form-control" placeholder="Jane Doe" required>
-                                <span class="error-text" id="lead-name-error">Please fill in your name.</span>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="lead-company" class="field-label">Company Name</label>
-                                <input type="text" id="lead-company" name="company" class="form-control" placeholder="Acme Corp (Optional)">
-                            </div>
-
-                            <div class="form-group-row">
-                                <div class="form-group">
-                                    <label for="lead-email" class="field-label">Email Address*</label>
-                                    <input type="email" id="lead-email" name="email" class="form-control" placeholder="jane@example.com" required>
-                                    <span class="error-text" id="lead-email-error">Please enter a valid email address.</span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="lead-phone" class="field-label">Phone Number*</label>
-                                    <input type="tel" id="lead-phone" name="phone" class="form-control" placeholder="+91 XXXXX XXXXX" required>
-                                    <span class="error-text" id="lead-phone-error">Please enter your phone number.</span>
-                                </div>
-                            </div>
-
-                            <div class="form-group-row">
-                                <div class="form-group">
-                                    <label for="lead-city" class="field-label">City*</label>
-                                    <input type="text" id="lead-city" name="city" class="form-control" placeholder="Gurgaon" required>
-                                    <span class="error-text" id="lead-city-error">Please specify your city.</span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="lead-interest" class="field-label">Area of Interest*</label>
-                                    <select id="lead-interest" name="interest" class="form-control" required>
-                                        <option value="" disabled selected>Select option</option>
-                                        <option value="Hydroponic Kits">Hydroponic Kits</option>
-                                        <option value="Green Walls">Green Walls</option>
-                                        <option value="Workshops">Workshops</option>
-                                        <option value="School Programs">School Programs</option>
-                                        <option value="Corporate Wellness">Corporate Wellness</option>
-                                        <option value="Farm Setup">Farm Setup</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                    <span class="error-text" id="lead-interest-error">Please select an area of interest.</span>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="lead-message" class="field-label">Message</label>
-                                <textarea id="lead-message" name="message" class="form-control" rows="4" placeholder="Briefly describe your requirements or site dimensions..."></textarea>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary btn-block" id="btn-submit-lead">Submit Inquiry</button>
-                        </form>
-
-                        <!-- Success State -->
-                        <div class="lead-success-card" id="lead-success-msg" style="display: none;">
-                            <div class="success-icon-wrapper" style="background-color: var(--accent-glow); color: var(--primary);">✓</div>
-                            <h3>Consultation Scheduled!</h3>
-                            <p>Thank you for reaching out to TarUsha. Our urban farming consultants will contact you shortly.</p>
-                            <!--p class="summary-instructions" style="font-size: 0.8rem; margin-top: 12px; color: var(--text-muted);">
-                                A simulated email alert has been dispatched to <strong>contact@tarushafarms.com</strong>, and the inquiry database record was successfully compiled.
-                            </p-->
-                            <button type="button" class="btn btn-secondary btn-block" id="btn-reset-lead" style="margin-top: 16px;">Send Another Inquiry</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-        </main>
+</main>
     </div>
 
 
 
     <!-- Sticky Mobile CTA Strip -->
     <div class="mobile-sticky-cta-strip">
-        <a href="#consultation" class="btn btn-primary btn-block">Book Free Consultation</a>
+        <a href="about.html#consultation" class="btn btn-primary btn-block">Book Free Consultation</a>
     </div>
 
     <!-- WhatsApp Chat Widget -->
