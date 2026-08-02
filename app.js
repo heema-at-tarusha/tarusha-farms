@@ -249,53 +249,67 @@ document.addEventListener('DOMContentLoaded', () => {
                 sourcePage: window.location.href
             };
 
-            const leads = JSON.parse(localStorage.getItem('tarusha_leads') || '[]');
-            leads.push(leadData);
-            localStorage.setItem('tarusha_leads', JSON.stringify(leads));
+            // HubSpot CRM Forms API Integration
+            // Replace these with your actual HubSpot Portal ID and Form GUID
+            const HUBSPOT_PORTAL_ID = '246925847';
+            const HUBSPOT_FORM_GUID = '10b943f4-b17f-4c25-93df-628a4dc315fe';
 
-            const accessKeyElement = document.querySelector('input[name="access_key"]');
-            const accessKey = accessKeyElement ? accessKeyElement.value : null;
+            const submitBtn = document.getElementById('btn-submit-lead');
+            if (submitBtn) {
+                submitBtn.innerText = 'Sending...';
+                submitBtn.disabled = true;
+            }
 
-            if (accessKey && accessKey !== 'YOUR_ACCESS_KEY_HERE') {
-                const submitBtn = document.getElementById('btn-submit-lead');
+            // HubSpot expects an array of field objects
+            // Map our form fields to standard HubSpot internal property names
+            const hsPayload = {
+                fields: [
+                    { name: "firstname", value: leadData.name }, // HubSpot handles full names in firstname fine
+                    { name: "company", value: leadData.company },
+                    { name: "email", value: leadData.email },
+                    { name: "phone", value: leadData.phone },
+                    { name: "city", value: leadData.city },
+                    { name: "message", value: `Interest: ${leadData.interest}\n\nMessage: ${leadData.message}` }
+                ]
+            };
+
+            const hsEndpoint = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`;
+
+            // Check if placeholders are still present
+            if (HUBSPOT_PORTAL_ID === 'YOUR_PORTAL_ID') {
+                console.warn("HubSpot Portal ID or Form GUID missing. Simulating success in console.");
+                console.log("HubSpot Payload:", hsPayload);
+                leadForm.style.display = 'none';
+                successCard.style.display = 'block';
                 if (submitBtn) {
-                    submitBtn.innerText = 'Sending...';
-                    submitBtn.disabled = true;
+                    submitBtn.innerText = 'Submit Inquiry';
+                    submitBtn.disabled = false;
                 }
-
-                const formData = new FormData(leadForm);
-                fetch('https://api.web3forms.com/submit', {
+            } else {
+                fetch(hsEndpoint, {
                     method: 'POST',
-                    body: formData
-                }).then(response => {
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(hsPayload)
+                })
+                .then(response => {
                     if (response.status === 200) {
                         leadForm.style.display = 'none';
                         successCard.style.display = 'block';
                     } else {
-                        alert('Something went wrong. Please try again.');
+                        alert('Something went wrong. Please try again or email us directly.');
+                        console.error("HubSpot Error:", response);
                     }
-                }).catch(error => {
+                })
+                .catch(error => {
                     alert('Error submitting form. Please check your connection.');
-                }).finally(() => {
+                    console.error("Fetch Error:", error);
+                })
+                .finally(() => {
                     if (submitBtn) {
                         submitBtn.innerText = 'Submit Inquiry';
                         submitBtn.disabled = false;
                     }
                 });
-            } else {
-                console.log("==========================================");
-                console.log("DISPATCHING LEAD EMAIL TO: contact@tarushafarms.com");
-                console.log("------------------------------------------");
-                console.log(`Lead Name: ${leadData.name}`);
-                console.log(`Email Address: ${leadData.email}`);
-                console.log(`Phone Number: ${leadData.phone}`);
-                console.log(`City: ${leadData.city}`);
-                console.log(`Area of Interest: ${leadData.interest}`);
-                console.log(`Message: ${leadData.message || '[None]'}`);
-                console.log("==========================================");
-
-                leadForm.style.display = 'none';
-                successCard.style.display = 'block';
             }
         });
     }

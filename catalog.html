@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-K6JV297H');</script>
+    <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -76,23 +84,18 @@
       ]
     }
     </script>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EESNQM5EVK"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-EESNQM5EVK');
-    </script>
 </head>
 <body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K6JV297H"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <!-- Header Navigation -->
     <header class="main-header" id="header-nav">
         <div class="container header-container">
-            <a href="#" class="logo" id="site-logo">
+            <a href="index.html" class="logo" id="site-logo">
                 <img src="assets/logo.png" alt="TarUshaLogo" class="logo-img" id="logo-image" style="max-height: 45px; width: auto;" onerror="this.style.display='none'; document.getElementById('logo-fallback-svg').style.display='block';">
                 <svg id="logo-fallback-svg" style="display:none;" class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="40" height="40">
                     <path d="M50 10 C25 35 25 75 50 90 C75 75 75 35 50 10 Z" fill="url(#logo-grad)"/>
@@ -109,16 +112,37 @@
                 </svg>
             </a>
             
-            <nav class="nav-menu" id="nav-links">
-                <a href="index.html#why-hydroponics" class="nav-link-item">Why Hydroponics</a>
-                <a href="solutions.html" class="nav-link-item">Solutions</a>
-                <a href="catalog.html" class="nav-link-item">Catalog</a>
-                <a href="catalog.html#resources" class="nav-link-item" id="nav-resources-link" style="display:none;">Resources</a>
-                <a href="workshops.html" class="nav-link-item">Workshops</a>
-                <a href="workshops.html#testimonials" class="nav-link-item">Testimonials</a>
-                <a href="about.html" class="nav-link-item">About Us</a>
-                <a href="blog.html" class="nav-link-item">Blog</a>
-                <a href="about.html#contact" class="nav-link-item">Contact</a>
+                        <nav class="nav-menu" id="nav-links">
+                <div class="dropdown">
+                    <button class="nav-link-item dropdown-btn">Offerings ▾</button>
+                    <div class="dropdown-content">
+                        <a href="solutions.html">Solutions</a>
+                        <a href="catalog.html">Store Catalog</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="nav-link-item dropdown-btn">Learn ▾</button>
+                    <div class="dropdown-content">
+                        <a href="workshops.html">Workshops & Training</a>
+                        <a href="blog.html">Blog</a>
+                        <a href="index.html#why-hydroponics">Why Hydroponics</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="nav-link-item dropdown-btn">Resources ▾</button>
+                    <div class="dropdown-content">
+                        <a href="Subsidy.html">Subsidy Calculator</a>
+                        <a href="catalog.html#resources">Flyers & Downloads</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="nav-link-item dropdown-btn">Company ▾</button>
+                    <div class="dropdown-content">
+                        <a href="about.html">About Us</a>
+                        <a href="workshops.html#testimonials">Testimonials</a>
+                        <a href="about.html#contact">Contact Us</a>
+                    </div>
+                </div>
             </nav>
 
             <div class="header-cta">
@@ -221,7 +245,7 @@
             
             <!-- Company Info Column -->
             <div class="footer-col company-col">
-                <a href="#" class="logo">
+                <a href="index.html" class="logo">
                     <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="30" height="30">
                         <path d="M50 10 C25 35 25 75 50 90 C75 75 75 35 50 10 Z" fill="#8cc342"/>
                     </svg>
