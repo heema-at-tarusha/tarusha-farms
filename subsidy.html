@@ -145,7 +145,8 @@
                 </div>
             </nav>
 
-            <div class="header-cta">
+            <div class="header-cta" style="display: flex; gap: 10px;">
+                <a href="subsidy.html" class="btn btn-sm btn-outline" id="btn-header-subsidy">Subsidy Calculator</a>
                 <a href="about.html#consultation" class="btn btn-sm btn-primary" id="btn-header-book">Free Consultation</a>
             </div>
             
@@ -199,7 +200,7 @@
 
                     <div class="subsidy-panel">
                         <h2><span class="num">03</span> Add-on components <span style="color:var(--text-muted);font-weight:400;">(optional)</span></h2>
-                        <p class="sub">Tick anything your client is also including in the project.</p>
+                        <p class="sub">Tick anything you are also including in the project.</p>
                         <div class="subsidy-addon-list" id="addonList"></div>
                     </div>
 
@@ -294,7 +295,7 @@ const addons = [
   { id:'crop_carngerb', name:'Planting material — Carnation & Gerbera', unit:'sq.m', rate:600, cap:2500, capUnit:'sq.m' },
   { id:'crop_rosechry', name:'Planting material — Rose/Chrysanthemum/Lilium', unit:'sq.m', rate:450, cap:2500, capUnit:'sq.m' },
   { id:'antibirdhail', name:'Anti Bird / Anti Hail Net', unit:'sq.m', rate:50, cap:10000, capUnit:'sq.m' },
-  { id:'mulching', name:'Mulching (Plastic/Jute/Agro-textile)', unit:'ha', rate:40000, cap:2, capUnit:'ha' },
+  { id:'mulching', name:'Mulching (Plastic/Jute/Agro-textile)', unit:'sq meter', rate:40000, cap:2, capUnit:'ha' },
   { id:'hydroponics', name:'Hydroponics / Aeroponics', unit:'sq.m', rate:350, cap:1000, capUnit:'sq.m' },
   { id:'fans', name:'Circulation Fans (poly house only)', unit:'fan', rate:5000, cap:6, capUnit:'fans' },
   { id:'sensor', name:'Sensor-based Automation for Fertigation', unit:'unit', rate:400000, cap:null, capUnit:'units', note:'Requires minimum 2500 sq.m protected area to qualify.' },
@@ -512,11 +513,11 @@ renderResults();
             <div class="footer-col Links-col">
                 <h4>Navigation</h4>
                 <ul class="footer-links">
-                    <li><a href="#why-hydroponics">Why Hydroponics</a></li>
-                    <li><a href="#solutions">Solutions We Offer</a></li>
-                    <li><a href="#catalog">Catalog &amp; Pricing</a></li>
-                    <li><a href="#workshops">Workshops &amp; Training</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="index.html#why-hydroponics">Why Hydroponics</a></li>
+                    <li><a href="solutions.html">Solutions We Offer</a></li>
+                    <li><a href="catalog.html">Catalog &amp; Pricing</a></li>
+                    <li><a href="workshops.html">Workshops &amp; Training</a></li>
+                    <li><a href="workshops.html#testimonials">Testimonials</a></li>
                 </ul>
             </div>
 
@@ -524,12 +525,12 @@ renderResults();
             <div class="footer-col keywords-col">
                 <h4>Hydroponic Index</h4>
                 <ul class="seo-keywords-list">
-                    <li><a href="#featured-product">Hydroponic Kits India</a></li>
-                    <li><a href="#solutions">Hydroponic Green Walls</a></li>
-                    <li><a href="#solutions">School Hydroponics Program</a></li>
-                    <li><a href="#workshops">Hydroponics Workshop</a></li>
-                    <li><a href="#why-hydroponics">Indoor Farming Gurgaon</a></li>
-                    <li><a href="#why-hydroponics">Sustainable Farming Delhi NCR</a></li>
+                    <li><a href="catalog.html">Hydroponic Kits India</a></li>
+                    <li><a href="solutions.html">Hydroponic Green Walls</a></li>
+                    <li><a href="solutions.html">School Hydroponics Program</a></li>
+                    <li><a href="workshops.html">Hydroponics Workshop</a></li>
+                    <li><a href="index.html#why-hydroponics">Indoor Farming Gurgaon</a></li>
+                    <li><a href="index.html#why-hydroponics">Sustainable Farming Delhi NCR</a></li>
                 </ul>
             </div>
 
