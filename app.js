@@ -547,4 +547,161 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // ==========================================
+    // 12. Microgreens FAQ Accordion & Form Logic
+    // ==========================================
+    const faqItems = document.querySelectorAll('.faq-accordion-item');
+    faqItems.forEach(item => {
+        const headerBtn = item.querySelector('.faq-accordion-header');
+        if (headerBtn && !headerBtn.hasAttribute('onclick')) {
+            headerBtn.addEventListener('click', () => {
+                if (typeof window.toggleFaq === 'function') {
+                    window.toggleFaq(headerBtn);
+                }
+            });
+        }
+    });
+
+    // Microgreens Consultation Form Submission
+    const microForm = document.getElementById('microgreens-lead-form');
+    const microSuccessCard = document.getElementById('micro-lead-success');
+    const btnResetMicro = document.getElementById('btn-reset-micro-lead');
+
+    if (microForm) {
+        microForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Anti-spam honeypot
+            const hp = document.getElementById('honeypot_micro');
+            if (hp && hp.value) {
+                console.warn('Spam detected via honeypot.');
+                return;
+            }
+
+            const nameInput = document.getElementById('lead-name');
+            const phoneInput = document.getElementById('lead-phone');
+            const emailInput = document.getElementById('lead-email');
+            const interestSelect = document.getElementById('lead-interest');
+            const spaceSelect = document.getElementById('lead-space');
+            const goalsText = document.getElementById('lead-goals');
+            const contactPref = document.getElementById('lead-contact-pref');
+
+            const nameError = document.getElementById('lead-name-error');
+            const phoneError = document.getElementById('lead-phone-error');
+            const emailError = document.getElementById('lead-email-error');
+            const interestError = document.getElementById('lead-interest-error');
+            const spaceError = document.getElementById('lead-space-error');
+
+            // Hide previous errors
+            [nameError, phoneError, emailError, interestError, spaceError].forEach(err => {
+                if (err) err.style.display = 'none';
+            });
+            [nameInput, phoneInput, emailInput, interestSelect, spaceSelect].forEach(inp => {
+                if (inp) inp.classList.remove('invalid');
+            });
+
+            let isValid = true;
+
+            if (!nameInput || !nameInput.value.trim()) {
+                if (nameInput) nameInput.classList.add('invalid');
+                if (nameError) nameError.style.display = 'block';
+                isValid = false;
+            }
+
+            if (!phoneInput || !phoneInput.value.trim() || phoneInput.value.trim().length < 8) {
+                if (phoneInput) phoneInput.classList.add('invalid');
+                if (phoneError) phoneError.style.display = 'block';
+                isValid = false;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailInput && emailInput.value.trim() && !emailRegex.test(emailInput.value.trim())) {
+                emailInput.classList.add('invalid');
+                if (emailError) emailError.style.display = 'block';
+                isValid = false;
+            }
+
+            if (!interestSelect || !interestSelect.value) {
+                if (interestSelect) interestSelect.classList.add('invalid');
+                if (interestError) interestError.style.display = 'block';
+                isValid = false;
+            }
+
+            if (!spaceSelect || !spaceSelect.value) {
+                if (spaceSelect) spaceSelect.classList.add('invalid');
+                if (spaceError) spaceError.style.display = 'block';
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            const submitBtn = document.getElementById('btn-submit-micro-lead');
+            if (submitBtn) {
+                submitBtn.innerText = 'Submitting Request...';
+                submitBtn.disabled = true;
+            }
+
+            const leadData = {
+                name: nameInput.value.trim(),
+                phone: phoneInput.value.trim(),
+                email: emailInput && emailInput.value.trim() ? emailInput.value.trim() : 'microgreens@tarushafarms.com',
+                interest: interestSelect.value,
+                space: spaceSelect.value,
+                goals: goalsText ? goalsText.value.trim() : '',
+                contact_pref: contactPref ? contactPref.value : 'WhatsApp'
+            };
+
+            const HUBSPOT_PORTAL_ID = '246925847';
+            const HUBSPOT_FORM_GUID = '10b943f4-b17f-4c25-93df-628a4dc315fe';
+
+            const hsPayload = {
+                fields: [
+                    { name: "firstname", value: leadData.name },
+                    { name: "phone", value: leadData.phone },
+                    { name: "email", value: leadData.email },
+                    { name: "area_of_interest", value: `Microgreens - ${leadData.interest}` },
+                    { name: "message", value: `[Microgreens Consultation] Space: ${leadData.space} | Preferred Contact: ${leadData.contact_pref} | Goal: ${leadData.goals}` }
+                ]
+            };
+
+            const hsEndpoint = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`;
+
+            fetch(hsEndpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(hsPayload)
+            })
+            .then(response => {
+                if (response.ok || response.status === 200) {
+                    microForm.style.display = 'none';
+                    if (microSuccessCard) microSuccessCard.style.display = 'block';
+                } else {
+                    console.warn('HubSpot submission returned status:', response.status);
+                    microForm.style.display = 'none';
+                    if (microSuccessCard) microSuccessCard.style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error("Submission Error:", error);
+                microForm.style.display = 'none';
+                if (microSuccessCard) microSuccessCard.style.display = 'block';
+            })
+            .finally(() => {
+                if (submitBtn) {
+                    submitBtn.innerText = 'Request a Consultation';
+                    submitBtn.disabled = false;
+                }
+            });
+        });
+    }
+
+    if (btnResetMicro && microForm && microSuccessCard) {
+        btnResetMicro.addEventListener('click', () => {
+            microForm.reset();
+            microForm.style.display = 'block';
+            microSuccessCard.style.display = 'none';
+        });
+    }
+
 });
+

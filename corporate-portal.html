@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TarUsha | Corporate Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { background-color: var(--bg-light); margin: 0; padding: 0; }
+        .portal-header { background: var(--white); padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow-sm); }
+        .portal-logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-headings); font-weight: 700; color: var(--primary); text-decoration: none; font-size: 1.2rem; }
+        .portal-container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; margin-top: 30px; }
+        
+        .card { background: white; border-radius: var(--radius-lg); padding: 30px; box-shadow: var(--shadow-sm); }
+        .card h3 { margin-top: 0; color: var(--primary); font-family: var(--font-headings); border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
+        
+        .balance-display { text-align: center; margin: 20px 0; }
+        .balance-number { font-size: 4rem; font-weight: 700; color: var(--accent); line-height: 1; }
+        .balance-label { color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px; }
+        
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: 500; margin-bottom: 8px; color: var(--text-dark); }
+        .form-control { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: var(--font-body); box-sizing: border-box; }
+        
+        .order-history { list-style: none; padding: 0; margin: 0; max-height: 400px; overflow-y: auto; }
+        .order-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #eee; }
+        .order-item:last-child { border-bottom: none; }
+        .order-date { font-weight: 600; color: var(--text-dark); }
+        .order-details { font-size: 0.9rem; color: var(--text-muted); margin-top: 4px; }
+        .badge-status { padding: 4px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+        .status-pending { background-color: #fff3cd; color: #856404; }
+        .status-delivered { background-color: #d4edda; color: #155724; }
+        .status-cancelled { background-color: #f8d7da; color: #721c24; }
+        
+        #login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+        .login-box { background: white; padding: 40px; border-radius: 12px; width: 100%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .auth-tabs { display: flex; margin-bottom: 25px; border-bottom: 2px solid #eee; }
+        .auth-tab { flex: 1; text-align: center; padding: 10px; cursor: pointer; font-weight: 600; color: var(--text-muted); }
+        .auth-tab.active { color: var(--primary); border-bottom: 2px solid var(--primary); margin-bottom: -2px; }
+    </style>
+</head>
+<body>
+
+    <!-- Login Overlay -->
+    <div id="login-overlay">
+        <div class="login-box">
+            <h2 style="text-align: center; color: var(--primary); margin-bottom: 20px;">Employee Portal</h2>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="tab-login">Sign In</div>
+                <div class="auth-tab" id="tab-register">Register</div>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Corporate Email</label>
+                    <input type="email" id="login-email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="login-password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                <p id="login-error" style="color: red; text-align: center; margin-top: 15px; display: none;"></p>
+            </form>
+
+            <!-- Register Form -->
+            <form id="register-form" style="display: none;">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="reg-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Corporate Email</label>
+                    <input type="email" id="reg-email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="reg-password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Corporate Registration Code</label>
+                    <input type="text" id="reg-code" class="form-control" placeholder="e.g. ACME2026" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+                <p id="reg-msg" style="text-align: center; margin-top: 15px;"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Portal -->
+    <div id="portal-app" style="display: none;">
+        <header class="portal-header">
+            <a href="index.html" class="portal-logo">
+                <svg viewBox="0 0 100 100" width="24" height="24"><path d="M50 10 C25 35 25 75 50 90 C75 75 75 35 50 10 Z" fill="var(--accent)"/></svg>
+                TarUsha Corporate
+            </a>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <span id="user-email-display" style="font-weight: 500;"></span>
+                <button id="btn-logout" class="btn btn-sm btn-outline">Logout</button>
+            </div>
+        </header>
+
+        <div class="portal-container">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                <div>
+                    <h1 style="color: var(--primary); margin: 0 0 10px 0;">Welcome back!</h1>
+                    <p style="color: var(--text-muted); margin: 0;" id="corporate-info-display">Loading corporate info...</p>
+                </div>
+                <button id="btn-buy-subscription" class="btn btn-primary">Buy Subscription</button>
+            </div>
+
+            <div class="dashboard-grid">
+                <!-- Left Col -->
+                <div style="display: flex; flex-direction: column; gap: 30px;">
+                    <div class="card">
+                        <h3>Your Balance</h3>
+                        <div class="balance-display">
+                            <div class="balance-number" id="balance-number">-</div>
+                            <div class="balance-label">Salads Remaining</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Schedule a Delivery</h3>
+                        <form id="schedule-order-form">
+                            <div class="form-group">
+                                <label>Delivery Date</label>
+                                <input type="date" id="order-date" class="form-control" required>
+                                <small style="color: var(--text-muted); margin-top: 5px; display: block;" id="cutoff-warning"></small>
+                            </div>
+                            <div class="form-group">
+                                <label>Select Salad</label>
+                                <select id="order-salad" class="form-control" required>
+                                    <option value="" disabled selected>Select an option</option>
+                                    <option value="Mediterranean Quinoa">Mediterranean Quinoa Bowl</option>
+                                    <option value="Asian Sesame Crunch">Asian Sesame Crunch</option>
+                                    <option value="Classic Caesar">Classic Caesar</option>
+                                    <option value="Protein Power Bowl">Protein Power Bowl</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Office Location</label>
+                                <select id="order-location" class="form-control" required>
+                                    <option value="" disabled selected>Select drop-off location</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block" id="btn-submit-order" disabled>Schedule Delivery</button>
+                            <p id="order-msg" style="margin-top: 10px; text-align: center; font-size: 0.9rem;"></p>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Right Col -->
+                <div class="card">
+                    <h3>Delivery History</h3>
+                    <ul class="order-history" id="order-history-list">
+                        <li style="text-align: center; color: var(--text-muted); padding: 20px;">Loading history...</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Razorpay Checkout Placeholder Overlay -->
+    <div id="checkout-overlay" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center;">
+        <div style="background: white; padding: 40px; border-radius: 12px; text-align: center; max-width: 400px;">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin-bottom: 20px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            <h3 style="margin-top:0;">Razorpay Integration</h3>
+            <p style="color: var(--text-muted);">This is where the Razorpay checkout popup will appear. Once payment succeeds, your balance will be updated.</p>
+            <button class="btn btn-outline" onclick="document.getElementById('checkout-overlay').style.display='none'">Close</button>
+        </div>
+    </div>
+
+    <!-- App Logic -->
+    <script type="module">
+        import { app, db, auth, collection, addDoc, getDocs, query, where, updateDoc, doc, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from './firebase-config.js';
+
+        let currentUser = null;
+        let corporateData = null;
+        let employeeDocId = null;
+
+        const loginOverlay = document.getElementById('login-overlay');
+        const portalApp = document.getElementById('portal-app');
+        
+        // Auth Tabs Logic
+        document.getElementById('tab-login').addEventListener('click', () => {
+            document.getElementById('tab-login').classList.add('active');
+            document.getElementById('tab-register').classList.remove('active');
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('register-form').style.display = 'none';
+        });
+
+        document.getElementById('tab-register').addEventListener('click', () => {
+            document.getElementById('tab-register').classList.add('active');
+            document.getElementById('tab-login').classList.remove('active');
+            document.getElementById('register-form').style.display = 'block';
+            document.getElementById('login-form').style.display = 'none';
+        });
+
+        // Auth Logic
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUser = user;
+                loginOverlay.style.display = 'none';
+                portalApp.style.display = 'block';
+                document.getElementById('user-email-display').innerText = user.email;
+                await loadEmployeeData();
+            } else {
+                loginOverlay.style.display = 'flex';
+                portalApp.style.display = 'none';
+            }
+        });
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const errEl = document.getElementById('login-error');
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                errEl.style.display = 'none';
+            } catch (error) {
+                errEl.innerText = "Invalid credentials";
+                errEl.style.display = 'block';
+            }
+        });
+
+        // Registration Logic
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const code = document.getElementById('reg-code').value.trim();
+            const msgEl = document.getElementById('reg-msg');
+            
+            msgEl.innerText = "Validating code...";
+            msgEl.style.color = "blue";
+            
+            try {
+                // 1. Verify Code
+                const q = query(collection(db, "Corporates"), where("registrationCode", "==", code));
+                const snap = await getDocs(q);
+                
+                if (snap.empty) {
+                    throw new Error("Invalid Registration Code.");
+                }
+                
+                const corpDoc = snap.docs[0];
+                const corpData = corpDoc.data();
+                
+                // 2. Check limits and pause state
+                if (corpData.registrationsPaused) {
+                    throw new Error("Registrations are currently paused for this corporate.");
+                }
+                
+                if (corpData.currentRegistrations >= corpData.registrationLimit) {
+                    throw new Error("Registration limit has been reached for this corporate.");
+                }
+                
+                msgEl.innerText = "Creating account...";
+                
+                // 3. Create User in Firebase Auth
+                const userCred = await createUserWithEmailAndPassword(auth, email, password);
+                
+                // 4. Create Employee record
+                await addDoc(collection(db, "Employees"), {
+                    uid: userCred.user.uid,
+                    email: email,
+                    name: name,
+                    corporateId: corpDoc.id,
+                    subscriptionBalance: 0
+                });
+                
+                // 5. Increment Corporate Registration Count
+                await updateDoc(doc(db, "Corporates", corpDoc.id), {
+                    currentRegistrations: corpData.currentRegistrations + 1
+                });
+                
+                // Firebase automatically signs in the user, which triggers onAuthStateChanged
+                msgEl.innerText = "Success!";
+                msgEl.style.color = "green";
+                
+            } catch (error) {
+                msgEl.innerText = error.message;
+                msgEl.style.color = "red";
+            }
+        });
+
+        document.getElementById('btn-logout').addEventListener('click', () => signOut(auth));
+        document.getElementById('btn-buy-subscription').addEventListener('click', () => {
+            document.getElementById('checkout-overlay').style.display = 'flex';
+        });
+
+        async function loadEmployeeData() {
+            try {
+                // For MVP, we search the Employees collection for matching email
+                const empQ = query(collection(db, "Employees"), where("email", "==", currentUser.email));
+                const empSnap = await getDocs(empQ);
+                
+                if (empSnap.empty) {
+                    alert("Your email is not linked to any corporate account.");
+                    return;
+                }
+
+                const empData = empSnap.docs[0].data();
+                employeeDocId = empSnap.docs[0].id;
+                
+                document.getElementById('balance-number').innerText = empData.subscriptionBalance || 0;
+                
+                if((empData.subscriptionBalance || 0) > 0) {
+                    document.getElementById('btn-submit-order').disabled = false;
+                } else {
+                    document.getElementById('order-msg').innerText = "Please buy a subscription to schedule an order.";
+                    document.getElementById('order-msg').style.color = "red";
+                }
+
+                // Load Corporate Data
+                const corpRef = doc(db, "Corporates", empData.corporateId);
+                // Note: getDoc is not exported in firebase-config.js, so we query it via getDocs for MVP simplicity
+                const corpQ = query(collection(db, "Corporates"), where("__name__", "==", empData.corporateId));
+                const corpSnap = await getDocs(corpQ);
+                
+                if (!corpSnap.empty) {
+                    corporateData = corpSnap.docs[0].data();
+                    document.getElementById('corporate-info-display').innerText = `Corporate: ${corporateData.companyName} | Cutoff: ${corporateData.cutoffTime}`;
+                    document.getElementById('cutoff-warning').innerText = `Orders for tomorrow must be placed before ${corporateData.cutoffTime} today.`;
+                    
+                    const locSelect = document.getElementById('order-location');
+                    locSelect.innerHTML = '<option value="" disabled selected>Select drop-off location</option>';
+                    corporateData.officeLocations.forEach(loc => {
+                        locSelect.innerHTML += `<option value="${loc}">${loc}</option>`;
+                    });
+                }
+
+                loadOrders();
+
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function loadOrders() {
+            const list = document.getElementById('order-history-list');
+            try {
+                const q = query(collection(db, "Orders"), where("employeeUid", "==", currentUser.uid));
+                const snap = await getDocs(q);
+                
+                if(snap.empty) {
+                    list.innerHTML = '<li style="text-align: center; color: var(--text-muted); padding: 20px;">No previous deliveries found.</li>';
+                    return;
+                }
+
+                list.innerHTML = '';
+                // Sort by date descending (client side for MVP)
+                const orders = [];
+                snap.forEach(doc => orders.push(doc.data()));
+                orders.sort((a,b) => new Date(b.deliveryDate) - new Date(a.deliveryDate));
+
+                orders.forEach(order => {
+                    const statusClass = 'status-' + order.status.toLowerCase();
+                    list.innerHTML += `
+                        <li class="order-item">
+                            <div>
+                                <div class="order-date">${order.deliveryDate}</div>
+                                <div class="order-details">${order.saladType} &bull; ${order.location}</div>
+                            </div>
+                            <span class="badge-status ${statusClass}">${order.status}</span>
+                        </li>
+                    `;
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        // Order Scheduling Logic
+        document.getElementById('schedule-order-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const dateVal = document.getElementById('order-date').value;
+            const saladVal = document.getElementById('order-salad').value;
+            const locVal = document.getElementById('order-location').value;
+            const msg = document.getElementById('order-msg');
+            
+            if(!dateVal || !saladVal || !locVal) return;
+
+            // Cutoff validation
+            const selectedDate = new Date(dateVal);
+            const now = new Date();
+            selectedDate.setHours(0,0,0,0);
+            now.setHours(0,0,0,0);
+            
+            const diffDays = Math.round((selectedDate - now) / (1000 * 60 * 60 * 24));
+            
+            if (diffDays < 0) {
+                msg.innerText = "You cannot schedule a delivery for a past date.";
+                msg.style.color = "red";
+                return;
+            }
+            
+            if (diffDays === 0) {
+                msg.innerText = "Same day delivery is not possible.";
+                msg.style.color = "red";
+                return;
+            }
+
+            if (diffDays === 1) {
+                // Check cutoff
+                if (corporateData && corporateData.cutoffTime) {
+                    const [cutoffHour, cutoffMin] = corporateData.cutoffTime.split(':');
+                    const realNow = new Date();
+                    const currentTotalMinutes = realNow.getHours() * 60 + realNow.getMinutes();
+                    const cutoffTotalMinutes = parseInt(cutoffHour) * 60 + parseInt(cutoffMin);
+                    
+                    if (currentTotalMinutes > cutoffTotalMinutes) {
+                        msg.innerText = `Cutoff time (${corporateData.cutoffTime}) has passed for tomorrow's delivery.`;
+                        msg.style.color = "red";
+                        return;
+                    }
+                }
+            }
+
+            // Valid! Place order
+            msg.innerText = "Scheduling...";
+            msg.style.color = "blue";
+            document.getElementById('btn-submit-order').disabled = true;
+
+            try {
+                // 1. Add order
+                await addDoc(collection(db, "Orders"), {
+                    employeeUid: currentUser.uid,
+                    employeeEmail: currentUser.email,
+                    corporateId: corporateData ? corporateData.companyName : 'Unknown', // Using name for easy admin reading
+                    location: locVal,
+                    saladType: saladVal,
+                    deliveryDate: dateVal,
+                    status: 'Pending',
+                    timestamp: new Date().toISOString()
+                });
+
+                // 2. Decrement balance
+                const currentBalance = parseInt(document.getElementById('balance-number').innerText);
+                const empRef = doc(db, "Employees", employeeDocId);
+                await updateDoc(empRef, { subscriptionBalance: currentBalance - 1 });
+
+                // Refresh UI
+                document.getElementById('schedule-order-form').reset();
+                msg.innerText = "Order scheduled successfully!";
+                msg.style.color = "green";
+                await loadEmployeeData();
+
+            } catch (err) {
+                msg.innerText = "Error: " + err.message;
+                msg.style.color = "red";
+                document.getElementById('btn-submit-order').disabled = false;
+            }
+        });
+
+        // Set min date on datepicker
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        document.getElementById('order-date').min = tomorrow.toISOString().split('T')[0];
+    </script>
+</body>
+</html>

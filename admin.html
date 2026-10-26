@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TarUsha | Admin Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { background-color: var(--bg-light); margin: 0; padding: 0; font-family: var(--font-body); }
+        .admin-layout { display: flex; min-height: 100vh; }
+        .sidebar { width: 250px; background-color: var(--primary); color: white; padding: 20px; flex-shrink: 0; }
+        .sidebar-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 40px; font-family: var(--font-headings); font-size: 1.5rem; font-weight: 600; }
+        .nav-item { display: block; padding: 12px 15px; color: rgba(255,255,255,0.8); text-decoration: none; border-radius: 8px; margin-bottom: 5px; transition: all 0.2s; cursor: pointer; }
+        .nav-item:hover, .nav-item.active { background-color: rgba(255,255,255,0.1); color: white; }
+        .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+        .card { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        h2 { font-family: var(--font-headings); color: var(--primary); margin-top: 0; margin-bottom: 20px; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: 500; margin-bottom: 8px; color: var(--text-dark); }
+        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-family: var(--font-body); }
+        .btn-submit { background-color: var(--accent); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .btn-submit:hover { background-color: #7ab231; }
+        
+        .section-pane { display: none; }
+        .section-pane.active { display: block; }
+        
+        /* Table Styles */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background-color: var(--bg-light); color: var(--primary); font-weight: 600; }
+        tr:hover { background-color: #fafafa; }
+        .badge-status { padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+        .status-pending { background-color: #fff3cd; color: #856404; }
+        .status-delivered { background-color: #d4edda; color: #155724; }
+        .status-cancelled { background-color: #f8d7da; color: #721c24; }
+        
+        /* Login Overlay */
+        #login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--primary); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+        .login-box { background: white; padding: 40px; border-radius: 12px; width: 100%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .login-box h2 { text-align: center; margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+
+    <!-- Login Overlay -->
+    <div id="login-overlay">
+        <div class="login-box">
+            <h2>Admin Login</h2>
+            <form id="admin-login-form">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn-submit" style="width: 100%">Sign In</button>
+                <p id="login-error" style="color: red; text-align: center; margin-top: 15px; display: none;"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin App -->
+    <div class="admin-layout" id="admin-app" style="display: none;">
+        <div class="sidebar">
+            <div class="sidebar-logo">
+                <svg viewBox="0 0 100 100" width="30" height="30"><path d="M50 10 C25 35 25 75 50 90 C75 75 75 35 50 10 Z" fill="white"/></svg>
+                TarUsha Admin
+            </div>
+            <a class="nav-item active" data-target="dashboard">Dashboard</a>
+            <a class="nav-item" data-target="corporates">Corporates</a>
+            <a class="nav-item" data-target="employees">Employees</a>
+            <a class="nav-item" id="btn-logout" style="margin-top: 50px;">Logout</a>
+        </div>
+
+        <div class="main-content">
+            
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="section-pane active">
+                <h2>Orders Dashboard</h2>
+                <div class="card">
+                    <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                        <input type="date" id="filter-date" class="form-control" style="width: auto;">
+                        <select id="filter-corp" class="form-control" style="width: auto;">
+                            <option value="">All Corporates</option>
+                        </select>
+                    </div>
+                    <table id="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Employee</th>
+                                <th>Corporate</th>
+                                <th>Location</th>
+                                <th>Salad</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Corporates Section -->
+            <div id="corporates" class="section-pane">
+                <h2>Manage Corporates</h2>
+                <div class="card">
+                    <h3>Add New Corporate</h3>
+                    <form id="add-corporate-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Company Name</label>
+                                <input type="text" id="corp-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Cutoff Time (e.g., 20:00)</label>
+                                <input type="time" id="corp-cutoff" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Registration Code</label>
+                                <input type="text" id="corp-reg-code" placeholder="e.g. ACME2026" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Registration Threshold (Max Employees)</label>
+                                <input type="number" id="corp-reg-limit" placeholder="e.g. 50" required>
+                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label>Office Locations (Comma separated)</label>
+                                <input type="text" id="corp-locations" placeholder="Building A, Building B" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-submit">Add Corporate</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3>Active Corporates</h3>
+                    <table id="corporates-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Cutoff Time</th>
+                                <th>Code</th>
+                                <th>Registrations</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Employees Section -->
+            <div id="employees" class="section-pane">
+                <h2>Employee Directory</h2>
+                <div class="card">
+                    <div class="form-group" style="max-width: 300px;">
+                        <label>Select Corporate</label>
+                        <select id="emp-viewer-corporate" class="form-control">
+                            <option value="">Loading...</option>
+                        </select>
+                    </div>
+                    
+                    <table id="emp-viewer-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Salad Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td colspan="3">Select a corporate to view registered employees.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Admin Logic -->
+    <script type="module">
+        import { app, db, auth, collection, addDoc, getDocs, query, where, updateDoc, doc, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from './firebase-config.js';
+
+        // UI Elements
+        const loginOverlay = document.getElementById('login-overlay');
+        const adminApp = document.getElementById('admin-app');
+        
+        // Navigation Logic
+        document.querySelectorAll('.nav-item[data-target]').forEach(item => {
+            item.addEventListener('click', (e) => {
+                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+                document.querySelectorAll('.section-pane').forEach(s => s.classList.remove('active'));
+                e.target.classList.add('active');
+                document.getElementById(e.target.getAttribute('data-target')).classList.add('active');
+            });
+        });
+
+        // Auth Logic
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Extremely basic admin check for MVP
+                loginOverlay.style.display = 'none';
+                adminApp.style.display = 'flex';
+                loadCorporates();
+                loadOrders();
+            } else {
+                loginOverlay.style.display = 'flex';
+                adminApp.style.display = 'none';
+            }
+        });
+
+        document.getElementById('admin-login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const errEl = document.getElementById('login-error');
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                errEl.style.display = 'none';
+            } catch (error) {
+                errEl.innerText = "Invalid credentials";
+                errEl.style.display = 'block';
+            }
+        });
+
+        document.getElementById('btn-logout').addEventListener('click', () => signOut(auth));
+
+        // Corporates Logic
+        const addCorpForm = document.getElementById('add-corporate-form');
+        addCorpForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = addCorpForm.querySelector('button');
+            btn.innerText = 'Adding...';
+            
+            const data = {
+                companyName: document.getElementById('corp-name').value,
+                cutoffTime: document.getElementById('corp-cutoff').value,
+                officeLocations: document.getElementById('corp-locations').value.split(',').map(s => s.trim()),
+                registrationCode: document.getElementById('corp-reg-code').value.trim(),
+                registrationLimit: parseInt(document.getElementById('corp-reg-limit').value),
+                currentRegistrations: 0,
+                registrationsPaused: false,
+                activeStatus: true
+            };
+
+            try {
+                // Check if code already exists
+                const q = query(collection(db, "Corporates"), where("registrationCode", "==", data.registrationCode));
+                const snap = await getDocs(q);
+                if (!snap.empty) {
+                    alert("Registration Code already exists! Please choose a unique one.");
+                    btn.innerText = 'Add Corporate';
+                    return;
+                }
+
+                await addDoc(collection(db, "Corporates"), data);
+                addCorpForm.reset();
+                loadCorporates();
+            } catch (err) {
+                alert("Error adding corporate: " + err.message);
+            }
+            btn.innerText = 'Add Corporate';
+        });
+
+        async function loadCorporates() {
+            const snapshot = await getDocs(collection(db, "Corporates"));
+            const tbody = document.querySelector('#corporates-table tbody');
+            const select = document.getElementById('emp-viewer-corporate');
+            const filterSelect = document.getElementById('filter-corp');
+            
+            tbody.innerHTML = '';
+            select.innerHTML = '<option value="" disabled selected>Select Corporate</option>';
+            filterSelect.innerHTML = '<option value="">All Corporates</option>';
+
+            snapshot.forEach(docSnap => {
+                const corp = docSnap.data();
+                const id = docSnap.id;
+                
+                const toggleText = corp.registrationsPaused ? "Resume" : "Pause";
+                const toggleColor = corp.registrationsPaused ? "green" : "red";
+                
+                // Table
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${corp.companyName}</td>
+                        <td>${corp.cutoffTime}</td>
+                        <td><strong>${corp.registrationCode || 'N/A'}</strong></td>
+                        <td>${corp.currentRegistrations || 0} / ${corp.registrationLimit || '∞'}</td>
+                        <td>
+                            <button class="btn-toggle-pause" data-id="${id}" data-paused="${corp.registrationsPaused}" style="background:${toggleColor};color:white;border:none;border-radius:4px;cursor:pointer;padding:5px 10px;">
+                                ${toggleText}
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                
+                // Dropdowns
+                const opt = `<option value="${id}">${corp.companyName}</option>`;
+                select.innerHTML += opt;
+                filterSelect.innerHTML += opt;
+            });
+
+            document.querySelectorAll('.btn-toggle-pause').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const corpId = e.target.getAttribute('data-id');
+                    const isPaused = e.target.getAttribute('data-paused') === 'true';
+                    try {
+                        await updateDoc(doc(db, "Corporates", corpId), { registrationsPaused: !isPaused });
+                        loadCorporates();
+                    } catch (err) {
+                        alert("Error updating status: " + err.message);
+                    }
+                });
+            });
+        }
+
+        // Employee Viewer Logic
+        document.getElementById('emp-viewer-corporate').addEventListener('change', async (e) => {
+            const corpId = e.target.value;
+            const tbody = document.querySelector('#emp-viewer-table tbody');
+            tbody.innerHTML = '<tr><td colspan="3">Loading...</td></tr>';
+            
+            try {
+                const q = query(collection(db, "Employees"), where("corporateId", "==", corpId));
+                const snap = await getDocs(q);
+                
+                if (snap.empty) {
+                    tbody.innerHTML = '<tr><td colspan="3">No employees registered yet.</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = '';
+                snap.forEach(docSnap => {
+                    const emp = docSnap.data();
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${emp.name || 'N/A'}</td>
+                            <td>${emp.email}</td>
+                            <td>${emp.subscriptionBalance || 0}</td>
+                        </tr>
+                    `;
+                });
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="3" style="color:red;">Error: ${err.message}</td></tr>`;
+            }
+        });
+
+        // Orders Logic
+        async function loadOrders() {
+            const snapshot = await getDocs(collection(db, "Orders"));
+            const tbody = document.querySelector('#orders-table tbody');
+            tbody.innerHTML = '';
+            
+            // To make this robust, we'd fetch names, but for MVP we display raw data or require denormalized data
+            snapshot.forEach(docSnap => {
+                const order = docSnap.data();
+                const statusClass = 'status-' + order.status.toLowerCase();
+                
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${order.deliveryDate}</td>
+                        <td>${order.employeeEmail || order.employeeUid}</td>
+                        <td>${order.corporateName || order.corporateId}</td>
+                        <td>${order.location}</td>
+                        <td>${order.saladType}</td>
+                        <td><span class="badge-status ${statusClass}">${order.status}</span></td>
+                        <td>
+                            ${order.status === 'Pending' ? 
+                                `<button class="btn-cancel-order" data-id="${docSnap.id}" data-uid="${order.employeeUid}" style="background:red;color:white;border:none;border-radius:4px;cursor:pointer;">Cancel</button>` 
+                                : '-'}
+                        </td>
+                    </tr>
+                `;
+            });
+
+            document.querySelectorAll('.btn-cancel-order').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const orderId = e.target.getAttribute('data-id');
+                    if(confirm("Are you sure you want to cancel this order? It will refund 1 salad to the employee.")) {
+                        try {
+                            const orderRef = doc(db, "Orders", orderId);
+                            await updateDoc(orderRef, { status: "Cancelled" });
+                            // TODO: In a real app, query the user's active subscription and increment balance
+                            alert("Order cancelled!");
+                            loadOrders();
+                        } catch (err) {
+                            alert("Error cancelling: " + err.message);
+                        }
+                    }
+                });
+            });
+        }
+        
+        // Listeners for filters
+        document.getElementById('filter-date').addEventListener('change', loadOrders);
+        document.getElementById('filter-corp').addEventListener('change', loadOrders);
+
+    </script>
+</body>
+</html>
