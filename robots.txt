@@ -1,0 +1,9 @@
+# robots.txt for https://tarushafarms.com/
+User-agent: *
+Allow: /
+
+# Disallow internal admin management portal
+Disallow: /admin.html
+
+# Sitemap reference
+Sitemap: https://tarushafarms.com/sitemap.xml
