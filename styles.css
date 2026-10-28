@@ -1557,7 +1557,7 @@ img {
     }
     
     .mobile-sticky-cta-strip {
-        display: block;
+        display: none !important;
     }
     
     .footer-main-grid {
