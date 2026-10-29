@@ -3569,3 +3569,537 @@ img {
     }
 }
 
+/* ==========================================================================
+   Home & Residential Gardens Showcase (home-gardens.html)
+   ========================================================================== */
+
+/* Hero Section */
+.hg-hero-section {
+    padding: 100px 0 70px;
+    background: linear-gradient(135deg, rgba(230, 244, 230, 0.75) 0%, rgba(244, 241, 234, 0.95) 100%);
+    border-bottom: 1px solid rgba(30, 63, 32, 0.08);
+}
+
+.hg-hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 48px;
+    align-items: center;
+}
+
+.hg-hero-title {
+    font-size: 3.2rem;
+    line-height: 1.15;
+    color: var(--primary);
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+}
+
+.hg-hero-subtitle {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--text-dark);
+    margin-bottom: 30px;
+}
+
+.hg-trust-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 36px;
+}
+
+.hg-trust-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white);
+    padding: 8px 16px;
+    border-radius: 30px;
+    border: 1px solid rgba(30, 63, 32, 0.1);
+    font-size: 0.85rem;
+    color: var(--primary);
+    font-weight: 600;
+    box-shadow: var(--shadow-sm);
+}
+
+.hg-hero-media-card {
+    position: relative;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    background: var(--white);
+}
+
+.hg-hero-img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    display: block;
+}
+
+.hg-hero-badge {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(25, 33, 26, 0.9);
+    backdrop-filter: blur(8px);
+    color: var(--white);
+    padding: 14px 20px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.hg-hero-badge strong {
+    display: block;
+    color: var(--accent);
+    font-family: var(--font-headings);
+    font-size: 1.05rem;
+}
+
+.hg-hero-badge span {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* Introduction Section */
+.hg-intro-section {
+    padding: 85px 0;
+    background: var(--white);
+    text-align: center;
+}
+
+.hg-intro-container {
+    max-width: 840px;
+    margin: 0 auto;
+}
+
+.hg-intro-title {
+    font-size: 2.3rem;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.hg-intro-lead {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-dark);
+}
+
+/* Garden Types Section */
+.hg-types-section {
+    padding: 85px 0;
+    background: var(--bg-light);
+}
+
+.hg-types-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    margin-top: 48px;
+}
+
+.hg-type-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(30, 63, 32, 0.08);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.hg-type-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent);
+}
+
+.hg-type-media {
+    position: relative;
+    height: 260px;
+    overflow: hidden;
+    background: #e3ede1;
+}
+
+.hg-type-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.hg-type-card:hover .hg-type-img {
+    transform: scale(1.04);
+}
+
+.hg-type-content {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.hg-type-title {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 6px;
+}
+
+.hg-type-subtitle {
+    font-size: 0.88rem;
+    color: var(--terracotta);
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+.hg-type-desc {
+    font-size: 0.94rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.hg-type-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.hg-type-features li {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.45;
+}
+
+.hg-type-features li::before {
+    content: "✓";
+    color: var(--primary-light);
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+/* Featured Projects Section */
+.hg-projects-section {
+    padding: 95px 0;
+    background: var(--white);
+}
+
+.hg-projects-container {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    margin-top: 50px;
+}
+
+.hg-project-card {
+    background: var(--bg-light);
+    border-radius: var(--radius-xl);
+    border: 1px solid rgba(30, 63, 32, 0.09);
+    padding: 40px;
+    box-shadow: var(--shadow-sm);
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.hg-project-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: sticky;
+    top: 90px;
+}
+
+.hg-gallery-main {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    height: 380px;
+    box-shadow: var(--shadow-md);
+    background: #e4ebe2;
+}
+
+.hg-gallery-main img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hg-gallery-thumbs {
+    display: flex;
+    gap: 12px;
+}
+
+.hg-thumb-btn {
+    flex: 1;
+    height: 85px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 2px solid transparent;
+    cursor: pointer;
+    background: #dde5db;
+    padding: 0;
+    transition: all 0.2s ease;
+}
+
+.hg-thumb-btn:hover,
+.hg-thumb-btn.active {
+    border-color: var(--primary-light);
+    transform: translateY(-2px);
+}
+
+.hg-thumb-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hg-project-meta-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.hg-meta-pill {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: var(--white);
+    color: var(--primary);
+    border: 1px solid rgba(30, 63, 32, 0.12);
+}
+
+.hg-meta-pill.highlight {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+}
+
+.hg-project-title {
+    font-size: 1.85rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+    line-height: 1.25;
+}
+
+.hg-project-story-block {
+    margin-bottom: 20px;
+}
+
+.hg-story-heading {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--terracotta);
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.hg-story-text {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text-dark);
+}
+
+.hg-challenges-list {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.hg-challenges-list li {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.45;
+}
+
+.hg-challenges-list li::before {
+    content: "•";
+    color: #e53e3e;
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.hg-systems-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.hg-system-tag {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    background: var(--white);
+    border: 1px solid rgba(75, 127, 67, 0.2);
+    border-radius: var(--radius-sm);
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.hg-outcome-box {
+    background: rgba(168, 198, 161, 0.18);
+    border: 1px solid rgba(75, 127, 67, 0.25);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    margin: 24px 0 20px;
+}
+
+.hg-outcome-box strong {
+    display: block;
+    color: var(--primary);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.hg-outcome-box p {
+    font-size: 0.92rem;
+    color: var(--text-dark);
+    line-height: 1.55;
+    margin: 0;
+}
+
+.hg-project-cta-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+/* Future Project Invitation Slot */
+.hg-future-project-card {
+    border: 2px dashed rgba(75, 127, 67, 0.35);
+    border-radius: var(--radius-xl);
+    padding: 48px 32px;
+    background: #faf9f6;
+    text-align: center;
+    max-width: 800px;
+    margin: 20px auto 0;
+}
+
+.hg-future-project-card h3 {
+    font-size: 1.6rem;
+    color: var(--primary);
+    margin-bottom: 12px;
+}
+
+.hg-future-project-card p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto 24px;
+    line-height: 1.6;
+}
+
+/* Why TarUsha for Home Gardens */
+.hg-why-section {
+    padding: 90px 0;
+    background: var(--bg-light);
+}
+
+.hg-why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 48px;
+}
+
+.hg-why-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 32px 26px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(30, 63, 32, 0.06);
+    transition: transform 0.3s ease;
+}
+
+.hg-why-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+}
+
+.hg-why-icon {
+    font-size: 2rem;
+    margin-bottom: 16px;
+    display: inline-block;
+}
+
+.hg-why-card h3 {
+    font-size: 1.25rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.hg-why-card p {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1100px) {
+    .hg-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    .hg-project-card {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    .hg-project-gallery {
+        position: static;
+    }
+    .hg-why-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .hg-hero-title {
+        font-size: 2.3rem;
+    }
+    .hg-types-grid {
+        grid-template-columns: 1fr;
+    }
+    .hg-why-grid {
+        grid-template-columns: 1fr;
+    }
+    .hg-project-card {
+        padding: 24px;
+    }
+    .hg-gallery-main {
+        height: 280px;
+    }
+    .hg-project-cta-row {
+        flex-direction: column;
+    }
+    .hg-project-cta-row .btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+}
+

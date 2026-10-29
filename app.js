@@ -176,8 +176,8 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
 
             // Honeypot spam check
-            const honeypot = document.getElementById('honeypot').value;
-            if (honeypot) {
+            const honeypot = document.getElementById('honeypot');
+            if (honeypot && honeypot.value) {
                 console.warn("Spam blocked via Honeypot check.");
                 return;
             }
@@ -197,40 +197,40 @@ document.addEventListener('DOMContentLoaded', () => {
             const interestError = document.getElementById('lead-interest-error');
 
             const errors = [nameError, emailError, phoneError, cityError, interestError];
-            errors.forEach(err => err.style.display = 'none');
+            errors.forEach(err => { if (err) err.style.display = 'none'; });
             const inputs = [nameInput, emailInput, phoneInput, cityInput, interestSelect];
-            inputs.forEach(inp => inp.classList.remove('invalid'));
+            inputs.forEach(inp => { if (inp) inp.classList.remove('invalid'); });
 
             let isValid = true;
 
-            if (!nameInput.value.trim()) {
-                nameInput.classList.add('invalid');
-                nameError.style.display = 'block';
+            if (!nameInput || !nameInput.value.trim()) {
+                if (nameInput) nameInput.classList.add('invalid');
+                if (nameError) nameError.style.display = 'block';
                 isValid = false;
             }
 
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailInput.value.trim() || !emailRegex.test(emailInput.value.trim())) {
-                emailInput.classList.add('invalid');
-                emailError.style.display = 'block';
+            if (!emailInput || !emailInput.value.trim() || !emailRegex.test(emailInput.value.trim())) {
+                if (emailInput) emailInput.classList.add('invalid');
+                if (emailError) emailError.style.display = 'block';
                 isValid = false;
             }
 
-            if (!phoneInput.value.trim() || phoneInput.value.trim().length < 8) {
-                phoneInput.classList.add('invalid');
-                phoneError.style.display = 'block';
+            if (!phoneInput || !phoneInput.value.trim() || phoneInput.value.trim().length < 8) {
+                if (phoneInput) phoneInput.classList.add('invalid');
+                if (phoneError) phoneError.style.display = 'block';
                 isValid = false;
             }
 
-            if (!cityInput.value.trim()) {
-                cityInput.classList.add('invalid');
-                cityError.style.display = 'block';
+            if (!cityInput || !cityInput.value.trim()) {
+                if (cityInput) cityInput.classList.add('invalid');
+                if (cityError) cityError.style.display = 'block';
                 isValid = false;
             }
 
-            if (!interestSelect.value) {
-                interestSelect.classList.add('invalid');
-                interestError.style.display = 'block';
+            if (!interestSelect || !interestSelect.value) {
+                if (interestSelect) interestSelect.classList.add('invalid');
+                if (interestError) interestError.style.display = 'block';
                 isValid = false;
             }
 
@@ -239,22 +239,22 @@ document.addEventListener('DOMContentLoaded', () => {
             const leadData = {
                 id: 'LEAD-' + Date.now(),
                 name: nameInput.value.trim(),
-                company: companyInput.value.trim(),
+                company: (companyInput && companyInput.value) ? companyInput.value.trim() : 'Residential Homeowner',
                 email: emailInput.value.trim(),
                 phone: phoneInput.value.trim(),
                 city: cityInput.value.trim(),
-                interest: interestSelect.value,
-                message: messageText.value.trim(),
+                interest: interestSelect ? interestSelect.value : 'Home Gardens',
+                message: (messageText && messageText.value) ? messageText.value.trim() : '',
                 timestamp: new Date().toISOString(),
                 sourcePage: window.location.href
             };
 
             // HubSpot CRM Forms API Integration
-            // Replace these with your actual HubSpot Portal ID and Form GUID
             const HUBSPOT_PORTAL_ID = '246925847';
             const HUBSPOT_FORM_GUID = '10b943f4-b17f-4c25-93df-628a4dc315fe';
 
             const submitBtn = document.getElementById('btn-submit-lead');
+            const originalBtnText = submitBtn ? submitBtn.innerText : 'Submit Inquiry';
             if (submitBtn) {
                 submitBtn.innerText = 'Sending...';
                 submitBtn.disabled = true;
@@ -270,8 +270,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     { name: "phone", value: leadData.phone },
                     { name: "city", value: leadData.city },
                     { name: "area_of_interest", value: leadData.interest },
-                    { name: "message", value: leadData.message }
-                ]
+                    { name: "message", value: leadData.message ? `[${document.title}] ${leadData.message}` : `[Inquiry from ${document.title}]` }
+                ],
+                context: {
+                    pageUri: window.location.href,
+                    pageName: document.title
+                }
             };
 
             const hsEndpoint = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`;
@@ -281,9 +285,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.warn("HubSpot Portal ID or Form GUID missing. Simulating success in console.");
                 console.log("HubSpot Payload:", hsPayload);
                 leadForm.style.display = 'none';
-                successCard.style.display = 'block';
+                if (successCard) successCard.style.display = 'block';
                 if (submitBtn) {
-                    submitBtn.innerText = 'Submit Inquiry';
+                    submitBtn.innerText = originalBtnText;
                     submitBtn.disabled = false;
                 }
             } else {
@@ -293,21 +297,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify(hsPayload)
                 })
                 .then(response => {
-                    if (response.status === 200) {
+                    if (response.ok || response.status === 200 || response.status === 204) {
                         leadForm.style.display = 'none';
-                        successCard.style.display = 'block';
+                        if (successCard) successCard.style.display = 'block';
                     } else {
-                        alert('Something went wrong. Please try again or email us directly.');
+                        alert('Something went wrong submitting your inquiry. Please try again or reach out on WhatsApp at +91 9220902015.');
                         console.error("HubSpot Error:", response);
                     }
                 })
                 .catch(error => {
-                    alert('Error submitting form. Please check your connection.');
+                    alert('Error submitting form. Please check your connection or reach out on WhatsApp.');
                     console.error("Fetch Error:", error);
                 })
                 .finally(() => {
                     if (submitBtn) {
-                        submitBtn.innerText = 'Submit Inquiry';
+                        submitBtn.innerText = originalBtnText;
                         submitBtn.disabled = false;
                     }
                 });
@@ -317,9 +321,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnResetLead) {
         btnResetLead.addEventListener('click', () => {
-            leadForm.reset();
-            leadForm.style.display = 'block';
-            successCard.style.display = 'none';
+            if (leadForm) {
+                leadForm.reset();
+                leadForm.style.display = 'block';
+            }
+            if (successCard) {
+                successCard.style.display = 'none';
+            }
         });
     }
 
