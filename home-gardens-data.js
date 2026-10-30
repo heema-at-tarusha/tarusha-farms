@@ -20,7 +20,7 @@ const homeGardenCategories = [
         title: 'Balcony Gardens',
         subtitle: 'Turn Compact Urban Balconies into Lush Green Sanctuaries',
         description: 'Engineered specifically for apartments and flats. Utilizing vertical space, lightweight planter frames, railing boxes, and automated drip lines that keep your balcony spotless, mud-free, and full of life.',
-        image: 'assets/g3.jpg',
+        image: 'assets/g3.jpeg',
         fallbackImage: 'assets/kit-starter.jpg',
         features: [
             'Vertical tiered wall frames to maximize floor area',
@@ -50,7 +50,7 @@ const homeGardenCategories = [
         title: 'Home Vegetable & Kitchen Gardens',
         subtitle: 'Harvest Clean, Pesticide-Free Greens Steps from Your Pan',
         description: 'Grow your own culinary herbs, fresh salad greens, bell peppers, and cherry tomatoes at home. Available in modular soil-less hydroponic systems and organic sub-irrigated planters.',
-        image: 'assets/g5.jpg',
+        image: 'assets/g5.jpeg',
         fallbackImage: 'assets/indoor_dutch_bucket.jpeg',
         features: [
             'Daily harvest of fresh Spearmint, Basil, Coriander & Spinach',
@@ -65,7 +65,7 @@ const homeGardenCategories = [
         title: 'Custom Residential Green Spaces',
         subtitle: 'Bespoke Courtyards, Living Walls & Experiential Green Corners',
         description: 'From aesthetic vertical living walls in home lobbies and patios to serene reading alcoves and experiential family gardens. We collaborate with homeowners and interior designers to build living architecture.',
-        image: 'assets/vertical_wall.jpg',
+        image: 'assets/home-gardens/homegarden.jpg',
         fallbackImage: 'assets/g2.jpg',
         features: [
             'Bespoke architectural living green wall installations',
