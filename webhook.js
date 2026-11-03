@@ -26,28 +26,35 @@ app.get('/health', (req, res) => {
 // ENDPOINT 1: Meta Handshake Verification (GET /webhook)
 // Meta calls this when you click "Verify and Save" in the developer portal.
 // ---------------------------------------------------------------------
-app.get('/webhook', (req, res) => {
+app.get(['/webhook', '/webhook/'], (req, res) => {
+  console.log('📡 Incoming Meta GET handshake request with params:', req.query);
+  
   const mode = req.query['hub.mode'];
   const token = req.query['hub.verify_token'];
   const challenge = req.query['hub.challenge'];
 
+  const cleanToken = (token || '').trim();
+  const expectedToken = (VERIFY_TOKEN || '').trim();
+
   if (mode && token) {
-    if (mode === 'subscribe' && token === VERIFY_TOKEN) {
-      console.log('✅ Webhook handshake verified successfully by Meta!');
-      return res.status(200).send(challenge);
+    if (mode === 'subscribe' && cleanToken === expectedToken) {
+      console.log('✅ Webhook handshake verified successfully by Meta! Challenge returned:', challenge);
+      return res.status(200).send(String(challenge));
     } else {
-      console.warn('❌ Handshake failed: Invalid verify token');
-      return res.sendStatus(403);
+      console.warn(`❌ Handshake failed: Token mismatch! Received: "${cleanToken}", Expected: "${expectedToken}"`);
+      return res.status(403).send('Verification token mismatch');
     }
   }
-  res.sendStatus(400);
+  
+  console.warn('❌ Handshake failed: Missing hub.mode or hub.verify_token in request');
+  res.status(400).send('Missing hub parameters');
 });
 
 // ---------------------------------------------------------------------
 // ENDPOINT 2: Event Listener (POST /webhook)
 // Meta fires this whenever a customer replies or taps a button.
 // ---------------------------------------------------------------------
-app.post('/webhook', (req, res) => {
+app.post(['/webhook', '/webhook/'], (req, res) => {
   // Acknowledge Meta immediately (< 3 seconds) with HTTP 200 OK
   res.sendStatus(200);
 
