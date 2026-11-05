@@ -94,6 +94,13 @@
 
     <!-- Company & Contact -->
     <url>
+        <loc>https://tarushafarms.com/testimonials.html</loc>
+        <lastmod>2026-11-05</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
         <loc>https://tarushafarms.com/about.html</loc>
         <lastmod>2026-10-28</lastmod>
         <changefreq>monthly</changefreq>

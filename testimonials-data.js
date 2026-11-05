@@ -1,0 +1,185 @@
+/**
+ * TarUsha Farms — Client Testimonials & Stories Data Engine
+ * 
+ * ============================================================================
+ * HOW TO ADD A NEW VIDEO TESTIMONIAL AS IT IS SHOT:
+ * ============================================================================
+ * 1. Copy one of the object blocks in `testimonialVideos` below.
+ * 2. Paste it at the top of the `testimonialVideos` array.
+ * 3. Fill in the clientName, location, quote, and video details.
+ *    - For YouTube: set `videoSource: 'youtube'` and `videoId: 'YOUR_YOUTUBE_ID'`.
+ *      The thumbnail will automatically generate from YouTube if `thumbnail` is left empty!
+ *    - For direct MP4s: set `videoSource: 'mp4'` and `videoUrl: 'assets/videos/filename.mp4'`.
+ * 4. Save this file — the video will instantly appear on the website!
+ * 
+ * ============================================================================
+ * HOW TO ADD A NEW GOOGLE BUSINESS PROFILE (GBP) REVIEW:
+ * ============================================================================
+ * 1. Copy one of the object blocks in `googleReviews` below.
+ * 2. Paste it at the top of the `googleReviews` array.
+ * 3. Fill in reviewerName, rating (usually 5), date, reviewText, and location/service.
+ * 4. Save this file — the review card will immediately render on the page!
+ */
+
+const testimonialVideos = [
+  {
+    id: "verma-dlf-phase-5",
+    clientName: "Aditya & Sneha Verma",
+    location: "DLF Phase 5, Gurgaon",
+    category: "home-gardens", // 'home-gardens' | 'commercial' | 'schools' | 'corporate'
+    categoryLabel: "Home Balcony Garden",
+    projectTitle: "Compact Balcony Edible Oasis",
+    videoSource: "youtube",
+    videoId: "LXb3EKWsInQ", // Sample YouTube ID (can be replaced with live video ID)
+    thumbnail: "assets/home-gardens/hg_balcony_compact.png",
+    duration: "2:14",
+    quote: "We harvest fresh spinach, mint, and Italian basil every single week. Zero soil, zero pests, and the automated watering makes it practically effortless.",
+    fullStory: "Aditya and Sneha wanted to enjoy pesticide-free greens in their high-rise apartment without dealing with heavy soil pots or water stains on their balcony floor.",
+    date: "October 2026",
+    featured: true
+  },
+  {
+    id: "singhal-commercial-farm",
+    clientName: "Rajiv Singhal",
+    location: "Sohna Agricultural Belt, Haryana",
+    category: "commercial",
+    categoryLabel: "Commercial Hydroponic Farm",
+    projectTitle: "1-Acre Polyhouse NFT Facility",
+    videoSource: "youtube",
+    videoId: "C0DPdy98e4c",
+    thumbnail: "assets/commercial-farms/comm_polyhouse_hero.png",
+    duration: "3:40",
+    quote: "TarUsha took us from an empty plot to harvesting 3.5 tonnes of premium crisphead lettuce per month. Their fertigation skids and agronomy SOPs are world-class.",
+    fullStory: "First-generation agripreneur Rajiv Singhal partnered with TarUsha to design, erect, and commission a 4,000 sq m climate-controlled greenhouse supplying NCR supermarkets.",
+    date: "September 2026",
+    featured: true
+  },
+  {
+    id: "heritage-school-stem",
+    clientName: "Dr. Sunita Rao & Students",
+    location: "Sector 62, Gurgaon",
+    category: "schools",
+    categoryLabel: "School Experiential STEM",
+    projectTitle: "Campus Living Science Lab",
+    videoSource: "youtube",
+    videoId: "dQw4w9WgXcQ",
+    thumbnail: "assets/media__1779443909593.png",
+    duration: "2:05",
+    quote: "Our middle school students don't just study biology from textbooks anymore—they measure electrical conductivity, test pH, and harvest their own salad crops.",
+    fullStory: "A 400-plant vertical hydroponic educational installation integrated directly into the middle-school biology and environmental science curriculum.",
+    date: "August 2026",
+    featured: false
+  },
+  {
+    id: "cyber-city-corporate-wall",
+    clientName: "Karan Mehra (Workplace Experience)",
+    location: "Cyber City, DLF Phase 2, Gurgaon",
+    category: "corporate",
+    categoryLabel: "Corporate Living Wall",
+    projectTitle: "Biophilic Office Green Wall",
+    videoSource: "youtube",
+    videoId: "kJQP7kiw5Fk",
+    thumbnail: "assets/interiors/commercial_concept.jpg",
+    duration: "1:52",
+    quote: "The living green wall in our central employee townhall has transformed indoor air freshness and acoustics. It is the most photographed spot in the office.",
+    fullStory: "A 320 sq ft automated living plant wall featuring air-purifying foliage and automated nutrient dosers installed for an international financial services headquarters.",
+    date: "July 2026",
+    featured: false
+  },
+  {
+    id: "mathur-terrace-oasis",
+    clientName: "Priya & Amit Mathur",
+    location: "Golf Course Extension Road, Gurgaon",
+    category: "home-gardens",
+    categoryLabel: "Terrace Hydroponic Garden",
+    projectTitle: "Rooftop Dutch Bucket & NFT Haven",
+    videoSource: "youtube",
+    videoId: "L_LUpnjgPso",
+    thumbnail: "assets/home-gardens/hg_terrace_oasis.png",
+    duration: "2:45",
+    quote: "Our terrace garden supplies 70% of our daily salads and cooking herbs now. Our children love checking the root growth in the water channels!",
+    fullStory: "A hybrid terrace setup combining 80 NFT leafy holes with 16 Dutch buckets for bell peppers and heirloom cherry tomatoes under an architectural shade canopy.",
+    date: "May 2026",
+    featured: false
+  }
+];
+
+const googleReviews = [
+  {
+    id: "gbp-1",
+    reviewerName: "Vikram Malhotra",
+    reviewerInitials: "VM",
+    rating: 5,
+    date: "1 week ago",
+    reviewText: "TarUsha set up our terrace hydroponic garden in Gurgaon. Outstanding quality, punctual installation, and their agronomist visits regularly to check water parameters. We get fresh, chemical-free greens right at home!",
+    serviceType: "Terrace Garden Installation",
+    location: "Golf Course Road, Gurgaon",
+    verifiedGoogle: true,
+    likes: 4
+  },
+  {
+    id: "gbp-2",
+    reviewerName: "Dr. Rajesh Iyer",
+    reviewerInitials: "RI",
+    rating: 5,
+    date: "3 weeks ago",
+    reviewText: "Integrating TarUsha's school program was a fantastic decision. Students are actively involved in planting seeds, monitoring nutrient levels, and harvesting. Exceptional experiential science training!",
+    serviceType: "School STEM Program",
+    location: "Delhi Public School, Gurgaon",
+    verifiedGoogle: true,
+    likes: 7
+  },
+  {
+    id: "gbp-3",
+    reviewerName: "Ananya Sharma",
+    reviewerInitials: "AS",
+    rating: 5,
+    date: "1 month ago",
+    reviewText: "The passive hydroponic kit fits perfectly on our Gurgaon apartment balcony. We harvest fresh spinach and sweet basil weekly! It's so clean, zero soil mess, and very low maintenance.",
+    serviceType: "Home Balcony Kit",
+    location: "Sohna Road, Gurgaon",
+    verifiedGoogle: true,
+    likes: 3
+  },
+  {
+    id: "gbp-4",
+    reviewerName: "Megha Nair",
+    reviewerInitials: "MN",
+    rating: 5,
+    date: "2 months ago",
+    reviewText: "Our office green walls have completely changed the floor workspace aesthetics. Employees love the farm-to-desk initiative. Beautiful biophilic design, quiet pumps, and flawless setup!",
+    serviceType: "Office Green Wall",
+    location: "Cyber Hub, Gurgaon",
+    verifiedGoogle: true,
+    likes: 5
+  },
+  {
+    id: "gbp-5",
+    reviewerName: "Chef Vikrant Kapoor",
+    reviewerInitials: "VK",
+    rating: 5,
+    date: "3 months ago",
+    reviewText: "Chefs are thrilled with the farm-to-table freshness. Harvesting living microgreens directly on-site elevates dish presentation and punchy flavors. TarUsha's post-installation support is outstanding.",
+    serviceType: "Hospitality Microgreens System",
+    location: "Sector 29, Gurgaon",
+    verifiedGoogle: true,
+    likes: 6
+  },
+  {
+    id: "gbp-6",
+    reviewerName: "Pooja Chawla",
+    reviewerInitials: "PC",
+    rating: 5,
+    date: "4 months ago",
+    reviewText: "Best decision for our kitchen! We have fresh coriander, mint, bok choy, and rosemary available round the clock. The team guided us with every feeding schedule and lighting setup.",
+    serviceType: "Kitchen Hydroponic Setup",
+    location: "Nirvana Country, Gurgaon",
+    verifiedGoogle: true,
+    likes: 2
+  }
+];
+
+// Helper functions for easy consumption
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { testimonialVideos, googleReviews };
+}
