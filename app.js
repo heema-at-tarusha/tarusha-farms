@@ -10,19 +10,42 @@ document.addEventListener('DOMContentLoaded', () => {
     const header = document.getElementById('header-nav');
     const menuBtn = document.getElementById('menu-btn');
     const navLinks = document.getElementById('nav-links');
-    
+    const dropdowns = document.querySelectorAll('.dropdown');
+
     // Add backdrop style on scroll
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
+    if (header) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    }
+
+    // Dropdown Accordion Toggle for Mobile & Tablets (<= 992px)
+    dropdowns.forEach(dropdown => {
+        const btn = dropdown.querySelector('.dropdown-btn');
+        if (btn) {
+            btn.addEventListener('click', (e) => {
+                if (window.innerWidth <= 992) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const wasActive = dropdown.classList.contains('active');
+                    // Accordion: close other open dropdowns
+                    dropdowns.forEach(d => {
+                        if (d !== dropdown) d.classList.remove('active');
+                    });
+                    dropdown.classList.toggle('active', !wasActive);
+                }
+            });
         }
     });
 
     // Mobile Menu Toggle
     if (menuBtn && navLinks) {
-        menuBtn.addEventListener('click', () => {
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
             navLinks.classList.toggle('active');
             menuBtn.classList.toggle('open');
             
@@ -35,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 spans[0].style.transform = 'none';
                 spans[1].style.opacity = '1';
                 spans[2].style.transform = 'none';
+                dropdowns.forEach(d => d.classList.remove('active'));
             }
         });
 
@@ -47,7 +71,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 spans[0].style.transform = 'none';
                 spans[1].style.opacity = '1';
                 spans[2].style.transform = 'none';
+                dropdowns.forEach(d => d.classList.remove('active'));
             });
+        });
+
+        // Close menu when tapping outside header
+        document.addEventListener('click', (e) => {
+            if (navLinks.classList.contains('active') && header && !header.contains(e.target)) {
+                navLinks.classList.remove('active');
+                menuBtn.classList.remove('open');
+                const spans = menuBtn.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+                dropdowns.forEach(d => d.classList.remove('active'));
+            }
         });
     }
 
