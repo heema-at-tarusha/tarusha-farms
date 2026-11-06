@@ -21,7 +21,7 @@
  * 4. Save this file — the review card will immediately render on the page!
  */
 
-const testimonialVideos = [
+const testimonialVideos = [ /*
   {
     id: "verma-dlf-phase-5",
     clientName: "Aditya & Sneha Verma",
@@ -88,7 +88,7 @@ const testimonialVideos = [
   },
   {
     id: "mathur-terrace-oasis",
-    clientName: "Priya & Amit Mathur",
+    clientName: "Axa XL ",
     location: "Golf Course Extension Road, Gurgaon",
     category: "home-gardens",
     categoryLabel: "Terrace Hydroponic Garden",
@@ -101,46 +101,46 @@ const testimonialVideos = [
     fullStory: "A hybrid terrace setup combining 80 NFT leafy holes with 16 Dutch buckets for bell peppers and heirloom cherry tomatoes under an architectural shade canopy.",
     date: "May 2026",
     featured: false
-  }
+  }*/
 ];
 
 const googleReviews = [
   {
     id: "gbp-1",
-    reviewerName: "Vikram Malhotra",
-    reviewerInitials: "VM",
+    reviewerName: "Naresh Sahijwani",
+    reviewerInitials: "NS",
     rating: 5,
     date: "1 week ago",
-    reviewText: "TarUsha set up our terrace hydroponic garden in Gurgaon. Outstanding quality, punctual installation, and their agronomist visits regularly to check water parameters. We get fresh, chemical-free greens right at home!",
-    serviceType: "Terrace Garden Installation",
-    location: "Golf Course Road, Gurgaon",
+    reviewText: "The host and the faculty were both par excellence in their respective fields. Their passion, knowledge, and seamless coordination made the workshop a truly enriching experience. Kudos to the entire team for putting together such a well-conceived and professionally executed event. <p>To be candid, owing to my earlier experience in corresponding with the Noida team, I had gone to the workshop with rather modest expectations. In fact, I had already prepared and carried my list of queries in black and white, expecting that I might need to follow up on them later. However, the workshop turned out to be a pleasant surprise and changed my perception of hydroponics considerably. It certainly proved that one should never judge a book by its cover.</p><p> A special word of appreciation for Junior Hema for her warm hospitality and the insightful walkthrough of the live setup. She left no stone unturned in ensuring that visitors felt welcome and informed.</p><p> Arigatou gozaimasu. Domo arigatou. With sincere gratitude and deep appreciation to everyone who made this learning experience memorable.</p>",
+    serviceType: "Home and Kitchen Hobby workshop",
+    location: "TarUsha Experience centre, Gurgaon",
     verifiedGoogle: true,
     likes: 4
   },
   {
     id: "gbp-2",
-    reviewerName: "Dr. Rajesh Iyer",
-    reviewerInitials: "RI",
+    reviewerName: "Sheetal Saini",
+    reviewerInitials: "SS",
     rating: 5,
     date: "3 weeks ago",
-    reviewText: "Integrating TarUsha's school program was a fantastic decision. Students are actively involved in planting seeds, monitoring nutrient levels, and harvesting. Exceptional experiential science training!",
-    serviceType: "School STEM Program",
-    location: "Delhi Public School, Gurgaon",
+    reviewText: "Loved the in depth consultation provided by Heema for kitchen garden set up. Amazing produce, must visit and must try.<p>Bought the cherry tomatoes and butterhead lettuce.</p>",
+    serviceType: "Farm Visit",
+    location: "TarUsha Experience centre, Gurgaon",
     verifiedGoogle: true,
     likes: 7
   },
   {
     id: "gbp-3",
-    reviewerName: "Ananya Sharma",
-    reviewerInitials: "AS",
+    reviewerName: "Shobhit Saraswat",
+    reviewerInitials: "SS",
     rating: 5,
     date: "1 month ago",
-    reviewText: "The passive hydroponic kit fits perfectly on our Gurgaon apartment balcony. We harvest fresh spinach and sweet basil weekly! It's so clean, zero soil mess, and very low maintenance.",
-    serviceType: "Home Balcony Kit",
+    reviewText: "Recently tried lettuce and wheatgrass from Tarusha. The freshness, crunchiness was something I have never experienced before. Those who care for the heath of their families, should definitely give Tarusha Farms a try. Highly recommended.",
+    serviceType: "Fresh Produce",
     location: "Sohna Road, Gurgaon",
     verifiedGoogle: true,
     likes: 3
-  },
+  }/*,
   {
     id: "gbp-4",
     reviewerName: "Megha Nair",
@@ -176,7 +176,7 @@ const googleReviews = [
     location: "Nirvana Country, Gurgaon",
     verifiedGoogle: true,
     likes: 2
-  }
+  }*/
 ];
 
 // Helper functions for easy consumption
