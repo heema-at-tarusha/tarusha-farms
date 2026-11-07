@@ -70,39 +70,39 @@ const testimonialVideos = [
     fullStory: "A 400-plant vertical hydroponic educational installation integrated directly into the middle-school biology and environmental science curriculum.",
     date: "August 2026",
     featured: false
-  },
-  {
-    id: "cyber-city-corporate-wall",
-    clientName: "Karan Mehra (Workplace Experience)",
-    location: "Cyber City, DLF Phase 2, Gurgaon",
-    category: "corporate",
-    categoryLabel: "Corporate Living Wall",
-    projectTitle: "Biophilic Office Green Wall",
-    videoSource: "youtube",
-    videoId: "kJQP7kiw5Fk",
-    thumbnail: "assets/interiors/commercial_concept.jpg",
-    duration: "1:52",
-    quote: "The living green wall in our central employee townhall has transformed indoor air freshness and acoustics. It is the most photographed spot in the office.",
-    fullStory: "A 320 sq ft automated living plant wall featuring air-purifying foliage and automated nutrient dosers installed for an international financial services headquarters.",
-    date: "July 2026",
-    featured: false
   },*/
   {
-    id: "mathur-terrace-oasis",
+    id: "Vanshika-Singh-2",
     clientName: "Vanshika Singh ",
-    location: "Golf Course Extension Road, Gurgaon",
+    location: "TarUsha Experience Center, Gurgaon",
     category: "General",
     categoryLabel: "Why Hydroponics is the need of the day",
     projectTitle: "Is Hydroponics really needed?",
     videoSource: "youtube",
-    videoId: "FqbczBPLnUE",
-    thumbnail: "assets/home-gardens/hg_terrace_oasis.png",
-    duration: "1:21",
-    quote: "With the unreliable market supply of clean, pesticide free food, Hydroponics is the only alternative to traditional farming!",
+    videoId: "MRrTL_FaF80",
+    thumbnail: "assets/testimonials/vanshika-2.jpg",
+    duration: "1:52",
+   quote: "With the unreliable market supply of clean, pesticide free food, Hydroponics is the only alternative to traditional farming!",
     fullStory: "Ms Vanshika Singh approached us for learning Hydroponics to get an option. Option to be able to grow food without much hassle. As a frequent traveller, she was concerned of herplant babies suffering neglect. We were curious and asked her why she thinks Hydroponics will help. Hear what she has to say!",
     date: "Oct 2026",
     featured: false
-  } //https://youtube.com/shorts/FqbczBPLnUE?feature=share
+  },
+  {
+    id: "Vanshika-Singh-1",
+    clientName: "Vanshika Singh ",
+    location: "TarUsha Experience Center, Gurgaon",
+    category: "General",
+    categoryLabel: "Why one doesnt trust the food available in the market these days",
+    projectTitle: "Is Hydroponics really needed?",
+    videoSource: "youtube",
+    videoId: "FqbczBPLnUE",
+    thumbnail: "assets/testimonials/vanshika-1.jpg",
+    duration: "1:21",
+    quote: "With the reports of factory produced food, Vanshika feelsone must start preparing for the future!",
+    fullStory: "Ms Vanshika Singh approached us for learning Hydroponics to get an option. Option to be able to grow food without much hassle. As a frequent traveller, she was concerned of herplant babies suffering neglect. We were curious and asked her why she thinks Hydroponics will help. Hear what she has to say!",
+    date: "Oct 2026",
+    featured: false
+  } https://youtube.com/shorts/MRrTL_FaF80?feature=share
 ];
 
 const googleReviews = [
