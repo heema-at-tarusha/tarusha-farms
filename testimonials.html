@@ -200,6 +200,9 @@
                     <button type="button" class="filter-pill" data-filter="corporate">
                         <span>🏢 Corporate &amp; Offices</span>
                     </button>
+                    <button type="button" class="filter-pill" data-filter="general">
+                        <span>💡 Why Hydroponics</span>
+                    </button>
                 </div>
             </div>
         </section>
@@ -507,7 +510,7 @@
                     gbpWrapper.style.display = 'none';
                     if (featuredContainer) featuredContainer.style.display = 'none';
 
-                    const filtered = testimonialVideos.filter(v => v.category === filter);
+                    const filtered = testimonialVideos.filter(v => (v.category || '').toLowerCase() === filter.toLowerCase());
                     renderVideos(filtered);
                     if (videoCounter) videoCounter.textContent = `Showing ${filtered.length} Filtered Videos`;
                 }

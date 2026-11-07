@@ -102,7 +102,7 @@ const testimonialVideos = [
     fullStory: "Ms Vanshika Singh approached us for learning Hydroponics to get an option. Option to be able to grow food without much hassle. As a frequent traveller, she was concerned of herplant babies suffering neglect. We were curious and asked her why she thinks Hydroponics will help. Hear what she has to say!",
     date: "Oct 2026",
     featured: false
-  } https://youtube.com/shorts/MRrTL_FaF80?feature=share
+  }
 ];
 
 const googleReviews = [
