@@ -85,7 +85,7 @@ const testimonialVideos = [ /*
     fullStory: "A 320 sq ft automated living plant wall featuring air-purifying foliage and automated nutrient dosers installed for an international financial services headquarters.",
     date: "July 2026",
     featured: false
-  },
+  },*/
   {
     id: "mathur-terrace-oasis",
     clientName: "Axa XL ",
@@ -94,14 +94,14 @@ const testimonialVideos = [ /*
     categoryLabel: "Terrace Hydroponic Garden",
     projectTitle: "Rooftop Dutch Bucket & NFT Haven",
     videoSource: "youtube",
-    videoId: "L_LUpnjgPso",
+    videoId: "WAz7AVQR0Z0",
     thumbnail: "assets/home-gardens/hg_terrace_oasis.png",
     duration: "2:45",
     quote: "Our terrace garden supplies 70% of our daily salads and cooking herbs now. Our children love checking the root growth in the water channels!",
     fullStory: "A hybrid terrace setup combining 80 NFT leafy holes with 16 Dutch buckets for bell peppers and heirloom cherry tomatoes under an architectural shade canopy.",
     date: "May 2026",
     featured: false
-  }*/
+  }
 ];
 
 const googleReviews = [
