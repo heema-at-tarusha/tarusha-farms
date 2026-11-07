@@ -89,20 +89,20 @@ const testimonialVideos = [
   },*/
   {
     id: "mathur-terrace-oasis",
-    clientName: "Axa XL ",
+    clientName: "Varnika Singh ",
     location: "Golf Course Extension Road, Gurgaon",
-    category: "home-gardens",
-    categoryLabel: "Terrace Hydroponic Garden",
-    projectTitle: "Rooftop Dutch Bucket & NFT Haven",
+    category: "General",
+    categoryLabel: "Why Hydroponics is the need of the day",
+    projectTitle: "Is Hydroponics really needed?",
     videoSource: "youtube",
-    videoId: "WAz7AVQR0Z0",
+    videoId: "FqbczBPLnUE",
     thumbnail: "assets/home-gardens/hg_terrace_oasis.png",
-    duration: "2:45",
-    quote: "Our terrace garden supplies 70% of our daily salads and cooking herbs now. Our children love checking the root growth in the water channels!",
-    fullStory: "A hybrid terrace setup combining 80 NFT leafy holes with 16 Dutch buckets for bell peppers and heirloom cherry tomatoes under an architectural shade canopy.",
-    date: "May 2026",
+    duration: "1:21",
+    quote: "With the unreliable market supply of clean, pesticide free food, Hydroponics is the only alternative to traditional farming!",
+    fullStory: "s Varnika Singh approached us for learning Hydroponics to get an option. Option to be able to grow food without much hassle. As a frequent traveller, she was concerned of herplant babies suffering neglect. We were curious and asked her why she thinks Hydroponics will help. Hear what she has to say!",
+    date: "Oct 2026",
     featured: false
-  }
+  } //https://youtube.com/shorts/FqbczBPLnUE?feature=share
 ];
 
 const googleReviews = [
