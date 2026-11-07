@@ -89,7 +89,7 @@ const testimonialVideos = [
   },*/
   {
     id: "mathur-terrace-oasis",
-    clientName: "Varnika Singh ",
+    clientName: "Vanshika Singh ",
     location: "Golf Course Extension Road, Gurgaon",
     category: "General",
     categoryLabel: "Why Hydroponics is the need of the day",
@@ -99,7 +99,7 @@ const testimonialVideos = [
     thumbnail: "assets/home-gardens/hg_terrace_oasis.png",
     duration: "1:21",
     quote: "With the unreliable market supply of clean, pesticide free food, Hydroponics is the only alternative to traditional farming!",
-    fullStory: "s Varnika Singh approached us for learning Hydroponics to get an option. Option to be able to grow food without much hassle. As a frequent traveller, she was concerned of herplant babies suffering neglect. We were curious and asked her why she thinks Hydroponics will help. Hear what she has to say!",
+    fullStory: "Ms Vanshika Singh approached us for learning Hydroponics to get an option. Option to be able to grow food without much hassle. As a frequent traveller, she was concerned of herplant babies suffering neglect. We were curious and asked her why she thinks Hydroponics will help. Hear what she has to say!",
     date: "Oct 2026",
     featured: false
   } //https://youtube.com/shorts/FqbczBPLnUE?feature=share
