@@ -59,7 +59,7 @@ const testimonialVideos = [
     id: "heritage-school-stem",
     clientName: "Acharya Neetaa Gupta",
     location: "Tarusha Expereince centre, Gurgaon",
-    category: "schools",
+    category: "General",
     categoryLabel: "Why Hydroponics",
     projectTitle: "Green Tip from a Vastu Practioner",
     videoSource: "youtube",
