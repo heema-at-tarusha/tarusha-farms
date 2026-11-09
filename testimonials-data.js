@@ -54,23 +54,23 @@ const testimonialVideos = [
     fullStory: "First-generation agripreneur Rajiv Singhal partnered with TarUsha to design, erect, and commission a 4,000 sq m climate-controlled greenhouse supplying NCR supermarkets.",
     date: "September 2026",
     featured: true
-  },
+  },*/
   {
     id: "heritage-school-stem",
-    clientName: "Dr. Sunita Rao & Students",
-    location: "Sector 62, Gurgaon",
+    clientName: "Acharya Neetaa Gupta",
+    location: "Tarusha Expereince centre, Gurgaon",
     category: "schools",
-    categoryLabel: "School Experiential STEM",
-    projectTitle: "Campus Living Science Lab",
+    categoryLabel: "Why Hydroponics",
+    projectTitle: "Green Tip from a Vastu Practioner",
     videoSource: "youtube",
-    videoId: "dQw4w9WgXcQ",
-    thumbnail: "assets/media__1779443909593.png",
+    videoId: "7NVr0Okw3rQ",
+    thumbnail: "assets/testimonials/neeta.jpg",
     duration: "2:05",
-    quote: "Our middle school students don't just study biology from textbooks anymore—they measure electrical conductivity, test pH, and harvest their own salad crops.",
-    fullStory: "A 400-plant vertical hydroponic educational installation integrated directly into the middle-school biology and environmental science curriculum.",
+    quote: "Have a east facing wall and want to benefit from it?",
+    fullStory: "Acharya Neeta Gupta visited Tarusha and was inspired by the potential of Hydroponic walls offer to her patron. She graciously agreed to create a tip for all her patrons, watch what she has to offer! ",
     date: "August 2026",
     featured: false
-  },*/
+  },
   {
     id: "Vanshika-Singh-2",
     clientName: "Vanshika Singh ",
@@ -124,7 +124,7 @@ const googleReviews = [
     reviewerInitials: "SS",
     rating: 5,
     date: "3 weeks ago",
-    reviewText: "Loved the in depth consultation provided by Heema for kitchen garden set up. Amazing produce, must visit and must try.<p>Bought the cherry tomatoes and butterhead lettuce.</p>",
+    reviewText: "Loved the in depth consultation provided by Heema for kitchen garden set up. Amazing produce, must visit and must try.Bought the cherry tomatoes and butterhead lettuce.",
     serviceType: "Farm Visit",
     location: "TarUsha Experience centre, Gurgaon",
     verifiedGoogle: true,
