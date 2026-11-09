@@ -5,11 +5,11 @@
       "plant_types": ["Tomatoes", "Capsicum & Bell Peppers", "Cucumbers", "Chillies", "Okra", "Brinjal", "Zucchini"],
       "spacing_in_row_ft": 1.0,
       "row_layout": "Paired double rows with walking corridor",
-      "benchmark_150sqft_buckets": 64,
+      "benchmark_150sqft_buckets": 96,
       "growing_medium": "Buffered & washed horticultural cocopeat",
       "water_tank_rule": "100L reservoir per 16 Dutch Buckets",
       "frame_material": "Heavy-duty hot-dip Galvanized Iron (GI) frame (Powder-coated MS not offered)",
-      "rate_per_bucket_installed": 1250,
+      "rate_per_bucket_installed": 2650,
       "description": "Commercial-grade Bato Dutch buckets with dual siphon drain elbows, food-grade UPVC distribution manifold, dripper stakes, cocopeat growing media, and heavy-duty hot-dip GI structural stand."
     },
     "nft": {
@@ -19,7 +19,7 @@
       "channel_spacing_ft": 0.75,
       "growing_medium": "LECA clay pebbles & 2-inch net pots; nursery germination in Oasis cubes",
       "frame_material": "Heavy-duty hot-dip Galvanized Iron (GI) frame (Powder-coated MS not offered)",
-      "rate_per_plant_site_installed": 380,
+      "rate_per_plant_site_installed": 670,
       "description": "Virgin food-grade UV-stabilized UPVC NFT channels (100x60mm) with detachable lids, net pots, LECA pebbles, food-grade UPVC drain manifolds, and heavy-duty hot-dip GI multi-tier or flat-bed support stand."
     },
     "combination": {
@@ -42,11 +42,11 @@
   "propagation_and_nutrients": {
     "starter_kit_base": {
       "name": "Germination & Nutrition Starter Kit (Oasis Cubes, Premium A+B Hydroponic Salts, Micronutrients, pH & EC Digital Meters)",
-      "rate": 3500
+      "rate": 4500
     },
     "starter_kit_large": {
-      "name": "Comprehensive Starter Kit (Oasis Cubes, 6-Month A+B Nutrient Pack, Cal-Mag Booster, pH Up/Down, Digital EC & pH Pens)",
-      "rate": 5500
+      "name": "Comprehensive Starter Kit (Oasis Cubes, 3-Month A+B Nutrient Pack, Cal-Mag Booster, pH Up/Down, Digital EC & pH Pens)",
+      "rate": 6500
     }
   },
   "installation_and_agronomy": {
@@ -63,12 +63,12 @@
   "optional_upgrades": {
     "monkey_protection_enclosure": {
       "name": "Heavy-Duty Welded GI Monkey Protection Mesh Enclosure",
-      "rate_per_sqft": 240,
+      "rate_per_sqft": 330,
       "description": "Full-perimeter hot-dip Galvanized Iron framework covered with heavy-duty welded GI wire mesh canopy, hinged latching door, and monkey-proof lock to safeguard vulnerable crops."
     },
     "climate_controlled_polyhouse": {
       "name": "Climate-Controlled Polyhouse / Greenhouse Enclosure",
-      "rate_per_sqft": 450,
+      "rate_per_sqft": 750,
       "description": "Hot-dip GI arch structure clad with 200-micron UV-stabilized diffuse greenhouse film, automated circulating exhaust fans, shade screen, and micro-fogging climate control."
     },
     "led_grow_lights": {
@@ -80,8 +80,8 @@
   },
   "tax_and_disclaimers": {
     "gst_percent": 18,
-    "tolerance_percent": 5,
-    "quote_validity_days": 30,
+    "tolerance_percent": 10,
+    "quote_validity_days": 15,
     "disclaimer": "This is an indicative engineering estimate calculated from your dimensions and crop preferences. Final quotation is confirmed after a physical or video site survey by TarUsha agronomy engineers to inspect water pressure, electrical points, and structural load capacity."
   }
 }
