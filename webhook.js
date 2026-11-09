@@ -3,6 +3,9 @@ const axios = require('axios');
 const path = require('path');
 require('dotenv').config();
 
+const { calculateGardenAssessment } = require('./server/planner-engine');
+const { dispatchNotifications } = require('./server/notification-service');
+
 const app = express();
 app.use(express.json());
 
@@ -134,6 +137,52 @@ async function pushLeadToHubSpot({ name, phone, message }) {
   const response = await axios.post(url, payload);
   console.log(`✅ HubSpot synced successfully for ${phone}! Status: ${response.status}`);
 }
+
+// ---------------------------------------------------------------------
+// ENDPOINTS: Home Hydroponic Garden Planner & Cost Estimator
+// ---------------------------------------------------------------------
+
+// Instant calculation preview (Step 4 of planner)
+app.post('/api/garden-planner/calculate', (req, res) => {
+  try {
+    const input = req.body || {};
+    const assessment = calculateGardenAssessment(input);
+    return res.status(200).json({ success: true, assessment });
+  } catch (err) {
+    console.error('Error in /api/garden-planner/calculate:', err);
+    return res.status(500).json({ success: false, error: 'Failed to calculate garden assessment.' });
+  }
+});
+
+// Final Lead Submission & Itemised Estimate Dispatch
+app.post('/api/garden-planner/submit', async (req, res) => {
+  try {
+    const { lead = {}, assessmentInput = {} } = req.body || {};
+
+    if (!lead.name || !lead.phone || !lead.email) {
+      return res.status(400).json({
+        success: false,
+        error: 'Please provide your name, phone number, and email address to receive your itemised estimate.'
+      });
+    }
+
+    // Recalculate server-side to prevent client price tampering
+    const assessment = calculateGardenAssessment(assessmentInput);
+
+    // Dispatch emails, WhatsApp, and CRM sync
+    const notificationResults = await dispatchNotifications(lead, assessment);
+
+    return res.status(200).json({
+      success: true,
+      message: 'Your indicative garden estimate has been generated successfully!',
+      assessment,
+      notifications: notificationResults
+    });
+  } catch (err) {
+    console.error('Error in /api/garden-planner/submit:', err);
+    return res.status(500).json({ success: false, error: 'Server error while generating estimate.' });
+  }
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

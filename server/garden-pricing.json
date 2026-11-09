@@ -1,0 +1,87 @@
+{
+  "system_specifications": {
+    "dutch_bucket": {
+      "name": "Dutch Bucket Hydroponic System",
+      "plant_types": ["Tomatoes", "Capsicum & Bell Peppers", "Cucumbers", "Chillies", "Okra", "Brinjal", "Zucchini"],
+      "spacing_in_row_ft": 1.0,
+      "row_layout": "Paired double rows with walking corridor",
+      "benchmark_150sqft_buckets": 64,
+      "growing_medium": "Buffered & washed horticultural cocopeat",
+      "water_tank_rule": "100L reservoir per 16 Dutch Buckets",
+      "frame_material": "Heavy-duty hot-dip Galvanized Iron (GI) frame (Powder-coated MS not offered)",
+      "rate_per_bucket_installed": 1250,
+      "description": "Commercial-grade Bato Dutch buckets with dual siphon drain elbows, food-grade UPVC distribution manifold, dripper stakes, cocopeat growing media, and heavy-duty hot-dip GI structural stand."
+    },
+    "nft": {
+      "name": "NFT (Nutrient Film Technique) Channel System",
+      "plant_types": ["Lettuce & Salad Greens", "Spinach / Palak", "Kale", "Mint / Pudina", "Coriander / Dhaniya", "Basil", "Bok Choy"],
+      "plants_per_linear_ft": 2.0,
+      "channel_spacing_ft": 0.75,
+      "growing_medium": "LECA clay pebbles & 2-inch net pots; nursery germination in Oasis cubes",
+      "frame_material": "Heavy-duty hot-dip Galvanized Iron (GI) frame (Powder-coated MS not offered)",
+      "rate_per_plant_site_installed": 380,
+      "description": "Virgin food-grade UV-stabilized UPVC NFT channels (100x60mm) with detachable lids, net pots, LECA pebbles, food-grade UPVC drain manifolds, and heavy-duty hot-dip GI multi-tier or flat-bed support stand."
+    },
+    "combination": {
+      "name": "Combination System (NFT + Dutch Bucket)",
+      "description": "Dual-zone hydroponic garden combining NFT channels for daily fresh leafy greens and Bato Dutch buckets with cocopeat for fruiting and Indian vegetables on heavy-duty hot-dip GI framing.",
+      "min_area_sqft": 40
+    }
+  },
+  "water_reservoirs": {
+    "tier_100L": { "liters": 100, "rate": 2800, "buckets_capacity": 16, "nft_capacity": 100 },
+    "tier_200L": { "liters": 200, "rate": 4500, "buckets_capacity": 32, "nft_capacity": 220 },
+    "tier_300L": { "liters": 300, "rate": 6200, "buckets_capacity": 48, "nft_capacity": 350 },
+    "tier_500L": { "liters": 500, "rate": 8800, "buckets_capacity": 80, "nft_capacity": 600 }
+  },
+  "pumps_and_controls": {
+    "small": { "name": "Magnetic-drive Submersible Nutrient Pump & Timer (up to 40 plants / 16 buckets)", "rate": 3200 },
+    "medium": { "name": "Heavy-duty Submersible Nutrient Pump & Digital Cyclic Timer (up to 150 plants / 48 buckets)", "rate": 4800 },
+    "large": { "name": "High-head Industrial Submersible Nutrient Pump & Cyclic Control Panel (150+ plants / 48+ buckets)", "rate": 7200 }
+  },
+  "propagation_and_nutrients": {
+    "starter_kit_base": {
+      "name": "Germination & Nutrition Starter Kit (Oasis Cubes, Premium A+B Hydroponic Salts, Micronutrients, pH & EC Digital Meters)",
+      "rate": 3500
+    },
+    "starter_kit_large": {
+      "name": "Comprehensive Starter Kit (Oasis Cubes, 6-Month A+B Nutrient Pack, Cal-Mag Booster, pH Up/Down, Digital EC & pH Pens)",
+      "rate": 5500
+    }
+  },
+  "installation_and_agronomy": {
+    "base_service_rate": 6500,
+    "per_sqft_service_rate": 25,
+    "includes": [
+      "On-site precision plumbing assembly & leak testing",
+      "Hot-dip GI frame leveling and secure anchoring",
+      "Nutrient reservoir calibration, pump installation, and cyclic timer programming",
+      "Oasis cubes seed sowing demonstration & first nursery batch setup",
+      "TarUsha Agronomy Care Guide & 30-day initial crop onboarding support"
+    ]
+  },
+  "optional_upgrades": {
+    "monkey_protection_enclosure": {
+      "name": "Heavy-Duty Welded GI Monkey Protection Mesh Enclosure",
+      "rate_per_sqft": 240,
+      "description": "Full-perimeter hot-dip Galvanized Iron framework covered with heavy-duty welded GI wire mesh canopy, hinged latching door, and monkey-proof lock to safeguard vulnerable crops."
+    },
+    "climate_controlled_polyhouse": {
+      "name": "Climate-Controlled Polyhouse / Greenhouse Enclosure",
+      "rate_per_sqft": 450,
+      "description": "Hot-dip GI arch structure clad with 200-micron UV-stabilized diffuse greenhouse film, automated circulating exhaust fans, shade screen, and micro-fogging climate control."
+    },
+    "led_grow_lights": {
+      "name": "Full-Spectrum Hydroponic LED Grow Light Fixtures (for <3 hrs sunlight)",
+      "rate_per_fixture": 3200,
+      "coverage_sqft_per_fixture": 15,
+      "description": "High-efficiency horticultural spectrum LED bars designed for low-sunlight balconies and indoor cultivation."
+    }
+  },
+  "tax_and_disclaimers": {
+    "gst_percent": 18,
+    "tolerance_percent": 5,
+    "quote_validity_days": 30,
+    "disclaimer": "This is an indicative engineering estimate calculated from your dimensions and crop preferences. Final quotation is confirmed after a physical or video site survey by TarUsha agronomy engineers to inspect water pressure, electrical points, and structural load capacity."
+  }
+}
