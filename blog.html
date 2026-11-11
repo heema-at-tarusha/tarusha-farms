@@ -175,9 +175,19 @@
         <main>
             <section class="blog-section" id="blog" style="padding: 120px 0 80px; text-align: center; min-height: 60vh;">
                 <div class="container">
-                    <span class="badge">Insights & Updates</span>
-                    <h2>TarUsha Blog</h2>
-                    <p class="section-subtitle" style="max-width: 600px; margin: 0 auto 40px;">Read our latest articles on hydroponics, sustainability, and urban farming.</p>
+                    <span class="badge">Insights &amp; Updates</span>
+                    <h2>TarUsha Blog &amp; Living Agriculture</h2>
+                    <p class="section-subtitle" style="max-width: 650px; margin: 0 auto 30px;">
+                        Explore our in-depth articles, hydroponic field insights, and thoughts on sustainable urban food systems.
+                    </p>
+
+                    <!-- Category Filter Tabs -->
+                    <div class="blog-filter-bar" id="blog-filters">
+                        <button class="blog-filter-btn active" data-category="all">All Articles</button>
+                        <button class="blog-filter-btn" data-category="Future Living">Future Living</button>
+                        <button class="blog-filter-btn" data-category="Wellness &amp; Health">Wellness &amp; Health</button>
+                        <button class="blog-filter-btn" data-category="Urban Living">Urban Living</button>
+                    </div>
                     
                     <div class="blog-grid" id="blog-grid">
                         <div class="blog-status-msg">Loading articles...</div>
@@ -194,45 +204,91 @@
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         const blogGrid = document.getElementById('blog-grid');
+        const filterBtns = document.querySelectorAll('.blog-filter-btn');
         if (!blogGrid) return;
         
-        try {
-            blogGrid.innerHTML = ''; // clear loading message
-            
-            if (typeof blogArticles === 'undefined' || !blogArticles || blogArticles.length === 0) {
-                blogGrid.innerHTML = '<div class="blog-status-msg">No articles published yet. Check back soon!</div>';
-                return;
-            }
-            
-            blogArticles.forEach(article => {
-                const card = document.createElement('div');
-                card.className = 'blog-card';
-                card.innerHTML = `
-                    <div class="blog-img-container">
-                        <img src="${article.imageUrl}" alt="${article.title}" onerror="this.src='assets/kit-family.jpg'">
-                    </div>
-                    <div class="blog-content">
-                        <div class="blog-meta">
-                            <span>${article.date}</span>
-                            <span>${article.readTime}</span>
+        let currentFilter = 'all';
+
+        function renderArticles(filter = 'all') {
+            try {
+                blogGrid.innerHTML = '';
+                
+                if (typeof blogArticles === 'undefined' || !blogArticles || blogArticles.length === 0) {
+                    blogGrid.innerHTML = '<div class="blog-status-msg">No articles published yet. Check back soon!</div>';
+                    return;
+                }
+                
+                const filtered = filter === 'all' 
+                    ? blogArticles 
+                    : blogArticles.filter(a => a.category && a.category.toLowerCase().includes(filter.toLowerCase()));
+
+                if (filtered.length === 0) {
+                    blogGrid.innerHTML = '<div class="blog-status-msg">No articles found in this category. Showing all soon!</div>';
+                    return;
+                }
+
+                filtered.forEach(article => {
+                    const isOnSite = article.type === 'article' || !article.url.includes('linkedin.com');
+                    const categoryTag = article.category || (isOnSite ? 'Article' : 'LinkedIn Pulse');
+                    const card = document.createElement('div');
+                    card.className = 'blog-card';
+                    card.innerHTML = `
+                        <div class="blog-img-container">
+                            <span class="blog-card-cat">${categoryTag}</span>
+                            <img src="${article.imageUrl}" alt="${article.title}" onerror="this.src='assets/kit-family.jpg'">
                         </div>
-                        <h3 class="blog-title">${article.title}</h3>
-                        <p class="blog-snippet">${article.snippet}</p>
-                        <a href="${article.url}" target="_blank" rel="noopener noreferrer" class="blog-read-more">
-                            Read on LinkedIn
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                <polyline points="12 5 19 12 12 19"></polyline>
-                            </svg>
-                        </a>
-                    </div>
-                `;
-                blogGrid.appendChild(card);
-            });
-        } catch (error) {
-            console.error('Error loading blog:', error);
-            blogGrid.innerHTML = '<div class="blog-status-msg">Oops! We had trouble loading the articles. Please try again later.</div>';
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span>${article.date} &bull; ${article.readTime}</span>
+                                <span class="blog-type-badge ${isOnSite ? 'on-site' : 'linkedin'}">
+                                    ${isOnSite ? '📖 Full Article' : '💼 LinkedIn Pulse'}
+                                </span>
+                            </div>
+                            <h3 class="blog-title">${article.title}</h3>
+                            <p class="blog-snippet">${article.snippet}</p>
+                            
+                            <div class="blog-card-actions">
+                                ${isOnSite 
+                                  ? `<a href="${article.url}" class="blog-read-more on-site">
+                                       <span>Read Full Article &rarr;</span>
+                                     </a>`
+                                  : `<a href="${article.url}" target="_blank" rel="noopener noreferrer" class="blog-read-more">
+                                       <span>Read on LinkedIn</span>
+                                       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                           <line x1="5" y1="12" x2="19" y2="12"></line>
+                                           <polyline points="12 5 19 12 12 19"></polyline>
+                                       </svg>
+                                     </a>`
+                                }
+                                ${article.linkedInUrl 
+                                  ? `<a href="${article.linkedInUrl}" target="_blank" rel="noopener noreferrer" class="blog-linkedin-sublink" title="Read discussion on LinkedIn">
+                                       <span>Also on LinkedIn ↗</span>
+                                     </a>`
+                                  : ''
+                                }
+                            </div>
+                        </div>
+                    `;
+                    blogGrid.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Error loading blog:', error);
+                blogGrid.innerHTML = '<div class="blog-status-msg">Oops! We had trouble loading the articles. Please try again later.</div>';
+            }
         }
+
+        // Bind filter tabs
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.category;
+                renderArticles(currentFilter);
+            });
+        });
+
+        // Initial render
+        renderArticles('all');
     });
     </script>
 

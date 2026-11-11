@@ -1,0 +1,643 @@
+/* ==========================================================================
+   TarUsha Editorial & Long-Form Article Styles
+   Typography, Reader Experience, Social Sharing & Author Presentation
+   ========================================================================== */
+
+:root {
+  --article-max-width: 780px;
+  --article-font-heading: 'Outfit', sans-serif;
+  --article-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --article-primary: #1e3b22;
+  --article-accent: #a8c6a1;
+  --article-accent-light: #e8f2e6;
+  --article-bg-soft: #f7faf6;
+  --article-text: #2c332d;
+  --article-text-muted: #5e6b60;
+  --article-border: #e2ede0;
+}
+
+/* 1. Reading Progress Bar */
+#reading-progress-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: transparent;
+  z-index: 10000;
+}
+
+#reading-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #a8c6a1, #1e3b22);
+  transition: width 0.1s ease-out;
+}
+
+/* 2. Main Article Layout */
+.article-page {
+  padding-top: 100px;
+  padding-bottom: 80px;
+  background-color: #ffffff;
+  color: var(--article-text);
+  font-family: var(--article-font-body);
+}
+
+.article-container {
+  max-width: var(--article-max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* 3. Breadcrumb Navigation */
+.article-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  color: var(--article-text-muted);
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.article-breadcrumbs a {
+  color: var(--article-text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.article-breadcrumbs a:hover {
+  color: var(--article-primary);
+  text-decoration: underline;
+}
+
+.article-breadcrumbs .separator {
+  color: #a8c6a1;
+}
+
+.article-breadcrumbs .current {
+  color: var(--article-primary);
+  font-weight: 600;
+}
+
+/* 4. Article Header Area */
+.article-header {
+  margin-bottom: 36px;
+}
+
+.article-category-badge {
+  display: inline-block;
+  background-color: var(--article-accent-light);
+  color: var(--article-primary);
+  border: 1px solid var(--article-accent);
+  padding: 5px 14px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.article-title {
+  font-family: var(--article-font-heading);
+  font-size: clamp(30px, 4.5vw, 46px);
+  font-weight: 800;
+  color: var(--article-primary);
+  line-height: 1.22;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+
+.article-subtitle {
+  font-size: clamp(17px, 2vw, 20px);
+  color: var(--article-text-muted);
+  line-height: 1.55;
+  margin-bottom: 24px;
+  font-weight: 400;
+}
+
+/* Meta Bar & Author info */
+.article-meta-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  border-top: 1px solid var(--article-border);
+  border-bottom: 1px solid var(--article-border);
+  flex-wrap: wrap;
+}
+
+.article-author-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.article-author-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--article-accent);
+  background-color: var(--article-bg-soft);
+}
+
+.article-author-text {
+  font-size: 13.5px;
+  line-height: 1.35;
+}
+
+.article-author-name {
+  font-weight: 700;
+  color: var(--article-primary);
+  display: block;
+}
+
+.article-publish-meta {
+  color: var(--article-text-muted);
+}
+
+/* Social Share Pill Buttons */
+.article-share-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.article-share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background: #f1f4f0;
+  color: #333;
+}
+
+.article-share-btn:hover {
+  transform: translateY(-2px);
+}
+
+.article-share-btn.whatsapp {
+  background-color: #e7f8ee;
+  color: #0b7c39;
+  border-color: #a8dfba;
+}
+.article-share-btn.whatsapp:hover {
+  background-color: #25D366;
+  color: #ffffff;
+}
+
+.article-share-btn.linkedin {
+  background-color: #e9f2fa;
+  color: #0077b5;
+  border-color: #b5d5ea;
+}
+.article-share-btn.linkedin:hover {
+  background-color: #0077b5;
+  color: #ffffff;
+}
+
+.article-share-btn.copy {
+  background-color: #f5f5f5;
+  color: #555;
+  border-color: #ddd;
+}
+.article-share-btn.copy:hover {
+  background-color: var(--article-primary);
+  color: #ffffff;
+  border-color: var(--article-primary);
+}
+
+/* 5. Featured Hero Image */
+.article-featured-image {
+  margin: 32px 0 40px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(30, 59, 34, 0.08);
+  border: 1px solid var(--article-border);
+}
+
+.article-featured-image img {
+  width: 100%;
+  max-height: 480px;
+  object-fit: cover;
+  display: block;
+}
+
+.article-featured-image figcaption {
+  padding: 10px 16px;
+  font-size: 12.5px;
+  color: var(--article-text-muted);
+  background-color: var(--article-bg-soft);
+  border-top: 1px solid var(--article-border);
+  text-align: center;
+}
+
+/* 6. Editorial Typography & Body */
+.article-body {
+  font-size: 17.5px;
+  line-height: 1.8;
+  color: #2b332c;
+}
+
+.article-body p {
+  margin-bottom: 24px;
+}
+
+.article-lead {
+  font-size: 20px;
+  line-height: 1.7;
+  color: var(--article-primary);
+  font-weight: 500;
+  margin-bottom: 30px;
+  border-left: 4px solid var(--article-accent);
+  padding-left: 18px;
+}
+
+.article-body h2 {
+  font-family: var(--article-font-heading);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--article-primary);
+  margin: 48px 0 18px;
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+  position: relative;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--article-accent-light);
+}
+
+.article-body h3 {
+  font-family: var(--article-font-heading);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--article-primary);
+  margin: 36px 0 14px;
+  line-height: 1.35;
+}
+
+.article-body ul, 
+.article-body ol {
+  margin: 0 0 28px 24px;
+  padding: 0;
+}
+
+.article-body li {
+  margin-bottom: 12px;
+  padding-left: 6px;
+}
+
+.article-body strong {
+  color: var(--article-primary);
+  font-weight: 700;
+}
+
+.article-body a {
+  color: #1e3b22;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.article-body a:hover {
+  color: #3e7345;
+}
+
+/* 7. Editorial Pull-Quotes */
+.article-pullquote {
+  margin: 40px 0;
+  padding: 24px 30px;
+  background-color: var(--article-bg-soft);
+  border-left: 5px solid var(--article-primary);
+  border-radius: 0 12px 12px 0;
+}
+
+.article-pullquote p {
+  font-family: var(--article-font-heading);
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--article-primary);
+  line-height: 1.5;
+  margin: 0 0 10px;
+  font-style: italic;
+}
+
+.article-pullquote cite {
+  font-size: 13.5px;
+  color: var(--article-text-muted);
+  font-style: normal;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* 8. Callout Box & Key Takeaways */
+.article-callout {
+  margin: 32px 0;
+  padding: 22px 24px;
+  background: #fbfdfa;
+  border: 1px solid #d7e8d4;
+  border-radius: 12px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.article-callout-icon {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.article-callout-content {
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+
+.article-callout-title {
+  font-family: var(--article-font-heading);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--article-primary);
+  margin-bottom: 6px;
+}
+
+.article-takeaways {
+  margin: 40px 0;
+  padding: 28px 30px;
+  background: linear-gradient(135deg, #f3f8f1 0%, #e8f3e5 100%);
+  border: 1px solid #c8e0c3;
+  border-radius: 14px;
+}
+
+.article-takeaways-title {
+  font-family: var(--article-font-heading);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--article-primary);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.article-takeaways ul {
+  margin: 0;
+  padding-left: 20px;
+  list-style-type: none;
+}
+
+.article-takeaways li {
+  position: relative;
+  margin-bottom: 10px;
+  padding-left: 22px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.article-takeaways li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--article-primary);
+  font-weight: 800;
+}
+
+/* 9. Inline Images & Diagrams */
+.article-figure {
+  margin: 36px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--article-border);
+}
+
+.article-figure img {
+  width: 100%;
+  display: block;
+}
+
+.article-figure figcaption {
+  font-size: 13px;
+  color: var(--article-text-muted);
+  padding: 8px 14px;
+  background: var(--article-bg-soft);
+  text-align: center;
+}
+
+/* 10. Author Signature Card */
+.article-author-card {
+  margin: 50px 0 40px;
+  padding: 28px;
+  background: var(--article-bg-soft);
+  border: 1px solid var(--article-border);
+  border-radius: 14px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.article-author-card img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--article-accent);
+  flex-shrink: 0;
+}
+
+.article-author-card-body h4 {
+  font-family: var(--article-font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--article-primary);
+  margin: 0 0 4px;
+}
+
+.article-author-card-body .author-role {
+  font-size: 13px;
+  color: var(--article-text-muted);
+  margin-bottom: 8px;
+  display: block;
+  font-weight: 600;
+}
+
+.article-author-card-body p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: #444;
+  margin: 0;
+}
+
+/* 11. Contextual Conversion Card (In-Article Lead Generator) */
+.article-cta-card {
+  margin: 50px 0 40px;
+  padding: 36px 32px;
+  background: linear-gradient(135deg, #1e3b22 0%, #284c2e 100%);
+  color: #ffffff;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 12px 36px rgba(30, 59, 34, 0.15);
+}
+
+.article-cta-badge {
+  display: inline-block;
+  background: rgba(168, 198, 161, 0.25);
+  border: 1px solid #a8c6a1;
+  color: #d8edd4;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.article-cta-card h3 {
+  font-family: var(--article-font-heading);
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 10px;
+  line-height: 1.3;
+}
+
+.article-cta-card p {
+  font-size: 15.5px;
+  color: #e3ede1;
+  max-width: 580px;
+  margin: 0 auto 24px;
+  line-height: 1.6;
+}
+
+.article-cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.article-cta-btn-primary {
+  background-color: #a8c6a1;
+  color: #1e3b22;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 14.5px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.article-cta-btn-primary:hover {
+  background-color: #c0dbc8;
+  transform: translateY(-2px);
+}
+
+.article-cta-btn-outline {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14.5px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.article-cta-btn-outline:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* 12. Article Navigation (Back to blog & next article) */
+.article-nav-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+  border-top: 1px solid var(--article-border);
+  margin-top: 40px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.article-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--article-primary);
+  font-weight: 600;
+  font-size: 14.5px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.article-nav-btn:hover {
+  color: #3e7345;
+  text-decoration: underline;
+}
+
+/* 13. Mobile Responsiveness */
+@media (max-width: 768px) {
+  .article-page {
+    padding-top: 80px;
+    padding-bottom: 50px;
+  }
+  
+  .article-title {
+    font-size: 28px;
+  }
+  
+  .article-subtitle {
+    font-size: 16px;
+  }
+  
+  .article-meta-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .article-share-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .article-body {
+    font-size: 16.5px;
+  }
+  
+  .article-lead {
+    font-size: 18px;
+  }
+  
+  .article-pullquote {
+    padding: 18px 20px;
+  }
+  
+  .article-pullquote p {
+    font-size: 18px;
+  }
+  
+  .article-author-card {
+    flex-direction: column;
+    text-align: center;
+  }
+}

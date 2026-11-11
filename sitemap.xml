@@ -87,8 +87,15 @@
 
     <url>
         <loc>https://tarushafarms.com/blog.html</loc>
-        <lastmod>2026-10-28</lastmod>
+        <lastmod>2026-11-11</lastmod>
         <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://tarushafarms.com/blog-future-kitchen.html</loc>
+        <lastmod>2026-11-11</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
