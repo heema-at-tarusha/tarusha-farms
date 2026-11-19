@@ -1420,6 +1420,22 @@ img {
 
 .company-col .logo {
     margin-bottom: 20px;
+    display: inline-block;
+}
+
+.footer-logo-img {
+    max-height: 42px;
+    width: auto;
+    background: #ffffff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    display: inline-block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.footer-logo-img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .company-col .logo-text {
